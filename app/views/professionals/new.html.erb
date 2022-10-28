@@ -1,0 +1,47 @@
+<div class="container">
+<h1> Eres Nutriólogo?</h1>
+<h2>Inscríbete, es muy fácil</h2>
+<p> En menos de 24h recibirás una confirmación</p>
+
+<%= simple_form_for( @professional,
+  data: {turbo: false}) do |f| %>
+
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+              <%# NEW INPUTS  %>
+    <%= f.input :speciallity,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "speciallity" }%>
+
+    <%= f.input :adress,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "adress" }%>
+
+    <%= f.input :diploma,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "diploma" }%>
+
+    <%= f.input :first_cost,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "first_cost" }%>
+
+    <%= f.input :follow_cost,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "follow_cost" }%>
+
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Sign up" %>
+  </div>
+<% end %>
+
+</div>

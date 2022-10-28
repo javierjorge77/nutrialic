@@ -4,5 +4,38 @@
     <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
     <p> Si eres nutriólogo, únete como Profesional! </p>
     <a class="btn btn-flat" href="">Registrate </a>
+
   </div>
+
 </div>
+
+
+<br>
+<br>
+<br>
+
+
+  <h2> Esto será un carrusel Anunciando a los Nutritiólogos con mejor Ranking en tu zona: </h2>
+    <h2> <%= @professional %>  </h2>
+
+
+    <div class="cards">
+        <% @professionals.each do |professional|  %>
+
+      <div class="card-trip">
+
+        <img src="https://nutriologoencdmx.com/images/nutriologo-en-villa-coapa.jpg" />
+        <div class="card-trip-infos">
+          <div>
+
+            <h2><%= link_to " #{professional.user.name} #{professional.user.lastname}"   , professional_path(professional) %></h2>
+            <p> <%= professional.speciallity %></p>
+          </div>
+          <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
+          <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
+        </div>
+
+      </div>
+          <% end %>
+
+    </div>

@@ -1,0 +1,29 @@
+<h1>Nutritiólogos  cerca:</h1>
+
+
+<h2> <%= @professional %>  </h2>
+
+
+<div class="cards">
+    <% @professionals.each do |professional|  %>
+
+  <div class="card-trip">
+
+    <img src="https://nutriologoencdmx.com/images/nutriologo-en-villa-coapa.jpg" />
+    <div class="card-trip-infos">
+      <div>
+
+        <h3><%= link_to " #{professional.user.name} #{professional.user.lastname}"  , professional_path(professional) %></h3>
+        <h2> <%= professional.speciallity %></h2>
+        <h6> Cédula: <%= professional.diploma %></h6>
+        <p> <%= professional.adress %></p>
+
+      </div>
+      <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
+      <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
+    </div>
+
+  </div>
+      <% end %>
+
+</div>

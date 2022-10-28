@@ -1,0 +1,18 @@
+
+
+<h1> En Construcción.... </h1>
+
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://nutriologoencdmx.com/images/nutriologo-en-villa-coapa.jpg)">
+  <h1><%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
+</div>
+
+        <h2> <%= @professional.speciallity %></h2>
+        <p> <%= @professional.adress %></p>
+
+      <h2> $<%= @professional.first_cost %></h2>
+
+
+<%= link_to "Delete",
+  professional_path(@professional),
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+%>
