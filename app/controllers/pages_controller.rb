@@ -3,5 +3,6 @@ class PagesController < ApplicationController
 
 
   def home
+    @professionals= Professional.all
   end
 end
