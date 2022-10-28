@@ -1,0 +1,14 @@
+<h1>Professionals#index</h1>
+<p>Find me in app/views/professionals/index.html.erb</p>
+
+<h2> <%= @professional %>  </h2>
+
+<div class="cards">
+    <% @professionals.each do |professional|  %>
+      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
+      <%= link_to professional.user.name , professional_path(professional)  %>
+      </div>
+      <% end %>
+</div>
+
+<h2>hello world</h2>
