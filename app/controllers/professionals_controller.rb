@@ -36,7 +36,7 @@ class ProfessionalsController < ApplicationController
 
 
   def professional_params
-    params.require(:professional).permit(:speciallity, :adress, :diploma, :first_cost, :follow_cost)
+    params.require(:professional).permit(:branch, :adress, :diploma, :first_cost, :follow_cost)
   end
 
 

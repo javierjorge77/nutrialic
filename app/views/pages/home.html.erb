@@ -3,7 +3,8 @@
     <h1>¡Nutrialic hace que la Nutrición sea accesible para todos</h1>
     <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
     <p> Si eres nutriólogo, únete como Profesional! </p>
-    <a class="btn btn-flat" href="">Registrate </a>
+    <%= link_to "Registrate", new_user_registration_path, class:"btn btn-flat" %>
+
 
   </div>
 
@@ -29,7 +30,7 @@
           <div>
 
             <h2><%= link_to " #{professional.user.name} #{professional.user.lastname}"   , professional_path(professional) %></h2>
-            <p> <%= professional.speciallity %></p>
+            <p> <%= professional.branch %></p>
           </div>
           <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
           <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
