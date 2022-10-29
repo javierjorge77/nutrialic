@@ -1,4 +1,4 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://www.fundacioncaser.org/sites/default/files/noticias/f_caser_actualidad_recomendaciones_nutricionales.jpg);">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
   <div class="container">
     <h1>¡Nutrialic hace que la Nutrición sea accesible para todos</h1>
     <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
@@ -24,16 +24,19 @@
         <% @professionals.each do |professional|  %>
 
       <div class="card-trip">
+        <%= cl_image_tag(professional.photo.key.to_s,
+      width: 400, height: 300, :gravity=>"face", crop: :fill) %>
 
-        <img src="https://nutriologoencdmx.com/images/nutriologo-en-villa-coapa.jpg" />
         <div class="card-trip-infos">
           <div>
-
-            <h2><%= link_to " #{professional.user.name} #{professional.user.lastname}"   , professional_path(professional) %></h2>
-            <p> <%= professional.branch %></p>
+            <h3><%= link_to " #{professional.user.name} #{professional.user.lastname}"   , professional_path(professional) %></h3>
+            <h2> <%= professional.branch %></h2>
+            <p>Cédula: <%= professional.diploma %></p>
+            <p> <%= professional.adress %></p>
           </div>
-          <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
-          <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
+          <h2 class="card-trip-pricing"> $<%= professional.first_cost %></h2>
+
+          <%# <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" /> %>
         </div>
 
       </div>

@@ -1,18 +1,26 @@
 
+<div class="container">
 
-<h1> En Construcción.... </h1>
-
-<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://nutriologoencdmx.com/images/nutriologo-en-villa-coapa.jpg)">
-  <h1><%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
+  <div class="card-category"
+    style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://res.cloudinary.com/dp693fkkc/image/upload/v1667079173/bannerfruits_ks77xr.jpg')">
+    <h1>Haz tu Cita:   </h1>
+  </div>
 </div>
 
-        <h2> <%= @professional.branch %></h2>
-        <p> <%= @professional.adress %></p>
+<div class="container">
+  <br>
+  <img src="<%= @professional.photo.url%>" class="avatar-bordered" />
+  <h1><%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
+  <h2> <%= @professional.branch %></h2>
+  <p><strong> Ubicación Consultorio: </strong> <%= @professional.adress %></p>
+  <p> <strong> Primera Consulta:  </strong> $<%= @professional.first_cost %></p>
+  <p> <strong> Segunda Consulta:  </strong> $<%= @professional.follow_cost %></p>
+  <p><strong> Teléfono </strong> <%= @professional.user.phone %></p>
+  <p><strong> Email: </strong> <%= @professional.user.email %></p>
 
-      <h2> $<%= @professional.first_cost %></h2>
 
-
-<%= link_to "Delete",
-  professional_path(@professional),
-  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-%>
+  <%= link_to "Delete",
+    professional_path(@professional),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+  %>
+</div>
