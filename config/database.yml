@@ -79,9 +79,9 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-# COMENTADO
-# production:
-#   <<: *default
-#   database: nutrialic_production
-#   username: nutrialic
-#   password: <%= ENV["NUTRIALIC_DATABASE_PASSWORD"] %>
+
+production:
+  <<: *default
+  database: nutrialic_production
+  username: nutrialic
+  password: <%= ENV["NUTRIALIC_DATABASE_PASSWORD"] %>
