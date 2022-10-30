@@ -4,42 +4,73 @@
     <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
     <p> Si eres nutriólogo, únete como Profesional! </p>
     <%= link_to "Registrate", new_user_registration_path, class:"btn btn-flat" %>
+  </div>
+</div>
+
+
+<% @ranking= @professionals %>
+<% @top1= @ranking.first %>
+<% @top2= @ranking.find(2)%>
+<% @top3= @ranking.find(3)%>
+
+
+  <div class="container carrusel1">
+    <div class="text-center"><h2>Nutriólogos en tu zona: </h2></div>
+
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+
+        <div class="carousel-item active">
+          <%= cl_image_tag(@top1.photo.key,
+          width: 600, height: 300, :gravity=>"face", crop: :fill, :effect=>"brightness:-10") %>
+          <div class="carousel-caption d-none d-md-block text_w">
+              <h1><%= link_to " #{@top1.user.name} #{@top1.user.lastname}"   , professional_path(@top1) %></h1>
+              <p><%= @top1.branch %></p>
+              <p>Primera Consulta: $<%=  @top1.first_cost %></p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <%= cl_image_tag(@top2.photo.key,
+          width: 600, height: 300, :gravity=>"face", crop: :fill, :effect=>"brightness:-10") %>
+          <div class="carousel-caption d-none d-md-block text_w">
+            <h1><%= link_to " #{@top2.user.name} #{@top2.user.lastname}"   , professional_path(@top2) %></h1>
+            <p><%= @top2.branch %></p>
+            <p>Primera Consulta: $<%=  @top2.first_cost %></p>
+          </div>
+
+        </div>
+
+        <div class="carousel-item">
+          <%= cl_image_tag(@top3.photo.key,
+          width: 600, height: 300, :gravity=>"face", crop: :fill, :effect=>"brightness:-10") %>
+          <div class="carousel-caption d-none d-md-block text_w">
+            <h1><%= link_to " #{@top3.user.name} #{@top3.user.lastname}"   , professional_path(@top3) %></h1>
+            <p><%= @top3.branch %></p>
+            <p>Primera Consulta: $<%=  @top3.first_cost %></p>
+          </div>
+        </div>
+
+    </div>
+
+
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
 
 
   </div>
 
-</div>
-
-
-<br>
-<br>
-<br>
-
-
-  <h2> Esto será un carrusel Anunciando a los Nutritiólogos con mejor Ranking en tu zona: </h2>
-    <h2> <%= @professional %>  </h2>
-
-
-    <div class="cards">
-        <% @professionals.each do |professional|  %>
-
-      <div class="card-trip">
-        <%= cl_image_tag(professional.photo.key.to_s,
-      width: 400, height: 300, :gravity=>"face", crop: :fill) %>
-
-        <div class="card-trip-infos">
-          <div>
-            <h3><%= link_to " #{professional.user.name} #{professional.user.lastname}"   , professional_path(professional) %></h3>
-            <h2> <%= professional.branch %></h2>
-            <p>Cédula: <%= professional.diploma %></p>
-            <p> <%= professional.adress %></p>
-          </div>
-          <h2 class="card-trip-pricing"> $<%= professional.first_cost %></h2>
-
-          <%# <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" /> %>
-        </div>
-
-      </div>
-          <% end %>
-
-    </div>
+  <div class="container boton"><button class="btn btn-gradient"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
+  </div>

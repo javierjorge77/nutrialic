@@ -9,11 +9,16 @@
 
   <div class="card-trip">
 
-      <%= cl_image_tag(professional.photo.key.to_s,
-      width: 400, height: 300, :gravity=>"face", crop: :fill) %>
+      <%= link_to cl_image_tag(professional.photo.key.to_s,
+      width: 400, height: 300, :gravity=>"face", crop: :fill), professional_path(professional)  %>
 
     <div class="card-trip-infos">
       <div>
+        <% @rating=5 %>
+        <h2> Rating:
+        <% @rating.times do %>
+            <i class="fa-regular fa-star "></i>
+          <% end %></h2>
 
         <h3><%= link_to " #{professional.user.name} #{professional.user.lastname}"  , professional_path(professional) %></h3>
         <h2> <%= professional.branch %></h2>

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :professionals do
     resources :appointments, only: [:new, :create]
   end
-  resources :user, only: [:show]
+  resources :users, only: [:show]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

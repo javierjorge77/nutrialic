@@ -1,3 +1,4 @@
+
 class ProfessionalsController < ApplicationController
 
   def new
@@ -8,6 +9,9 @@ class ProfessionalsController < ApplicationController
     @professional = Professional.new(professional_params)
     @professional.user = current_user
     @professional.save
+    current_user.nutritionist = true
+    current_user.save
+
     redirect_to professional_path(@professional)
   end
 
@@ -21,11 +25,20 @@ class ProfessionalsController < ApplicationController
 
 
   def edit
+    @professional = Professional.find(params[:id])
+  end
+
+  def update
+    @professional = Professional.find(params[:id])
+    @professional.update(professional_params) # Will raise
+    redirect_to professionals_path, status: :see_other
   end
 
   def destroy
     @professional = Professional.find(params[:id])
     @professional.destroy
+    current_user.nutritionist = false
+    current_user.save
     # No need for app/views/professionals/destroy.html.erb
     redirect_to professionals_path, status: :see_other
 

@@ -1,2 +1,54 @@
-<h1>Professionals#edit</h1>
-<p>Find me in app/views/professionals/edit.html.erb</p>
+<h1>Perfil Profesional: <%= "#{@professional.user.name} #{@professional.user.lastname}" %> </h1>
+
+<%= simple_form_for( @professional,
+  data: {turbo: false}) do |f| %>
+
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+              <%# NEW INPUTS  %>
+    <%= f.input :branch,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "branch" }%>
+
+    <%= f.input :adress,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "adress" }%>
+
+    <%= f.input :diploma,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "diploma" }%>
+
+    <%= f.input :first_cost,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "first_cost" }%>
+
+    <%= f.input :follow_cost,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "follow_cost" }%>
+
+    <%= f.input :photo, as: :file %>
+
+
+  </div>
+
+  <div class="btn btn-gradient">
+    <%= f.button :submit, "Actualizar" %>
+  </div>
+<% end %>
+
+</div>
+
+<br>
+<br>
+
+<%= link_to "Borrar Cuenta Profesional",
+    professional_path(@professional),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+%>

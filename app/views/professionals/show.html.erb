@@ -9,6 +9,7 @@
 
 <div class="container">
   <br>
+
   <img src="<%= @professional.photo.url%>" class="avatar-bordered" />
   <h1><%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
   <h2> <%= @professional.branch %></h2>
@@ -18,9 +19,4 @@
   <p><strong> Teléfono </strong> <%= @professional.user.phone %></p>
   <p><strong> Email: </strong> <%= @professional.user.email %></p>
 
-
-  <%= link_to "Delete",
-    professional_path(@professional),
-    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-  %>
 </div>
