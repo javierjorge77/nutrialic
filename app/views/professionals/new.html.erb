@@ -11,10 +11,10 @@
   <div class="form-inputs">
 
               <%# NEW INPUTS  %>
-    <%= f.input :speciallity,
+    <%= f.input :branch,
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "speciallity" }%>
+                input_html: { autocomplete: "branch" }%>
 
     <%= f.input :adress,
                 required: true,
@@ -36,10 +36,14 @@
                 autofocus: true,
                 input_html: { autocomplete: "follow_cost" }%>
 
+    <%= f.input :photo, as: :file %>
+
+
+
 
   </div>
 
-  <div class="form-actions">
+  <div class="btn btn-gradient">
     <%= f.button :submit, "Sign up" %>
   </div>
 <% end %>

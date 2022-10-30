@@ -15,9 +15,10 @@
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
   </div>
 
-  <div class="form-actions">
+  <div class="btn btn-gradient">
     <%= f.button :submit, "Log in" %>
   </div>
+
 <% end %>
 
 <%= render "devise/shared/links" %>

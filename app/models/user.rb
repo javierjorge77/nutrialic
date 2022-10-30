@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_one :professional
   has_many :appointments
 
+
 end

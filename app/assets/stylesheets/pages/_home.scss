@@ -1,1 +1,29 @@
 // Specific CSS for your home-page
+.carrusel1 {
+width: 500px;
+height: 300px;
+}
+
+.text_w a {
+    color: #f8f9fa;
+    text-decoration: none;
+}
+
+.text_w h1 {
+  text-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.7);
+  }
+
+.text_w p {
+    text-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.7);
+   }
+
+
+.boton a {
+color: white;
+text-decoration: none;
+}
+
+.container .boton{
+  margin-top: 20px;
+  text-align: center;
+}
