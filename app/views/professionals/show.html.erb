@@ -18,5 +18,11 @@
   <p> <strong> Segunda Consulta:  </strong> $<%= @professional.follow_cost %></p>
   <p><strong> Teléfono </strong> <%= @professional.user.phone %></p>
   <p><strong> Email: </strong> <%= @professional.user.email %></p>
+  <div style="width: 100%; height: 600px;"
+    data-controller="map-show"
+    data-map-show-marker-value="<%= @marker.to_json %>"
+    data-map-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
+
 
 </div>

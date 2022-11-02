@@ -17,10 +17,20 @@ class ProfessionalsController < ApplicationController
 
   def index
     @professionals= Professional.all
+    @markers = @professionals.geocoded.map do |professional|
+      {
+        lat: professional.latitude,
+        lng: professional.longitude
+      }
+    end
   end
 
   def show
-    @professional = Professional.find(params[:id]) #
+    @professional = Professional.find(params[:id])
+    @marker = {
+      lat: @professional.latitude,
+      lng: @professional.longitude
+    }
   end
 
 
