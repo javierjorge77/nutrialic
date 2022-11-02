@@ -1,2 +1,41 @@
-<h1>Appointments#new</h1>
-<p>Find me in app/views/appointments/new.html.erb</p>
+<div class="container">
+<h1> Agenda tu Cita con <%= @professional.user.name %> </h1>
+<p> En menos de 24h recibirás una confirmación</p>
+
+<%= simple_form_for( [@professional, @appointment],
+  data: {turbo: false}) do |f| %>
+
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+  <%# t.boolean "first"
+    t.boolean "online"
+    t.datetime "time"
+    t.bigint "user_id", null: false
+    t.bigint "professional_id", null: false %>
+
+    <%= f.input :first,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "first" }%>
+
+    <%= f.input :online,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "online" }%>
+
+    <%= f.input :time,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "time" }%>
+
+
+  </div>
+
+  <div class="btn btn-gradient">
+    <%= f.button :submit, "Agendar" %>
+  </div>
+<% end %>
+
+</div>

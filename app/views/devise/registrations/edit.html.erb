@@ -47,7 +47,7 @@
 <br>
 
 <div class="container">
-<p>Eliminar Cuenta? <%= link_to "Eliminar Cuenta", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>Eliminar Cuenta? <%= link_to "Eliminar Cuenta", registration_path(resource_name), data: {turbo_method: :delete, turbo_confirm: "Are you sure?" }%></p>
 
 
 </div>
