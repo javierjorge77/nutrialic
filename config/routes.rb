@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :professionals do
-    resources :appointments, only: [:new, :create]
+    resources :appointments, only: [:new, :create, :index]
   end
   resources :users, only: [:show]
 
