@@ -1,9 +1,11 @@
 .card-trip {
   overflow: hidden;
-  background: white;
+  background:  #fafafa;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   width: 350px;
   margin: 0;
+  border-radius: 10px;
+
 }
 
 .card-trip > img {
@@ -26,11 +28,13 @@
 
 
 .card-trip .card-trip-infos {
+  border-width: 10px;
   padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   position: relative;
+
 }
 
 .card-trip-infos .card-trip-user {

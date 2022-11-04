@@ -3,38 +3,41 @@
 
 <h2> <%= @professional %>  </h2>
 
+<div class="show-map">
+  <div class="cards">
+      <% @professionals.each do |professional|  %>
 
-<div class="cards">
-    <% @professionals.each do |professional|  %>
+    <div class="card-trip">
 
-  <div class="card-trip">
+        <%= link_to cl_image_tag(professional.photo.key.to_s,
+        width: 400, height: 300, :gravity=>"face", crop: :fill), professional_path(professional)  %>
 
-      <%= link_to cl_image_tag(professional.photo.key.to_s,
-      width: 400, height: 300, :gravity=>"face", crop: :fill), professional_path(professional)  %>
+      <div class="card-trip-infos">
+        <div>
+          <% @rating=5 %>
+          <h2> Rating:
+          <% @rating.times do %>
+              <i class="fa-regular fa-star "></i>
+            <% end %></h2>
 
-    <div class="card-trip-infos">
-      <div>
-        <% @rating=5 %>
-        <h2> Rating:
-        <% @rating.times do %>
-            <i class="fa-regular fa-star "></i>
-          <% end %></h2>
+          <h3><%= link_to " #{professional.user.name} #{professional.user.lastname}"  , professional_path(professional) %></h3>
+          <h2> <%= professional.branch %></h2>
+          <h6> Cédula: <%= professional.diploma %></h6>
+          <p> <%= professional.adress %></p>
 
-        <h3><%= link_to " #{professional.user.name} #{professional.user.lastname}"  , professional_path(professional) %></h3>
-        <h2> <%= professional.branch %></h2>
-        <h6> Cédula: <%= professional.diploma %></h6>
-        <p> <%= professional.adress %></p>
+        </div>
+        <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
+
 
       </div>
-      <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
-        <div style="width: 100%; height: 600px;"
-            data-controller="map"
-            data-map-markers-value="<%= @markers.to_json %>"
-            data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-      </div>
+
     </div>
-
+    <% end %>
   </div>
-      <% end %>
+   <div class="mapa"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
 
+    </div>
 </div>
