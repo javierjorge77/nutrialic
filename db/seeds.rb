@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+User.destroy_all
+Professional.destroy_all
 
 user1 = User.new(name:"Cristel", lastname: "Alvarez", phone: "7773388548", password: "12345678", email: "cristelalvarezvazquez@gmail.com", nutritionist: true)
 user1.save!
@@ -42,3 +44,5 @@ professional5= Professional.new(user: user5, branch: "Nutrición Clínica, Obesi
 file = URI.open("https://res.cloudinary.com/dp693fkkc/image/upload/v1667067820/Jessica_bx0bno.jpg")
 professional5.photo.attach(io: file, filename: user5.name, content_type: "image/png")
 professional5.save!
+
+# sqrfqar

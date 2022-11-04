@@ -1,0 +1,7 @@
+
+<h1> Próximas consultas de <%= "#{@professional.user.name} #{@professional.user.lastname}" %> </h1>
+      <% @professional.appointments.each do |appointment| %>
+        <p><%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
+        <p><%= appointment.professional.adress %></p>
+        <p><%= appointment.time %></p>
+      <% end %>

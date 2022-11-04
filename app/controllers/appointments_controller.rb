@@ -16,6 +16,12 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def index
+    @professional = Professional.find(params[:professional_id])
+  end
+
+
+
 private
 
 def appointment_params
