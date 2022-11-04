@@ -1,6 +1,6 @@
 
 <div class="container">
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Editar Usuario </h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
@@ -12,33 +12,30 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.input :name,
-                hint: "leave it blank if you don't want to change it",
+    <%= f.input :name, label: "Nombre(s) ",
+                required: false,
+                input_html: { autocomplete: "name" } %>
+    <%= f.input :lastname, label: "Apellidos ",
+                required: false,
+                input_html: { autocomplete: "lastname" } %>
+    <%= f.input :password, label: "Contraseña: ",
+                hint: "déjalo en blanco si no quieres cambiarlo",
                 required: false,
                 input_html: { autocomplete: "new-password" } %>
-    <%= f.input :lastname,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
+    <%= f.input :password_confirmation, label: "Confirmar contraseña: ",
                 required: false,
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
+                hint: "necesitamos su contraseña actual para confirmar sus cambios",
                 required: true,
                 input_html: { autocomplete: "current-password" } %>
   </div>
 
   <div class="btn btn-ghost">
-    <%= f.button :submit, "Update" %>
+    <%= f.button :submit, "Actualizar" %>
   </div>
 
-  <div class="btn btn-back"> <%= link_to "Back", :back %> </div>
+  <div class="btn btn-back"> <%= link_to "Regresar", :back %> </div>
 
 <% end %>
 

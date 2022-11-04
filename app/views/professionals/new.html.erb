@@ -16,27 +16,28 @@
                 autofocus: true,
                 input_html: { autocomplete: "branch" }%>
 
-    <%= f.input :adress,
+    <%= f.input :adress, label: "Dirección: ",
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "adress" }%>
 
-    <%= f.input :diploma,
+    <%= f.input :diploma, label: "Número de Cédula: ",
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "diploma" }%>
 
-    <%= f.input :first_cost,
+    <%= f.input :first_cost, label: "Costo de Primera Consulta ",
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "first_cost" }%>
 
-    <%= f.input :follow_cost,
+    <%= f.input :follow_cost, label: "Costo de Segunda Consulta ",
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "follow_cost" }%>
 
-    <%= f.input :photo, as: :file %>
+    <%= f.input :photo, label: "Costo de Primera Consulta ",
+    as: :file %>
 
 
 
@@ -44,7 +45,7 @@
   </div>
 
   <div class="btn btn-gradient">
-    <%= f.button :submit, "Sign up" %>
+    <%= f.button :submit, "Registrarse" %>
   </div>
 <% end %>
 

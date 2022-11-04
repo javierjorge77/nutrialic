@@ -23,6 +23,9 @@
     <%= link_to "Agendar Cita", new_professional_appointment_path(@professional)  %>
   </div>
 
+  <li class="btn btn-ghost">
+    <%= link_to "Próximas citas", professional_appointments_path(@professional)%>
+  </li>
 
   <%# Mapa: %>
   <div style="width: 100%; height: 600px;"
