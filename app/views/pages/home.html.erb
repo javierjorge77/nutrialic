@@ -4,24 +4,28 @@
 <% @top2= @ranking[1]%>
 <% @top3= @ranking[2]%>
 
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
-  <div class="container">
     <% if user_signed_in? %>
-      <h1>Consultas pendientes:</h1>
-      <% current_user.appointments.each do |appointment| %>
-        <p><%= appointment.professional.user.name %></p>
-        <p><%= appointment.professional.adress %></p>
-        <p><%= appointment.time %></p>
+      <h1>Bienvenido a Nutrialic</h1>
+      <% unless current_user.appointments.empty? %>
+        <h2>Consultas pendientes:</h2>
+
+        <% current_user.appointments.each do |appointment| %>
+          <p><%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></p>
+          <p><%= appointment.professional.adress %></p>
+          <p><%= appointment.time %></p>
+        <% end %>
       <% end %>
     <% else %>
-    <h1>¡Nutrialic hace que la Nutrición sea accesible para todos</h1>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
+  <div class="container">
+    <h1>¡Nutrialic hace que la Nutrición sea accesible para todos!</h1>
     <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
-    <p> Si eres nutriólogo, únete como Profesional! </p>
-    <%= link_to "Registrate", new_user_registration_path, class:"btn btn-flat" %>
-    <% end %>
+    <p> Si eres nutriólogo, registrate como Profesional! </p>
+    <%= link_to "Registrarse", new_user_registration_path, class:"btn btn-flat" %>
+
   </div>
 </div>
-
+    <% end %>
 
 
 
@@ -84,5 +88,5 @@
 
   </div>
 
-  <div class="container boton"><button class="btn btn-gradient"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
+  <div class="container boton"><button class="btn btn-flat"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
   </div>
