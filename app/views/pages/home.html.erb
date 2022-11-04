@@ -1,17 +1,29 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
-  <div class="container">
-    <h1>¡Nutrialic hace que la Nutrición sea accesible para todos</h1>
-    <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
-    <p> Si eres nutriólogo, únete como Profesional! </p>
-    <%= link_to "Registrate", new_user_registration_path, class:"btn btn-flat" %>
-  </div>
-</div>
-
 
 <% @ranking= @professionals %>
 <% @top1= @ranking.first %>
 <% @top2= @ranking.find(2)%>
 <% @top3= @ranking.find(3)%>
+
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
+  <div class="container">
+    <% if user_signed_in? %>
+      <h1>Consultas pendientes:</h1>
+      <% current_user.appointments.each do |appointment| %>
+        <p><%= appointment.professional.user.name %></p>
+        <p><%= appointment.professional.adress %></p>
+        <p><%= appointment.time %></p>
+      <% end %>
+    <% else %>
+    <h1>¡Nutrialic hace que la Nutrición sea accesible para todos</h1>
+    <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
+    <p> Si eres nutriólogo, únete como Profesional! </p>
+    <%= link_to "Registrate", new_user_registration_path, class:"btn btn-flat" %>
+    <% end %>
+  </div>
+</div>
+
+
+
 
 
   <div class="container carrusel1">
