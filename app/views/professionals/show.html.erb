@@ -3,15 +3,13 @@
 
   <div class="card-category"
     style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://res.cloudinary.com/dp693fkkc/image/upload/v1667079173/bannerfruits_ks77xr.jpg')">
-    <h1>Haz tu Cita:   </h1>
   </div>
 </div>
 
 <div class="container">
   <br>
-
+  <h1>Haz tu Cita con <%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
   <img src="<%= @professional.photo.url%>" class="avatar-bordered" />
-  <h1><%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
   <h2> <%= @professional.branch %></h2>
   <p><strong> Ubicación Consultorio: </strong> <%= @professional.adress %></p>
   <p> <strong> Primera Consulta:  </strong> $<%= @professional.first_cost %></p>
@@ -19,21 +17,22 @@
   <p><strong> Teléfono </strong> <%= @professional.user.phone %></p>
   <p><strong> Email: </strong> <%= @professional.user.email %></p>
 
-  <div class="btn btn-ghost">
+  <div class="btn btn-flat">
     <%= link_to "Agendar Cita", new_professional_appointment_path(@professional)  %>
   </div>
 
-  <li class="btn btn-ghost">
+  <li class="btn btn-flat">
     <%= link_to "Próximas citas", professional_appointments_path(@professional)%>
   </li>
 
+<div class="container map">
   <%# Mapa: %>
-  <div style="width: 100%; height: 600px;"
+  <div style="width: 800px; height: 600px;"
     data-controller="map-show"
     data-map-show-marker-value="<%= @marker.to_json %>"
     data-map-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
-
+</div>
 
 
 

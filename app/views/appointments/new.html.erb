@@ -15,17 +15,17 @@
     t.bigint "user_id", null: false
     t.bigint "professional_id", null: false %>
 
-    <%= f.input :first,
+    <%= f.input :first, label: "Es tu primera Cita?",
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "first" }%>
 
-    <%= f.input :online,
+    <%= f.input :online, label: "Deseas consulta en línea?",
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "online" }%>
 
-    <%= f.input :time,
+    <%= f.input :time, label: "Fecha de la Cita",
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "time" }%>
@@ -33,7 +33,7 @@
 
   </div>
 
-  <div class="btn btn-gradient">
+  <div class="btn btn-flat">
     <%= f.button :submit, "Agendar" %>
   </div>
 <% end %>

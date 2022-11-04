@@ -43,3 +43,12 @@
   top: -20px;
   width: 40px;
 }
+
+.card-trip-infos a {
+  text-decoration: none;
+  color:$rosa-pastel;
+}
+
+.card-trip-infos a:hover {
+  color:$palo-rosa;
+}
