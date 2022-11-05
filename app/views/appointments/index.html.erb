@@ -4,7 +4,7 @@
 <div class="container consultas">
         <% @professional.appointments.each do |appointment| %>
         <div class="card-product" style="margin-top:16px">
-          <img src="<%= appointment.professional.photo.url%>"/>
+          <img src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%"/>
           <div class="card-product-infos">
             <h2> <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
             <span> <p> <strong>Paciente:</strong> :<%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
