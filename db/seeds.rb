@@ -18,7 +18,7 @@ professional1.save!
 
 user2 = User.new(name: "Noemi", lastname: "Landa", phone: "7774398683", password: "12345678", email: "nlg.0619@hotmail.com", nutritionist: true)
 user2.save!
-professional2= Professional.new(user: user2, branch: "Nutrición Clínica", adress: " Villa Hermosa", diploma: "10206006", first_cost: 400, follow_cost: 150)
+professional2= Professional.new(user: user2, branch: "Nutrición Clínica", adress: "cuernavaca, Villa Hermosa", diploma: "10206006", first_cost: 400, follow_cost: 150)
 file = URI.open("https://res.cloudinary.com/dp693fkkc/image/upload/v1667067820/noemi_pq9irc.jpg")
 professional2.photo.attach(io: file, filename: user2.name, content_type: "image/png")
 professional2.save!
@@ -33,7 +33,7 @@ professional3.save!
 
 user4 = User.new(name: "Ana", lastname: "Acuña", phone: "5517005252", password: "12345678", email: "charpinel7@gmail.com", nutritionist: true)
 user4.save!
-professional4= Professional.new(user: user4, branch: "Nutrición Clínica", adress: "Puebla", diploma: "13065988", first_cost: 500, follow_cost: 400)
+professional4= Professional.new(user: user4, branch: "Nutrición Clínica", adress: "cuernavaca,Puebla", diploma: "13065988", first_cost: 500, follow_cost: 400)
 file = URI.open("https://res.cloudinary.com/dp693fkkc/image/upload/v1667067823/Ana_grsqpi.jpg")
 professional4.photo.attach(io: file, filename: user4.name, content_type: "image/png")
 professional4.save!

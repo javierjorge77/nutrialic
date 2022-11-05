@@ -1,39 +1,34 @@
 
-<div class="container">
-
-  <div class="card-category"
+  <div class="card-category-1"
     style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://res.cloudinary.com/dp693fkkc/image/upload/v1667079173/bannerfruits_ks77xr.jpg')">
   </div>
-</div>
 
-<div class="container">
-  <br>
-  <h1>Haz tu Cita con <%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
-  <img src="<%= @professional.photo.url%>" class="avatar-bordered" />
-  <h2> <%= @professional.branch %></h2>
-  <p><strong> Ubicación Consultorio: </strong> <%= @professional.adress %></p>
-  <p> <strong> Primera Consulta:  </strong> $<%= @professional.first_cost %></p>
-  <p> <strong> Segunda Consulta:  </strong> $<%= @professional.follow_cost %></p>
-  <p><strong> Teléfono </strong> <%= @professional.user.phone %></p>
-  <p><strong> Email: </strong> <%= @professional.user.email %></p>
+<div class="show-map">
+  <div class="container">
+    <h1 style="margin:48px">Haz tu Cita con <%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
+    <img src="<%= @professional.photo.url%>" class="avatar-bordered" style="margin-left: 48px"/>
+    <h2 style="margin-left: 48px"> <%= @professional.branch %></h2>
+    <p style="margin-left: 48px"><strong> Ubicación Consultorio: </strong> <%= @professional.adress %></p>
+    <p style="margin-left: 48px"> <strong> Primera Consulta:  </strong> $<%= @professional.first_cost %></p>
+    <p style="margin-left: 48px"> <strong> Segunda Consulta:  </strong> $<%= @professional.follow_cost %></p>
+    <p style="margin-left: 48px"><strong> Teléfono </strong> <%= @professional.user.phone %></p>
+    <p style="margin-left: 48px"><strong> Email: </strong> <%= @professional.user.email %></p>
 
-  <div class="btn btn-flat">
-    <%= link_to "Agendar Cita", new_professional_appointment_path(@professional)  %>
+    <div class="btn btn-flat" style="margin-left: 48px">
+      <%= link_to "Agendar Cita", new_professional_appointment_path(@professional)  %>
+    </div>
+
+    <li class="btn btn-flat" >
+      <%= link_to "Próximas citas", professional_appointments_path(@professional)%>
+    </li>
   </div>
-
-  <li class="btn btn-flat">
-    <%= link_to "Próximas citas", professional_appointments_path(@professional)%>
-  </li>
-
-<div class="container map">
-  <%# Mapa: %>
-  <div style="width: 800px; height: 600px;"
-    data-controller="map-show"
-    data-map-show-marker-value="<%= @marker.to_json %>"
-    data-map-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-  </div>
+  <div class="container map">
+    <div style="width: 850px; height: 540px; margin-top:24px"
+      data-controller="map-show"
+      data-map-show-marker-value="<%= @marker.to_json %>"
+      data-map-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
 </div>
-
 
 
 </div>

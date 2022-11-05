@@ -1,11 +1,12 @@
 .mapa{
   width: 700px;
   margin-left: 70px;
-  height: 1000px;
-border-radius: 10px;
-border: 20px;
-border-color: black;
-
+  height: 100vh;
+  position: sticky;
+  border-radius: 10px;
+  border: 20px;
+  border-color: black;
+  top: 0;
 }
 
 .container .map {
