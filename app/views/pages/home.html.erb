@@ -9,8 +9,9 @@
   <div class="container">
     <h1>Bienvenido a Nutrialic</h1>
       <p>Felicitaciones por comenzar este viaje junto a nosotros. Cuenta con nuestro apoyo para lograr tus objetivos y mantente enfocado en tus metas!</p>
-      <h2>Consultas pendientes:</h2>
+
     <% unless current_user.appointments.empty? %>
+    <h2>Consultas pendientes:</h2>
         <% current_user.appointments.each do |appointment| %>
         <div class="card-product" style="margin-top:16px">
           <img src="<%= appointment.professional.photo.url%>"/>
@@ -100,3 +101,5 @@
 
   <div class="container boton"><button class="btn btn-flat"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
   </div>
+ </div>
+ </div>

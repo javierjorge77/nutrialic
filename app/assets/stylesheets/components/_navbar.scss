@@ -1,7 +1,12 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background-color: $rose-flash;
+  background-color: $rose-flash !important;
   font-weight: bold;
+opacity: 1 !important;
+z-index: 100;
+position: sticky;
+top: 0;
+width: 100%;
 }
 
 .navbar-lewagon .navbar-collapse {
