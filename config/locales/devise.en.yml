@@ -12,7 +12,7 @@ en:
       invalid: " %{authentication_keys} o contraseña no válidos.."
       locked: "Tu cuenta esta bloqueada."
       last_attempt: "You have one more attempt before your account is locked."
-      not_found_in_database: "Invalid %{authentication_keys} or password."
+      not_found_in_database: "%{authentication_keys} o contraseña inválidos."
       timeout: "Su sesión expiró. Vuelva a iniciar sesión para continuar."
       unauthenticated: "Debe iniciar sesión o registrarse antes de continuar."
       unconfirmed: "Tienes que confirmar tu dirección de correo electrónico antes de continuar."

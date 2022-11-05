@@ -5,8 +5,10 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-User.destroy_all
+Appointment.destroy_all
 Professional.destroy_all
+User.destroy_all
+
 
 user1 = User.new(name:"Cristel", lastname: "Alvarez Vazquez", phone: "7773388548", password: "12345678", email: "cristelalvarezvazquez@gmail.com", nutritionist: true)
 user1.save!
@@ -18,7 +20,7 @@ professional1.save!
 
 user2 = User.new(name: "Noemi", lastname: "Landa", phone: "7774398683", password: "12345678", email: "nlg.0619@hotmail.com", nutritionist: true)
 user2.save!
-professional2= Professional.new(user: user2, branch: "Nutrición Clínica", adress: "Villa Hermosa, Tabasco", diploma: "10206006", first_cost: 400, follow_cost: 150)
+professional2= Professional.new(user: user2, branch: "Nutrición Clínica", adress: "Villahermosa", diploma: "10206006", first_cost: 400, follow_cost: 150)
 file = URI.open("https://res.cloudinary.com/dp693fkkc/image/upload/v1667067820/noemi_pq9irc.jpg")
 professional2.photo.attach(io: file, filename: user2.name, content_type: "image/jpg")
 professional2.save!
@@ -73,7 +75,6 @@ professional9= Professional.new(user: user9, branch: "Nutrición Clínica", adre
 file = URI.open("https://s3.us-east-1.amazonaws.com/doctoralia.com.mx/doctor/2cfbd6/2cfbd6bbbe9007c63224bd84349daced_large.jpg")
 professional9.photo.attach(io: file, filename: user9.name, content_type: "image/jpg")
 professional9.save!
-
 
 user10 = User.new(name: "Nivia", lastname: "Esquivel", phone: "7772073576", password: "12345678", email: "diaxesquivel@gmail.com", nutritionist: true)
 user10.save!
