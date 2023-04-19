@@ -1,1 +1,1 @@
-Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+Nutrialic es una empresa que busca facilitar la conexión entre pacientes y nutriólogos en México a través de su plataforma en línea. Esta plataforma permitirá a los pacientes agendar citas y recibir atención por videollamada con nutriólogos de su elección, además de contar con un sistema de cobros periódicos y un registro de expedientes digitales para los pacientes.  
