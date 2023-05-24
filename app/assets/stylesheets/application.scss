@@ -11,6 +11,32 @@
 @import "components/index";
 @import "pages/index";
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Poppins", sans-serif !important;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  flex: 1;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
 h1 {
   color: $rosa-pastel;
 }

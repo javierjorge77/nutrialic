@@ -1,0 +1,126 @@
+<h1 style="margin-top: 70px; color: black">- Nutriólogos en tu zona -</h1>
+<div class="sectionSlider">
+    <div class="contenedor">
+        <input type="radio" name="dot" id="one" />
+        <input type="radio" name="dot" id="two" />
+        <div class="main-tarjeta">
+            <div class="tarjetas">
+                <div class="tarjeta">
+                    <div class="content">
+                        <div class="img">
+                            <%= cl_image_tag(@top1.photo.key)%>
+                        </div>
+                        <div class="details">
+                            <div class="nutricionist-name">
+                                <div class="name"><%= link_to " #{@top1.user.name} #{@top1.user.lastname}"   , professional_path(@top1) %></div>
+                            </div>
+                            <div class="nutricionist-speciality">
+                                <div class="job"><%= @top1.branch %></div>
+                            </div>
+                        </div>
+                        <div class="costo-consulta">
+                            <p>Primera Consulta: $<%=  @top1.first_cost %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tarjeta">
+                    <div class="content">
+                        <div class="img">
+                            <%= cl_image_tag(@top2.photo.key)%>
+                        </div>
+                        <div class="details">
+                            <div class="nutricionist-name">
+                                <div class="name"><%= link_to " #{@top2.user.name} #{@top2.user.lastname}"   , professional_path(@top2) %></div>
+                            </div>
+                            <div class="nutricionist-speciality">
+                                <div class="job"><%= @top2.branch %></div>
+                            </div>
+                        </div>
+                        <div class="costo-consulta">
+                            <p>Primera Consulta: $<%=  @top2.first_cost %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tarjeta">
+                    <div class="content">
+                        <div class="img">
+                            <%= cl_image_tag(@top3.photo.key)%>
+                        </div>
+                        <div class="details">
+                            <div class="nutricionist-name">
+                                <div class="name"><%= link_to " #{@top3.user.name} #{@top3.user.lastname}"   , professional_path(@top3) %></div>
+                            </div>
+                            <div class="nutricionist-speciality">
+                                <div class="job"><%= @top3.branch %></div>
+                            </div>
+                        </div>
+                        <div class="costo-consulta">
+                            <p>Primera Consulta: $<%=  @top3.first_cost %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tarjetas">
+                <div class="tarjeta">
+                    <div class="content">
+                        <div class="img">
+                            <%= cl_image_tag(@top4.photo.key)%>
+                        </div>
+                        <div class="details">
+                            <div class="nutricionist-name">
+                                <div class="name"><%= link_to " #{@top4.user.name} #{@top4.user.lastname}"   , professional_path(@top4) %></div>
+                            </div>
+                            <div class="nutricionist-speciality">
+                                <div class="job"><%= @top4.branch %></div>
+                            </div>
+                        </div>
+                        <div class="costo-consulta">
+                            <p>Primera Consulta: $<%=  @top4.first_cost %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tarjeta">
+                    <div class="content">
+                        <div class="img">
+                            <%= cl_image_tag(@top5.photo.key)%>
+                        </div>
+                        <div class="details">
+                            <div class="nutricionist-name">
+                                <div class="name"><%= link_to " #{@top5.user.name} #{@top5.user.lastname}"   , professional_path(@top5) %></div>
+                            </div>
+                            <div class="nutricionist-speciality">
+                                <div class="job"><%= @top5.branch %></div>
+                            </div>
+                        </div>
+                        <div class="costo-consulta">
+                            <p>Primera Consulta: $<%=  @top5.first_cost %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tarjeta">
+                    <div class="content">
+                        <div class="img">
+                            <%= cl_image_tag(@top6.photo.key)%>
+                        </div>
+                        <div class="details">
+                            <div class="nutricionist-name">
+                                <div class="name"><%= link_to " #{@top6.user.name} #{@top6.user.lastname}"   , professional_path(@top6) %></div>
+                            </div>
+                            <div class="nutricionist-speciality">
+                                <div class="job"><%= @top6.branch %></div>
+                            </div>
+                        </div>
+                        <div class="costo-consulta">
+                            <p>Primera Consulta: $<%=  @top6.first_cost %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button">
+            <label for="one" class="active one"></label>
+            <label for="two" class="two"></label>
+        </div>
+    </div>
+</div>
+   

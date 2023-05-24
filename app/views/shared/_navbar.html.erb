@@ -1,5 +1,5 @@
 <div style="position: sticky !important" id="navbar" class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
+  <div class="container-fluid" style="width: 90%">
     <%= link_to "/", class: "navbar-brand" do %>
       <%= image_tag "logo.png" %>
     <% end %>
@@ -46,8 +46,7 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-
+            <%= link_to raw('Login <i class="fa-solid fa-right-to-bracket"></i>'), new_user_session_path, class: "nav-link".html_safe %>
           </li>
         <% end %>
       </ul>

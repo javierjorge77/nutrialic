@@ -3,104 +3,53 @@
 <% @top1= @ranking[0]%>
 <% @top2= @ranking[1]%>
 <% @top3= @ranking[2]%>
+<% @top4= @ranking[3]%>
+<% @top5= @ranking[4]%>
+<% @top6= @ranking[5]%>
 
-    <% if user_signed_in? %>
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
-  <div class="container">
-    <h1>Bienvenido a Nutrialic</h1>
-      <p>Felicitaciones por comenzar este viaje junto a nosotros. Cuenta con nuestro apoyo para lograr tus objetivos y mantente enfocado en tus metas!</p>
+<% if user_signed_in? %>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
+    <div class="container">
+      <h1>Bienvenido a Nutrialic</h1>
+        <p>Felicitaciones por comenzar este viaje junto a nosotros. Cuenta con nuestro apoyo para lograr tus objetivos y mantente enfocado en tus metas!</p>
+        <% unless current_user.appointments.empty? %>
+          <h2>Consultas pendientes:</h2>
+          <% current_user.appointments.each do |appointment| %>
+            <div class="card-product" style="margin-top:16px">
+              <img src="<%= appointment.professional.photo.url%>"/>
+              <div class="card-product-infos">
 
-    <% unless current_user.appointments.empty? %>
-    <h2>Consultas pendientes:</h2>
-        <% current_user.appointments.each do |appointment| %>
-        <div class="card-product" style="margin-top:16px">
-          <img src="<%= appointment.professional.photo.url%>"/>
-          <div class="card-product-infos">
-
-            <h2><%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-            <p> <strong>Direccion:</strong><%= appointment.professional.adress %></p>
-            <p> <strong>Fecha:</strong><%= appointment.time %></p>
-            <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
-    <% else %>
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
-  <div class="container">
-    <h1>¡Nutrialic hace que la Nutrición sea accesible para todos!</h1>
-    <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
-    <p> Si eres nutriólogo, registrate como Profesional! </p>
-    <%= link_to "Registrarse", new_user_registration_path, class:"btn btn-flat" %>
-
-  </div>
-</div>
-    <% end %>
-
-
-
-
-  <div class="container carrusel1">
-    <div class="text-center" style="margin-top:24px"><h2>Nutriólogos en tu zona: </h2></div>
-    <br />
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-
-        <div class="carousel-item active">
-          <%= cl_image_tag(@top1.photo.key,
-          width: 600, height: 300, :gravity=>"face", crop: :fill, :effect=>"brightness:-10") %>
-          <div class="carousel-caption d-none d-md-block text_w">
-              <h1><%= link_to " #{@top1.user.name} #{@top1.user.lastname}"   , professional_path(@top1) %></h1>
-              <p><%= @top1.branch %></p>
-              <p>Primera Consulta: $<%=  @top1.first_cost %></p>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <%= cl_image_tag(@top2.photo.key,
-          width: 600, height: 300, :gravity=>"face", crop: :fill, :effect=>"brightness:-10") %>
-          <div class="carousel-caption d-none d-md-block text_w">
-            <h1><%= link_to " #{@top2.user.name} #{@top2.user.lastname}"   , professional_path(@top2) %></h1>
-            <p><%= @top2.branch %></p>
-            <p>Primera Consulta: $<%=  @top2.first_cost %></p>
-          </div>
-
-        </div>
-
-        <div class="carousel-item">
-          <%= cl_image_tag(@top3.photo.key,
-          width: 600, height: 300, :gravity=>"face", crop: :fill, :effect=>"brightness:-10") %>
-          <div class="carousel-caption d-none d-md-block text_w">
-            <h1><%= link_to " #{@top3.user.name} #{@top3.user.lastname}"   , professional_path(@top3) %></h1>
-            <p><%= @top3.branch %></p>
-            <p>Primera Consulta: $<%=  @top3.first_cost %></p>
-          </div>
-        </div>
-
+                <h2><%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
+                <p> <strong>Direccion:</strong><%= appointment.professional.adress %></p>
+                <p> <strong>Fecha:</strong><%= appointment.time %></p>
+                <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
     </div>
-
-
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-
-
   </div>
+<% else %>
+    <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
+      <div class="container">
+        <h1>¡Nutrialic hace que la Nutrición sea accesible para todos!</h1>
+        <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
+        <p> Si eres nutriólogo, registrate como Profesional! </p>
+        <%= link_to "Registrarse", new_user_registration_path, class:"btn btn-flat" %>
+      </div>
+    </div>
+<% end %>
+<div class="text-center">  
+<%= render 'pages/slider' %>
+</div>
 
-  <div class="container boton"><button class="btn btn-flat"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
-  </div>
- </div>
- </div>
+<div class="container boton text-center" id="contenedorBotomHome">
+  <button class="btn btn-flat" id="botonHome"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
+</div>
+
+
+
+
+ 
+
+

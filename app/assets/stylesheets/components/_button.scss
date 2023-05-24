@@ -1,20 +1,25 @@
-
 .btn-flat {
   color: white;
   padding: 8px 24px;
-  border-radius: 4px;
-  background: #dc61c7 ;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  background: #dc61c7;
+  transition: all 0.3s ease;
+  position: relative;
+  top: 30px;
+  margin-bottom: 50px;
 }
 
 .btn-flat:hover {
-  background: #2e7d32;
+  top: 25px;
+  background: #dc61c7;
   color: white;
 }
 
 .btn-flat a {
   color: white;
   text-decoration: none;
-  }
+}
 
 .btn-back {
   color: white;
@@ -31,11 +36,21 @@
   color: white;
 }
 
-.btn-back a{
+.btn-back a {
   color: black;
   text-decoration: solid;
 }
 
-.btn-back a:hover{
+.btn-back a:hover {
   color: white;
+}
+
+#botonHome {
+  position: relative;
+  top: 0px;
+  transition: all 0.3s ease;
+}
+
+#botonHome:hover {
+  padding: 10px 35px 10px 35px;
 }

@@ -1,0 +1,142 @@
+.sectionSlider {
+  display: flex;
+  min-height: 40vh;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  position: relative;
+}
+
+/*tarjetas*/
+.contenedor {
+  max-width: 950px;
+  width: 100%;
+  overflow: hidden;
+  padding: 80px 0 50px 0;
+}
+.contenedor .main-tarjeta {
+  display: flex;
+  justify-content: space-evenly;
+  width: 200%;
+  transition: 1s;
+}
+#two:checked ~ .main-tarjeta {
+  margin-left: -100%;
+}
+.contenedor .main-tarjeta .tarjetas {
+  width: calc(100% / 2 - 10px);
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 20px;
+  justify-content: space-between;
+}
+.main-tarjeta .tarjetas .tarjeta {
+  width: calc(100% / 3 - 10px);
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s ease;
+}
+.main-tarjeta .tarjetas .tarjeta:hover {
+  transform: translateY(-15px);
+}
+.tarjetas .tarjeta .content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.tarjetas .tarjeta .content .img {
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+  padding: 3px;
+  background: #dc61c7;
+  margin-bottom: 14px;
+}
+.tarjeta .content .img img {
+  height: 100%;
+  width: 100%;
+  border: 3px solid #ffff;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.tarjeta .content .name {
+  font-size: 20px;
+  font-weight: 500;
+}
+.tarjeta .content .name a {
+  text-decoration: none;
+  color: black;
+}
+.tarjeta .content .job {
+  font-size: 20px;
+  color: #dc61c7;
+}
+.tarjeta .content .costo-consulta {
+  margin-top: 10px;
+  display: flex;
+}
+
+.contenedor .button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+.button label {
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
+  background: #dc61c7;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.button label.active {
+  width: 60px;
+}
+#one:checked ~ .button .one {
+  width: 60px;
+}
+#one:checked ~ .button .two {
+  width: 30px;
+}
+#two:checked ~ .button .one {
+  width: 30px;
+}
+#two:checked ~ .button .two {
+  width: 60px;
+}
+input[type="radio"] {
+  display: none;
+}
+@media (max-width: 768px) {
+  .main-tarjeta .tarjetas .tarjeta {
+    margin: 20px 0 10px 0;
+    width: calc(100% / 2 - 10px);
+  }
+}
+@media (max-width: 600px) {
+  .main-tarjeta .tarjetas .tarjeta {
+    /* margin: 20px 0 10px 0; */
+    width: 100%;
+  }
+}
+
+.nutricionist-name {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nutricionist-speciality {
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,34 @@
+#registerContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#registerBox {
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#registerBox .col {
+  padding: 0;
+}
+
+.registerForm {
+  padding: 50px;
+}
+
+.registerForm form {
+  text-align: start !important;
+}
+
+#registerTitle {
+  font-size: 1.5rem;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #dc61c7;
+}
