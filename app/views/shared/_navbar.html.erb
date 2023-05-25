@@ -28,7 +28,7 @@
           <% if current_user.nutritionist %>
 
           <li class="nav-item">
-            <%= link_to "Curriculum ", edit_professional_path(current_user), class: "nav-link" %>
+            <%= link_to "Curriculum ", edit_professional_path(current_user.professional.id), class: "nav-link" %>
           </li>
           <% end %>
 

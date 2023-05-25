@@ -20,8 +20,9 @@
               <div class="card-product-infos">
 
                 <h2><%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-                <p> <strong>Direccion:</strong><%= appointment.professional.adress %></p>
-                <p> <strong>Fecha:</strong><%= appointment.time %></p>
+                <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
+                <p><strong>Fecha:</strong> <span class="fecha-element"><%= appointment.date %></span> </p>
+                <p><strong>Hora:</strong> <span class="hora-element"><%= appointment.time%></span> </p>
                 <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
               </div>
             </div>
@@ -47,9 +48,28 @@
   <button class="btn btn-flat" id="botonHome"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
 </div>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    let fechaElements = document.querySelectorAll(".fecha-element");
+    let horaElements = document.querySelectorAll(".hora-element");
+    // Recorrer cada elemento y formatear fecha y hora
+   fechaElements.forEach(function(fechaElement) {
+  var fechaValue = fechaElement.innerText;
+  var fechaUTC = new Date(fechaValue);
+  var fechaLocal = new Date(fechaUTC.getTime() + fechaUTC.getTimezoneOffset() * 60000);
+  var fechaFormateada = fechaLocal.toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+  fechaElement.innerText = fechaFormateada;
+});
 
-
-
- 
-
-
+    horaElements.forEach(function(horaElement) {
+      var horaValue = horaElement.innerText;
+      var horaCorrecta = horaValue.substring(11, 19)
+      horaElement.innerText = horaCorrecta;
+      console.log(horaCorrecta)
+    });
+  })
+</script>

@@ -5,7 +5,14 @@
 
 <div class="show-map">
   <div class="container">
-    <h1 style="margin:48px">Haz tu Cita con <%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
+  <%if @current_user.professional%>
+    <% if @professional.id == @current_user.professional.id%>
+      <h1>Perfil</h1>
+    <% end %>
+  <%else%>
+    <h1 style="margin:48px"><%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
+  <%end%>
+    
     <img src="<%= @professional.photo.url%>" class="avatar-bordered" style="margin-left: 48px"/>
     <h2 style="margin-left: 48px"> <%= @professional.branch %></h2>
     <p style="margin-left: 48px"><strong> Ubicación Consultorio: </strong> <%= @professional.adress %></p>
@@ -14,13 +21,19 @@
     <p style="margin-left: 48px"><strong> Teléfono </strong> <%= @professional.user.phone %></p>
     <p style="margin-left: 48px"><strong> Email: </strong> <%= @professional.user.email %></p>
 
-    <div class="btn btn-flat" style="margin-left: 48px">
+    
+    <% if !@current_user.professional %>
+      <div class="btn btn-flat" style="margin-left: 48px">
       <%= link_to "Agendar Cita", new_professional_appointment_path(@professional)  %>
     </div>
-
-    <li class="btn btn-flat" >
-      <%= link_to "Próximas citas", professional_appointments_path(@professional)%>
-    </li>
+    <% end %>
+    <%if @current_user.professional %>
+      <% if @professional.id == @current_user.professional.id%>
+        <li class="btn btn-flat" >
+          <%= link_to "Próximas citas", professional_appointments_path(@professional)%>
+        </li>
+      <% end %>
+    <%end%>
   </div>
   <div class="container map">
     <div style="width: 850px; height: 540px; margin-top:24px"
@@ -29,6 +42,4 @@
       data-map-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
 </div>
-
-
 </div>

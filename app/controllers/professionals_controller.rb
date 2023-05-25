@@ -26,6 +26,7 @@ class ProfessionalsController < ApplicationController
   end
 
   def show
+    @current_user = current_user
     @professional = Professional.find(params[:id])
     @marker = {
       lat: @professional.latitude,
@@ -59,7 +60,7 @@ class ProfessionalsController < ApplicationController
 
 
   def professional_params
-    params.require(:professional).permit(:branch, :adress, :diploma, :first_cost, :follow_cost, :photo)
+    params.require(:professional).permit(:branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime)
   end
 
 

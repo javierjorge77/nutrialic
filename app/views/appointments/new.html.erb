@@ -21,10 +21,12 @@
                     autofocus: true,
                     input_html: { autocomplete: "online" }%>
 
-        <%= f.input :time, label: "Fecha de la Cita",
-                    required: true,
-                    autofocus: true,
-                    input_html: { autocomplete: "time" }%>
+        <%= f.label :date, "Fecha de la Cita", required: true %>
+        <%= f.date_field :date, required: true, value: @appointment.date&.strftime('%Y-%m-%d') %>
+
+
+        <%= f.label :time, "Hora de la Cita", required: true %>
+        <%= f.time_field :time, required: true %>
       </div>
       <div class="btn btn-flat">
         <%= f.button :submit, "Agendar" %>

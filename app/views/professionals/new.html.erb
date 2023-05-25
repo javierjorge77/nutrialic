@@ -36,6 +36,12 @@
                 autofocus: true,
                 input_html: { autocomplete: "follow_cost" }%>
 
+    <p>Horarios de atención</p>
+    <%= f.label :startAttendingTime, "Desde", required: true %>
+    <%= f.time_field :startAttendingTime, required: true %>
+     <%= f.label :endAttendingTime, "Hasta", required: true %>
+    <%= f.time_field :endAttendingTime, required: true %>
+
     <%= f.input :photo, label: "foto ",
     as: :file %>
 

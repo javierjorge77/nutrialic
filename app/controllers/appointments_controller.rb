@@ -14,7 +14,9 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
     @appointment.user = current_user
     @appointment.professional = @professional
-    if @appointment.save
+    @appointment.date = Date.parse(params[:appointment][:date]) if params[:appointment][:date].present?
+    if @appointment.valid? && appointment_within_attending_hours? 
+      @appointment.save
       send_email
       redirect_to "/"
     else
@@ -30,7 +32,7 @@ class AppointmentsController < ApplicationController
 private
 
   def appointment_params
-    params.require(:appointment).permit(:first, :online, :time)
+    params.require(:appointment).permit(:first, :online, :time, :date)
   end
 
 
@@ -53,5 +55,30 @@ private
     puts response.headers
 
   end
+
+  def appointment_within_attending_hours?
+    start_attending_time = @professional.startAttendingTime
+    end_attending_time = @professional.endAttendingTime
+
+    appointment_time = @appointment.time
+
+    # Verificar el horario de atención del nutriologo
+    if appointment_time < start_attending_time || appointment_time > end_attending_time
+      @appointment.errors.add(:time, "La cita debe ser hecha entre el horario del nutriologo")
+      return false
+    end
+
+    existing_appointments = @professional.appointments.where(date: @appointment.date)
+
+    existing_appointments.each do |existing_appointment|
+      if (existing_appointment.time - appointment_time).abs < 1.hour
+        @appointment.errors.add(:time, "La cita se superpone con otra cita existente")
+        return false
+      end
+    end
+
+    true
+  end
+
 
 end
