@@ -1,41 +1,34 @@
-<div class="container">
-<h1> Agenda tu Cita con <%= @professional.user.name %> </h1>
-<p> En menos de 24h recibirás una confirmación</p>
+<div class="container" id="appointmentContainer">
+  <div class="contenedorCita">
+    <h1> Agenda tu Cita con <%= @professional.user.name %> </h1>
+    <p> En menos de 24h recibirás una confirmación</p>
+    <%= simple_form_for( [@professional, @appointment],
+      data: {turbo: false}) do |f| %>
+      <%= f.error_notification %>
+      <div class="form-inputs">
+      <%# t.boolean "first"
+        t.boolean "online"
+        t.datetime "time"
+        t.bigint "user_id", null: false
+        t.bigint "professional_id", null: false %>
+        <%= f.input :first, label: "Es tu primera Cita?",
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "first" }%>
 
-<%= simple_form_for( [@professional, @appointment],
-  data: {turbo: false}) do |f| %>
+        <%= f.input :online, label: "Deseas consulta en línea?",
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "online" }%>
 
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-
-  <%# t.boolean "first"
-    t.boolean "online"
-    t.datetime "time"
-    t.bigint "user_id", null: false
-    t.bigint "professional_id", null: false %>
-
-    <%= f.input :first, label: "Es tu primera Cita?",
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "first" }%>
-
-    <%= f.input :online, label: "Deseas consulta en línea?",
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "online" }%>
-
-    <%= f.input :time, label: "Fecha de la Cita",
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "time" }%>
-
-
+        <%= f.input :time, label: "Fecha de la Cita",
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "time" }%>
+      </div>
+      <div class="btn btn-flat">
+        <%= f.button :submit, "Agendar" %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="btn btn-flat">
-    <%= f.button :submit, "Agendar" %>
-  </div>
-<% end %>
-
 </div>

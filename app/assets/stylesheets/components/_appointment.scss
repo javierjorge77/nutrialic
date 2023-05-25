@@ -1,0 +1,19 @@
+#appointmentContainer {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contenedorCita {
+  width: 70%;
+  height: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.contenedorCita h1 {
+  text-align: center;
+  color: #dc61c7;
+  font-size: 2rem;
+  padding-bottom: 50px;
+}
