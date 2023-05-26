@@ -11,6 +11,16 @@
   height: auto;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.alerta-confirmacion {
+  background-color: #ffd700;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .contenedorCita h1 {
@@ -56,4 +66,58 @@
   padding: 10px;
   border-radius: 8px;
   width: 70%;
+}
+
+.confirmacion {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmacion-contenido {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 25px;
+}
+
+.confirmacion-contenido h2 {
+  font-size: 1.3rem;
+  color: red;
+  margin-bottom: 15px;
+}
+
+.confirmacion-contenido p {
+  font-size: 1rem;
+  color: rgb(0, 0, 0);
+  line-height: 10px;
+}
+
+.confirmacion-botones {
+  margin: 15px;
+  padding: 15px;
+  color: white;
+}
+
+#aceptarCita {
+  background-color: rgb(17, 159, 17);
+  border: none;
+  border-radius: 7px;
+  color: white;
+  padding: 6px 13px 6px 13px;
+}
+
+#cancelarCita {
+  background-color: red;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  padding: 6px 13px 6px 13px;
 }

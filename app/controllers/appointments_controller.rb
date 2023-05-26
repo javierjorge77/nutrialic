@@ -15,10 +15,11 @@ class AppointmentsController < ApplicationController
     @appointment.user = current_user
     @appointment.professional = @professional
     @appointment.date = Date.parse(params[:appointment][:date]) if params[:appointment][:date].present?
+
     if @appointment.valid? && appointment_is_valid?
       @appointment.save
       send_email
-      redirect_to "/"
+      redirect_to "/", notice: "La cita ha sido guardada exitosamente"
     else
       render :new, status: :unprocessable_entity
     end
@@ -65,6 +66,11 @@ private
     # Verificar si la fecha de la cita es un sábado o domingo
     if @appointment.date.saturday? || @appointment.date.sunday?
       @appointment.errors.add(:date, "La cita no puede ser programada en sábado o domingo")
+      return false
+    end
+
+    if @appointment.date < Date.today
+      @appointment.errors.add(:time, "La fecha de la cita no puede ser menor a la fecha actual")
       return false
     end
 

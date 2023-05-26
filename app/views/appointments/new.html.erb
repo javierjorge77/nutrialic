@@ -22,26 +22,86 @@
               <%= f.input :first, label: "Es tu primera Cita?",
                           required: true,
                           autofocus: true,
-                          input_html: { autocomplete: "first" }%>
+                          input_html: { autocomplete: "first", checked: false , class: "firstAppo"}%>
 
               <%= f.input :online, label: "Deseas consulta en línea?",
                           required: true,
                           autofocus: true,
-                          input_html: { autocomplete: "online" }%>
+                          input_html: { autocomplete: "online", checked: false, class: "onlineAppo"}%>
+
               <div>
                 <%= f.label :date, "Fecha de la Cita:", required: true %>
-                <%= f.date_field :date, required: true, value: @appointment.date&.strftime('%Y-%m-%d'), class: "picker-appointment" %>
+                <%= f.date_field :date, required: true, value: @appointment.date&.strftime('%Y-%m-%d'), class: "picker-appointment", id: "dateAppo"%>
               </div>
 
               <div class="mt-4">
                 <%= f.label :time, "Hora de la Cita:", required: true %>
-                <%= f.time_field :time, required: true, class: "picker-appointment" %>
+                <%= f.time_field :time, required: true, class: "picker-appointment", id: "timeAppo"%>
               </div>  
             </div>
-              <%= f.button :submit, "Agendar", id: "botonAgendar", class: "btn btn-flat"%>
+              <%= f.button :submit, "Agendar", id: "botonAgendar", class: "btn btn-flat", onclick: "return mostrarConfirmacion();"%>
           <% end %>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<div id="confirmacion" class="confirmacion">
+  <div class="confirmacion-contenido">
+    <h2>¿Estás seguro de que deseas guardar la cita con esta información?</h2>
+    <p id="firstAppointment"></p>
+    <p id="onlineAppointment"></p>
+    <p id="dateAppoinment"></p>
+    <p id="timeAppoinment"></p>
+    <div class="confirmacion-botones">
+      <button onclick="confirmacionAceptar()" id="aceptarCita">Aceptar</button>
+      <button onclick="confirmacionCancelar()" id="cancelarCita">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function mostrarConfirmacion() {
+    const date = document.querySelector('#dateAppo').value 
+    const time = document.querySelector('#timeAppo').value 
+
+    const first = document.querySelector('.firstAppo')
+    let firstValue = first.checked ? 'Si' : 'No';
+    document.querySelector('#firstAppointment').innerText = 'Es tu primera Cita?: ' + firstValue;
+
+    const online = document.querySelector('.onlineAppo')
+    let onlineValue = online.checked ? 'Si' : 'No';
+    document.querySelector('#onlineAppointment').innerText = 'Deseas consulta en línea?: ' + onlineValue;
+
+    first.addEventListener('click', function() {
+      firstValue = this.checked ? 'Si' : 'No';
+      document.querySelector('#firstAppointment').innerText = 'Es tu primera Cita?: ' + firstValue;
+    });
+
+    online.addEventListener('click', function() {
+      onlineValue = this.checked ? 'Si' : 'No';
+      document.querySelector('#onlineAppointment').innerText = 'Deseas consulta en línea?: ' + onlineValue;
+    });
+    
+    document.querySelector('#dateAppoinment').innerText = 'Fecha de la Cita: ' + (date? date : "Sin seleccionar");
+    document.querySelector('#timeAppoinment').innerText = 'Hora de la Cita: ' + (time? time: "Sin seleccionar");
+
+    document.getElementById('confirmacion').style.display = 'flex';
+    return false;
+  }
+
+  function confirmacionAceptar() {
+    document.getElementById('confirmacion').style.display = 'none';
+    // Continuar con el envío del formulario
+    document.forms[0].submit();
+  }
+
+  function confirmacionCancelar() {
+    document.getElementById('confirmacion').style.display = 'none';
+    return false;
+  }
+
+
+</script>
