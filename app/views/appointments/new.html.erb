@@ -1,36 +1,47 @@
 <div class="container" id="appointmentContainer">
   <div class="contenedorCita">
-    <h1> Agenda tu Cita con <%= @professional.user.name %> </h1>
-    <p> En menos de 24h recibirás una confirmación</p>
-    <%= simple_form_for( [@professional, @appointment],
-      data: {turbo: false}) do |f| %>
-      <%= f.error_notification %>
-      <div class="form-inputs">
-      <%# t.boolean "first"
-        t.boolean "online"
-        t.datetime "time"
-        t.bigint "user_id", null: false
-        t.bigint "professional_id", null: false %>
-        <%= f.input :first, label: "Es tu primera Cita?",
-                    required: true,
-                    autofocus: true,
-                    input_html: { autocomplete: "first" }%>
-
-        <%= f.input :online, label: "Deseas consulta en línea?",
-                    required: true,
-                    autofocus: true,
-                    input_html: { autocomplete: "online" }%>
-
-        <%= f.label :date, "Fecha de la Cita", required: true %>
-        <%= f.date_field :date, required: true, value: @appointment.date&.strftime('%Y-%m-%d') %>
-
-
-        <%= f.label :time, "Hora de la Cita", required: true %>
-        <%= f.time_field :time, required: true %>
+    <div class="row">
+      <div class="col col-sm-12 col-md-6" id="colNameUser">
+        <div class="text-center">
+          <h1>Agenda tu Cita con <%= @professional.user.name %></h1>
+          <i class="fa-solid fa-calendar-days"></i>
+        </div>
       </div>
-      <div class="btn btn-flat">
-        <%= f.button :submit, "Agendar" %>
+      <div class="col col-sm-12 col-md-6">
+        <div id="contenedorFormCita">
+          <p class="text-center"> En menos de 24h recibirás una confirmación</p>
+          <%= simple_form_for( [@professional, @appointment],
+            data: {turbo: false}) do |f| %>
+            <%= f.error_notification %>
+            <div class="form-inputs">
+            <%# t.boolean "first"
+              t.boolean "online"
+              t.datetime "time"
+              t.bigint "user_id", null: false
+              t.bigint "professional_id", null: false %>
+              <%= f.input :first, label: "Es tu primera Cita?",
+                          required: true,
+                          autofocus: true,
+                          input_html: { autocomplete: "first" }%>
+
+              <%= f.input :online, label: "Deseas consulta en línea?",
+                          required: true,
+                          autofocus: true,
+                          input_html: { autocomplete: "online" }%>
+              <div>
+                <%= f.label :date, "Fecha de la Cita:", required: true %>
+                <%= f.date_field :date, required: true, value: @appointment.date&.strftime('%Y-%m-%d'), class: "picker-appointment" %>
+              </div>
+
+              <div class="mt-4">
+                <%= f.label :time, "Hora de la Cita:", required: true %>
+                <%= f.time_field :time, required: true, class: "picker-appointment" %>
+              </div>  
+            </div>
+              <%= f.button :submit, "Agendar", id: "botonAgendar", class: "btn btn-flat"%>
+          <% end %>
+        </div>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>

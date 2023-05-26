@@ -15,7 +15,7 @@ class AppointmentsController < ApplicationController
     @appointment.user = current_user
     @appointment.professional = @professional
     @appointment.date = Date.parse(params[:appointment][:date]) if params[:appointment][:date].present?
-    if @appointment.valid? && appointment_within_attending_hours? 
+    if @appointment.valid? && appointment_is_valid?
       @appointment.save
       send_email
       redirect_to "/"
@@ -56,11 +56,17 @@ private
 
   end
 
-  def appointment_within_attending_hours?
+  def appointment_is_valid?
     start_attending_time = @professional.startAttendingTime
     end_attending_time = @professional.endAttendingTime
 
     appointment_time = @appointment.time
+
+    # Verificar si la fecha de la cita es un sábado o domingo
+    if @appointment.date.saturday? || @appointment.date.sunday?
+      @appointment.errors.add(:date, "La cita no puede ser programada en sábado o domingo")
+      return false
+    end
 
     # Verificar el horario de atención del nutriologo
     if appointment_time < start_attending_time || appointment_time > end_attending_time

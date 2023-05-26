@@ -5,15 +5,55 @@
   align-items: center;
   justify-content: center;
 }
+
 .contenedorCita {
   width: 70%;
   height: auto;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 50px;
 }
 
 .contenedorCita h1 {
   text-align: center;
   color: #dc61c7;
   font-size: 2rem;
-  padding-bottom: 50px;
+  margin: 30px 30px 0 30px;
+}
+
+#contenedorFormCita {
+  width: 100%;
+}
+
+#colNameUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#colNameUser i {
+  font-size: 2.5rem;
+  color: #dc61c7;
+  padding-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+#botonAgendar {
+  width: 148px;
+}
+
+@media only screen and(max-width: 765px) {
+  #appointmentContainer {
+    width: 90%;
+  }
+  .contenedorCita {
+    width: 100%;
+  }
+}
+
+.picker-appointment {
+  padding: 10px;
+  border-radius: 8px;
+  width: 70%;
 }
