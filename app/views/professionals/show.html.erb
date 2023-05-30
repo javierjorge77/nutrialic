@@ -1,45 +1,91 @@
 
-  <div class="card-category-1"
-    style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://res.cloudinary.com/dp693fkkc/image/upload/v1667079173/bannerfruits_ks77xr.jpg')">
+  <div class="card-profile"
+      style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('<%= asset_path('forProfile.jpg') %>')">
   </div>
 
-<div class="show-map">
-  <div class="container">
-  <%if @current_user.professional%>
-    <% if @professional.id == @current_user.professional.id%>
-      <h1>Perfil</h1>
-    <% end %>
-  <%else%>
-    <h1 style="margin:48px"><%= "#{@professional.user.name} #{@professional.user.lastname}"  %></h1>
-  <%end%>
-    
-    <img src="<%= @professional.photo.url%>" class="avatar-bordered" style="margin-left: 48px"/>
-    <h2 style="margin-left: 48px"> <%= @professional.branch %></h2>
-    <p style="margin-left: 48px"><strong> Ubicación Consultorio: </strong> <%= @professional.adress %></p>
-    <p style="margin-left: 48px"> <strong> Primera Consulta:  </strong> $<%= @professional.first_cost %></p>
-    <p style="margin-left: 48px"> <strong> Segunda Consulta:  </strong> $<%= @professional.follow_cost %></p>
-    <p style="margin-left: 48px"><strong> Teléfono </strong> <%= @professional.user.phone %></p>
-    <p style="margin-left: 48px"><strong> Email: </strong> <%= @professional.user.email %></p>
 
-    
-    <% if !@current_user.professional %>
-      <div class="btn btn-flat" style="margin-left: 48px">
-      <%= link_to "Agendar Cita", new_professional_appointment_path(@professional)  %>
+
+<div class="container">
+
+
+  <div class="row main-row">
+    <div class="col col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" id="colLeftProfile">
+      <div class="userGeneralInfo">
+
+        <div class="avatar-bordered"><img src="<%= @professional.photo.url%>"/></div>
+        <h1><%= "#{@professional.user.name} #{@professional.user.lastname}"%> </h1>
+        
+        <div class="especialidad">
+          <h2> <%= @professional.branch %></h2>
+        </div>
+        
+        <div class="info text-center">
+          <p class="info-detail-title"><strong> Ubicación Consultorio: </strong></p>
+          <p class="info-detail"><%= @professional.adress %></p>
+          <p class="info-detail-title" style="margin-top: 25px"><strong> Teléfono </strong></p>
+          <p class="info-detail"><%= @professional.user.phone %></p>
+          <p class="info-detail-title" style="margin-top: 25px"><strong> Email: </strong></p>
+          <p class="info-detail"> <%= @professional.user.email %></p>
+        </div>
+
+        <div class="info-prices">
+          <div class="row text-center">
+            <div class="col-6">
+              <p><strong> Primera Consulta:</strong></p>
+              <p class="price">$<%= @professional.first_cost %></p>
+            </div>
+            <div class="col-6">
+              <p><strong> Segunda Consulta: </strong></p>
+              <p class="price">$<%= @professional.follow_cost %></p></p>
+            </div>
+          </div>
+        </div>
+        
+
+        
+        <% if !@current_user.professional %>
+          <div class="buttonContainer">
+              <%= button_to new_professional_appointment_path(@professional), method: :get do%>
+                    Agendar Cita <i class="fa-solid fa-pen"></i>
+              <%end%>
+          </div>
+        <% end %>
+        <%if @current_user.professional %>
+          <% if @professional.id == @current_user.professional.id%>
+            <div class="buttonContainer">
+              <%= button_to professional_appointments_path(@professional), method: :get do %>
+                  Próximas citas <i class="fa-solid fa-calendar-days"></i>
+              <% end %>
+            </div>
+          <% end %>
+        <%end%>
+      </div>
     </div>
-    <% end %>
-    <%if @current_user.professional %>
-      <% if @professional.id == @current_user.professional.id%>
-        <li class="btn btn-flat" >
-          <%= link_to "Próximas citas", professional_appointments_path(@professional)%>
-        </li>
-      <% end %>
-    <%end%>
+
+    <div class="col col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8" id="colRightProfile">
+      <div class="contenedorDerecho">
+        <div class="options">
+          <div class="row">
+            <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3"><button>Ver ubicación</button></div>
+            <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3"><button>Imágenes</button> </div>
+            <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3"><button> Comentarios</button> </div>
+            <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3"><button> Área profesional</button> </div>
+          </div>    
+        </div>
+        <hr>
+        <div class="contenedorSecciones">
+          <div class="container mapa-perfil">
+            <div id="mapaPerfil"
+              data-controller="map-show"
+              data-map-show-marker-value="<%= @marker.to_json %>"
+              data-map-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div class="container map">
-    <div style="width: 850px; height: 540px; margin-top:24px"
-      data-controller="map-show"
-      data-map-show-marker-value="<%= @marker.to_json %>"
-      data-map-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-    </div>
+
 </div>
-</div>
+

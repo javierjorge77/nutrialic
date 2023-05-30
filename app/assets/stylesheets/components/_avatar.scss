@@ -7,14 +7,199 @@
   border-radius: 50%;
 }
 .avatar-bordered {
-  width: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  border: white 1px solid;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+.userGeneralInfo h1 {
+  font-size: 1.9rem;
+  color: #3f3844;
+  margin: 30px;
+  text-align: center;
+}
+
+.avatar-bordered img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .avatar-square {
   width: 40px;
   border-radius: 0px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   border: white 1px solid;
+}
+
+.main-row {
+  position: relative;
+  top: -100px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.col {
+  background-color: white;
+  padding: 0;
+}
+
+#colLeftProfile {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+#colRightProfile {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+@media only screen and(max-width: 768px) {
+  #colLeftProfile {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  #colRightProfile {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 516px;
+  }
+
+  .main-row {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+}
+
+.especialidad {
+  margin: 30px;
+  text-align: center;
+}
+
+.especialidad h2 {
+  color: #11a90e;
+  margin: 30px;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.info {
+  margin: 30px;
+}
+
+.info p {
+  color: #3f3844;
+  line-height: 11px;
+}
+
+.container .mapa-perfil {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenedorDerecho {
+  width: 100%;
+  height: 100%;
+  padding: 50px 30px 30px 0;
+}
+
+#mapaPerfil {
+  position: relative;
+  width: 70%;
+  height: 70%;
+}
+
+.buttonContainer {
+  width: 100%;
+  text-align: center;
+}
+
+.buttonContainer button {
+  padding: 8px 24px;
+  border: none;
+  border-radius: 5px;
+  background-color: #dc61c7;
+  margin-bottom: 50px;
+  margin-top: 30px;
+  font-size: 1.2rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.buttonContainer button:hover {
+  padding: 8px 34px;
+}
+
+.info-prices {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-prices .row {
+  width: 60%;
+}
+
+.info-prices .col-6 {
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #3f3844;
+}
+
+.info-prices p {
+  margin-bottom: 0;
+}
+
+.info-prices .price {
+  font-size: 2rem;
+  color: palevioletred;
+}
+
+.options .row {
+  margin: 0;
+}
+
+.options .row .col button {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  font-size: 0.8rem;
+  color: #3f3844;
+  width: 100% !important;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+}
+
+.options .row .col button:hover {
+  background-color: #11a90e;
+  color: white;
+}
+
+.options .row .col hr {
+  width: 80%;
+  border: 1px solid #dc61c7;
+}
+
+@media only screen and(max-width: 768px) {
+  .contenedorDerecho {
+    width: 100%;
+    height: 100%;
+    padding: 0px 30px 50px 30px;
+  }
+}
+
+.contenedorSecciones {
+  width: 100%;
+  height: 82%;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
