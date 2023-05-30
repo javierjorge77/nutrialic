@@ -12,6 +12,7 @@
   margin-top: 50px;
   margin-bottom: 50px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 95%;
 }
 
 #registerBox .col {
@@ -20,6 +21,12 @@
 
 .registerForm {
   padding: 50px;
+}
+
+@media only screen and(max-width: 768px) {
+  .registerForm {
+    padding: 30px;
+  }
 }
 
 .registerForm form {
@@ -31,4 +38,19 @@
   margin-top: 30px;
   margin-bottom: 30px;
   color: #dc61c7;
+}
+
+.buton-area input {
+  background-color: #dc61c7;
+  padding: 16px 24px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.buton-area input:hover {
+  background-color: #dc61c7 !important;
+  padding: 16px 32px !important;
+  color: white;
 }
