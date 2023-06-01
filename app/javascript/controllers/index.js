@@ -12,3 +12,6 @@ application.register("map", MapController)
 
 import MapShowController from "./map_show_controller"
 application.register("map-show", MapShowController)
+
+import TabMenuController from "./tab_menu_controller"
+application.register("tab-menu", TabMenuController)

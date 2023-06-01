@@ -4,8 +4,7 @@
   </div>
 
 
-
-<div class="container">
+<div class="container" >
 
 
   <div class="row main-row">
@@ -63,15 +62,15 @@
     </div>
 
     <div class="col col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8" id="colRightProfile">
-      <div class="contenedorDerecho">
+      <div class="contenedorDerecho"  data-controller="tab-menu">
 
         <div class="unHeader">
           <div class="tabs-container">
             <div class="tabs">
-              <a role="button" tabindex="0" class="active" onclick="openTab(event, 'tab1')">Ubicación</a>
-              <a role="button" tabindex="0" onclick="openTab(event, 'tab2')">Imágenes</a>
-              <a role="button" tabindex="0" onclick="openTab(event, 'tab3')">Área profesional</a>
-              <a role="button" tabindex="0" onclick="openTab(event, 'tab4')">Comentarios del servicio</a>
+              <a role="button" tabindex="0" class="active" data-action="click->tab-menu#openTab" data-tab-name="tab1" data-tab-menu-target="tablink">Ubicación</a>
+              <a role="button" tabindex="0" id="tabDos" data-action="click->tab-menu#openTab" data-tab-name="tab2"  data-tab-menu-target="tablink">Imágenes</a>
+              <a role="button" tabindex="0" id="tabTres" data-action="click->tab-menu#openTab" data-tab-name="tab3"  data-tab-menu-target="tablink">Área profesional</a>
+              <a role="button" tabindex="0" id="tabCuatro" data-action="click->tab-menu#openTab" data-tab-name="tab4"  data-tab-menu-target="tablink">Comentarios del servicio</a>
             </div> 
           </div>
         </div>
@@ -79,7 +78,7 @@
 
         <div class="contenedorSecciones">
  
-          <div class="tabcontent tabs-container" id="tab1">
+          <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab1">
             <h3 class="mb-5">La ubicación del consultorio se muestra en el mapa</h3>
             <div class="container mapa-perfil">
               <div id="mapaPerfil"
@@ -90,55 +89,28 @@
             </div>
           </div>
 
-          <div class="tabcontent tabs-container" id="tab2">
+          <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab2">
             <h3>Imagenes</h3>
             <p>Aqui van las imagenes que suba el nutriologo</p>
           </div>
 
-          <div class="tabcontent tabs-container" id="tab3">
+          <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab3">
             <h3>Area profesional</h3>
             <p>Aqui van las certificaciones o lo que quiera el nutriologo</p>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus doloribus eius dignissimos ea pariatur inventore, dolorem consequuntur? Aliquam suscipit animi deserunt quaerat sapiente eius nostrum accusantium, atque non dolore? Non libero neque, provident saepe dolore ducimus rerum excepturi earum ad deserunt commodi error distinctio itaque cumque! Consectetur aspernatur ipsa eveniet?</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque omnis porro cum odit. Mollitia tempore molestiae numquam aliquam iusto, rem obcaecati fuga magni unde, quaerat, pariatur blanditiis deleniti doloribus suscipit voluptate? Incidunt placeat commodi, harum, dolor earum quisquam beatae quasi recusandae ullam culpa quibusdam voluptatem minus vero facilis libero aperiam?</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis libero voluptates ab qui exercitationem sint amet sequi quis beatae itaque tempore corporis, explicabo cupiditate ad commodi. Porro, dignissimos eos ad eius quidem a cupiditate reprehenderit optio, ipsa inventore aut ducimus cumque labore, corrupti deleniti nesciunt neque eum minima? Nemo, quibusdam? </p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod amet quasi dolor ipsa nisi nesciunt voluptatibus, saepe tempora nostrum, odio ullam pariatur rerum illo expedita iusto enim inventore id voluptas eligendi cum nihil ab quae voluptatum? Consequatur, tempore nesciunt est voluptatibus eius in perferendis saepe, a dolorem ipsam ad nam.</p>
           </div>
 
-          <div class="tabcontent tabs-containers" id="tab4">
+          <div class="tabcontent tabs-containers" data-tab-menu-target="tabcontent" id="tab4">
             <h3>Comentarios</h3>
             <p>Aqui van los comentarios del servicio del nutriologo</p>
-          </div>
-          
-          
+          </div>         
         </div>
-
-
-
       </div>
     </div>
-
   </div>
 
 </div>
 
 
-<script>
-  const tabContents = document.querySelectorAll('.tabcontent')
-  const tabLinks = document.querySelectorAll(".tabs a")
 
-  function openTab(event, tabName){
-    //remove all tabcontents
-    tabContents.forEach(element => {
-      element.style.display = "none"
-    });
 
-    //remove tablink active classes
-    tabLinks.forEach(element => {
-      element.classList.remove('active')
-    });
-
-    //add active class on tablink and open it
-    event.currentTarget.classList.add("active");
-    document.getElementById(tabName).style.display = 'block'
-  }
-</script>
