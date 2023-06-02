@@ -92,9 +92,10 @@
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab2">
             <h3>Imagenes</h3>
             <p>Aqui van las imagenes que suba el nutriologo</p>
-            <a href="<%= asset_path('imageGallery1.jpg') %>" data-lightbox="models" data-title="Image 1">
-              <%= image_tag "imageGallery1.jpg", alt: "" %>
-            </a>          
+              <a href="<%= asset_path('imageGallery1.jpg') %>" data-controller="lightbox" data-lightbox="image-1" data-title="My title">
+                <%= image_tag "imageGallery1.jpg", alt: "" %>
+              </a>     
+     
           </div>
 
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab3">

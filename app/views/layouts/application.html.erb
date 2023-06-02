@@ -8,12 +8,16 @@
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dp693fkkc/image/upload/v1667068095/400JpgdpiLogo_p3bf30.jpg">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag 'jquery3' %>
+    <%= stylesheet_link_tag 'lightbox.min' %>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
     <script src="https://kit.fontawesome.com/930c1d7f42.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;600&display=swap" rel="stylesheet">
+    
+
   </head>
 
   <body>
@@ -28,6 +32,9 @@
       <%= render "shared/footer" %>
     </footer>
     <%= render "shared/flashes" %>
+
+    <script src="/javascript/lightbox.min.js"></script>
+
     
   </body>
 

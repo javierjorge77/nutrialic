@@ -7,6 +7,9 @@ import { application } from "./application"
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import LightboxController from "./lightbox_controller"
+application.register("lightbox", LightboxController)
+
 import MapController from "./map_controller"
 application.register("map", MapController)
 
