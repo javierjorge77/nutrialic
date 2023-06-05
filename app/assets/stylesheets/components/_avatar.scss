@@ -271,27 +271,13 @@ div.unHeader a:visited {
   padding: 50px 8%;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 30px;
+.row .item {
+  height: 200px;
 }
 
-.gallery .contenedor-img {
+.row .item img {
   width: 100%;
-  height: 250px;
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 5px;
-  position: relative;
+  height: 100%;
+  object-fit: cover;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.gallery img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
 }

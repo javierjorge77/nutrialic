@@ -12,13 +12,11 @@ export default class extends Controller {
     const tabName = event.target.dataset.tabName;
     //remove all tabcontents
     this.tabContentsElements.forEach((element) => {
-      console.log("remove all tabcontents triggered");
       element.style.display = "none";
     });
 
     // remove tablink active classes
     this.tabLinks.forEach((element) => {
-      console.log("remove tablink active classes triggered");
       element.classList.remove("active");
     });
 

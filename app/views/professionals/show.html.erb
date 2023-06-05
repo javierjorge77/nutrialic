@@ -1,5 +1,4 @@
-
-  <div class="card-profile"
+ <div class="card-profile"
       style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('<%= asset_path('forProfile.jpg') %>')">
   </div>
 
@@ -91,49 +90,48 @@
 
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab2">
             <h3>Galeria de imagenes</h3>
-            <div class="contenedor-galeria">
-              <div class="gallery">
-                <div class="contenedor-img">
-                  <a href="<%= asset_path('imageGallery1.jpg') %>" data-controller="lightbox" data-lightbox="models" data-title="Imagen 1">
-                    <%= image_tag "imageGallery1.jpg", alt: "" %>
-                  </a> 
-                </div>
-                <div class="contenedor-img">
-                  <a href="<%= asset_path('imageGallery2.jpg') %>" data-controller="lightbox" data-lightbox="models" data-title="Imagen 2">
-                    <%= image_tag "imageGallery2.jpg", alt: "" %>
-                  </a> 
-                </div> 
-                <div class="contenedor-img"> 
-                  <a href="<%= asset_path('imageGallery3.jpg') %>" data-controller="lightbox" data-lightbox="models" data-title="Imagen 3">
-                    <%= image_tag "imageGallery3.jpg", alt: "" %>
-                  </a>
-                </div>
-                <div class="contenedor-img">   
-                  <a href="<%= asset_path('imageGallery4.jpg') %>" data-controller="lightbox" data-lightbox="models" data-title="Imagen 4">
-                    <%= image_tag "imageGallery4.jpg", alt: "" %>
-                  </a>
-                </div>
-                <div class="contenedor-img">   
-                  <a href="<%= asset_path('imageGallery5.jpg') %>" data-controller="lightbox" data-lightbox="models" data-title="Imagen 5">
-                    <%= image_tag "imageGallery5.jpg", alt: "" %>
-                  </a> 
-                </div>
-                <div class="contenedor-img">
-                  <a href="<%= asset_path('imageGallery6.jpg') %>" data-controller="lightbox" data-lightbox="models" data-title="Imagen 6">
-                    <%= image_tag "imageGallery6.jpg", alt: "" %>
-                  </a>
-                </div>
-                <div class="contenedor-img">    
-                  <a href="<%= asset_path('imageGallery7.jpg') %>" data-controller="lightbox" data-lightbox="models" data-title="Imagen 7">
-                    <%= image_tag "imageGallery7.jpg", alt: "" %>
-                  </a>
-                </div>
-                <div class="contenedor-img">   
-                  <a href="<%= asset_path('imageGallery8.jpg') %>" data-controller="lightbox" data-lightbox="models" data-title="Imagen 8">
-                    <%= image_tag "imageGallery8.jpg", alt: "" %>
-                  </a>
-                </div>   
-              </div>
+            <%if @current_user.professional %>
+                <% if @professional.id == @current_user.professional.id%>
+                <form>
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Subir Imagen">
+                        <button class="btn btn-primary" id="inputGroupFileAddon04" type="submit">Subir Imagen</button>
+                    </div>       
+                </form>
+                <%end%>
+            <%end%>    
+
+            <div class="row mt-4">
+                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
+                    <a href="<%= asset_path('imageGallery1.jpg') %>" class="fancybox" data-fancybox="gallery">
+                        <%= image_tag "imageGallery1.jpg", alt: "" %>
+                    </a>
+                </div>  
+                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
+                    <a href="<%= asset_path('imageGallery2.jpg') %>" class="fancybox" data-fancybox="gallery">
+                        <%= image_tag "imageGallery2.jpg", alt: "" %>
+                    </a>
+                </div>  
+                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
+                    <a href="<%= asset_path('imageGallery3.jpg') %>" class="fancybox" data-fancybox="gallery">
+                        <%= image_tag "imageGallery3.jpg", alt: "" %>
+                    </a>
+                </div>  
+                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
+                    <a href="<%= asset_path('imageGallery4.jpg') %>" class="fancybox" data-fancybox="gallery">
+                        <%= image_tag "imageGallery4.jpg", alt: "" %>
+                    </a>
+                </div>  
+                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
+                    <a href="<%= asset_path('imageGallery5.jpg') %>" class="fancybox" data-fancybox="gallery">
+                        <%= image_tag "imageGallery5.jpg", alt: "" %>
+                    </a>
+                </div>  
+                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
+                    <a href="<%= asset_path('imageGallery6.jpg') %>" class="fancybox" data-fancybox="gallery">
+                        <%= image_tag "imageGallery6.jpg", alt: "" %>
+                    </a>
+                </div>              
             </div>
           </div>
 
@@ -152,9 +150,4 @@
       </div>
     </div>
   </div>
-
 </div>
-
-
-
-
