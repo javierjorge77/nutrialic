@@ -89,50 +89,7 @@
           </div>
 
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab2">
-            <h3>Galeria de imagenes</h3>
-            <%if @current_user.professional %>
-                <% if @professional.id == @current_user.professional.id%>
-                <form>
-                    <div class="input-group">
-                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Subir Imagen">
-                        <button class="btn btn-primary" id="inputGroupFileAddon04" type="submit">Subir Imagen</button>
-                    </div>       
-                </form>
-                <%end%>
-            <%end%>    
-
-            <div class="row mt-4">
-                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-                    <a href="<%= asset_path('imageGallery1.jpg') %>" class="fancybox" data-fancybox="gallery">
-                        <%= image_tag "imageGallery1.jpg", alt: "" %>
-                    </a>
-                </div>  
-                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-                    <a href="<%= asset_path('imageGallery2.jpg') %>" class="fancybox" data-fancybox="gallery">
-                        <%= image_tag "imageGallery2.jpg", alt: "" %>
-                    </a>
-                </div>  
-                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-                    <a href="<%= asset_path('imageGallery3.jpg') %>" class="fancybox" data-fancybox="gallery">
-                        <%= image_tag "imageGallery3.jpg", alt: "" %>
-                    </a>
-                </div>  
-                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-                    <a href="<%= asset_path('imageGallery4.jpg') %>" class="fancybox" data-fancybox="gallery">
-                        <%= image_tag "imageGallery4.jpg", alt: "" %>
-                    </a>
-                </div>  
-                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-                    <a href="<%= asset_path('imageGallery5.jpg') %>" class="fancybox" data-fancybox="gallery">
-                        <%= image_tag "imageGallery5.jpg", alt: "" %>
-                    </a>
-                </div>  
-                <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-                    <a href="<%= asset_path('imageGallery6.jpg') %>" class="fancybox" data-fancybox="gallery">
-                        <%= image_tag "imageGallery6.jpg", alt: "" %>
-                    </a>
-                </div>              
-            </div>
+            <%= render 'professionals/profile/gallery' %>
           </div>
 
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab3">
@@ -142,9 +99,29 @@
           </div>
 
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab4">
-            <h3>Comentarios</h3>
-            <p>Aqui van los comentarios</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus doloribus eius dignissimos ea pariatur inventore, dolorem consequuntur? Aliquam suscipit animi deserunt quaerat sapiente eius nostrum accusantium, atque non dolore? Non libero neque, provident saepe dolore ducimus rerum excepturi earum ad deserunt commodi error distinctio itaque cumque! Consectetur aspernatur ipsa eveniet?</p>
+            <div>
+                
+                <div class="row text-center">
+                    <div class="col">
+                        <h3>Calificacion general:</h3>
+                        <p>8.5</p>
+                    </div>
+                    <div class="col">
+                        <h3>Calificaciones:</h3>
+                        <p>1</p>
+                    </div>
+                </div>
+
+                <div class="comments">
+                    <div class="comment">
+                        <div class="usernameScore">
+                            <p>Daniel Carrillo</p>
+                            <p>Calificacion: 8.5</p>
+                        </div>
+                        <p>Fue un buen servicio</p>
+                    </div>
+                </div>
+            </div>
           </div>       
         </div>
       </div>
