@@ -28,6 +28,14 @@ class ProfessionalsController < ApplicationController
   def show
     @current_user = current_user
     @professional = Professional.find(params[:id])
+    @reviews = @professional.reviews
+    if @reviews.length > 0
+      @total_score = 0
+      @reviews.each do |review|
+        @total_score += review.score 
+      end
+      @final_score = @total_score / @reviews.length
+    end
     @marker = {
       lat: @professional.latitude,
       lng: @professional.longitude

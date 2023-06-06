@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :appointments, only: [:new, :create, :index]
   end
   resources :users, only: [:show]
+  post 'review', to: 'reviews#create'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

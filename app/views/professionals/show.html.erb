@@ -100,27 +100,68 @@
 
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab4">
             <div>
-                
-                <div class="row text-center">
-                    <div class="col">
-                        <h3>Calificacion general:</h3>
-                        <p>8.5</p>
-                    </div>
-                    <div class="col">
-                        <h3>Calificaciones:</h3>
-                        <p>1</p>
-                    </div>
-                </div>
+              <ul class="rating-stars">
+                <li><i class="far fa-star"></i></li>
+                <li><i class="far fa-star"></i></li>
+                <li><i class="far fa-star"></i></li>
+                <li><i class="far fa-star"></i></li>
+                <li><i class="far fa-star"></i></li>
+              </ul>
+              <div class="row text-center">
+                  <div class="col">
+                      <h3>Calificacion general:</h3>
+                      
+                      <% if @final_score %>
+                        <p><%= @final_score %>/10.0</p>
+                      <%else%>
+                        sin calificacion
+                      <% end %>
+                      
+                  </div>
+                  <div class="col">
+                      <h3>Calificaciones:</h3>
+                      
+                      <% if @reviews %>
+                        <p><%= @reviews.length %>  </p> 
+                      <% else %>
+                        <p>0</p> 
+                      <% end %>
+                      
+                      
+                  </div>
+              </div>
 
-                <div class="comments">
+              <div class="comments">
+                <% if @reviews.present? %>
+                  <%@reviews.each do |review|%>
                     <div class="comment">
-                        <div class="usernameScore">
-                            <p>Daniel Carrillo</p>
-                            <p>Calificacion: 8.5</p>
-                        </div>
-                        <p>Fue un buen servicio</p>
+                      <div class="usernameScore">
+                          <p> <%= review.user.name %> </p>
+                          <p id="calificacion"> <%=review.score%> </p>
+                      </div>
+                      <p> <%= review.comment %> </p>
                     </div>
-                </div>
+                  <% end %>
+                <% else %>
+                  <h1>Este profesional aun no tiene ninguna calificacion</h1>
+                <% end %>
+              </div>
+
+              <%= form_with(model: @review, url: review_path, method: :post, local: true) do |f| %>
+              <%= f.fields_for :review, @review do |review_fields| %>
+                <%= review_fields.hidden_field :professional_id, value: @professional.id %>
+                <%= review_fields.hidden_field :user_id, value: @current_user.id %>
+                <div class="mb-3">
+                  <%= review_fields.label :score, "Calificación:", class: "form-label" %>
+                  <%= review_fields.number_field :score, class: "form-control", id: "score", in: 1.0..5.0, step: 0.5 %>
+                </div >
+                <div class="mb-3">
+                  <%= review_fields.label :comment, "Comentario:", class: "form-label" %>
+                  <%= review_fields.text_area :comment, class: "form-control", id: "comentario"%>
+                </div >
+                <% end %>
+                <%= f.submit "Publicar", class: "btn btn-primary" %>
+              <% end %>
             </div>
           </div>       
         </div>
@@ -128,3 +169,27 @@
     </div>
   </div>
 </div>
+
+<script>
+
+$(document).ready(function() {
+  var rating = 3.5; // Valor float obtenido desde el backend o cualquier fuente de datos en el front-end
+
+  var stars = $('.rating-stars li');
+
+  // Calcula el número de estrellas llenas y parciales
+  var fullStars = Math.floor(rating);
+  var partialStar = rating - fullStars;
+
+  // Establece las clases adecuadas en las estrellas
+  stars.each(function(index) {
+    if (index < fullStars) {
+      $(this).html('<i class="fas fa-star"></i>'); // Estrella llena
+    } else if (index === fullStars && partialStar > 0) {
+      $(this).html('<i class="fas fa-star-half-alt"></i>'); // Estrella parcial
+    } else {
+      $(this).html('<i class="far fa-star"></i>'); // Estrella vacía
+    }
+  });
+});
+</script>
