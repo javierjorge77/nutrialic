@@ -4,88 +4,21 @@
 
 
 <div class="container" >
-
-
   <div class="row main-row">
+
     <div class="col col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" id="colLeftProfile">
-      <div class="userGeneralInfo">
-
-        <div class="avatar-bordered"><img src="<%= @professional.photo.url%>"/></div>
-        <h1><%= "#{@professional.user.name} #{@professional.user.lastname}"%> </h1>
-        
-        <div class="especialidad">
-          <h2> <%= @professional.branch %></h2>
-        </div>
-        
-        <div class="info text-center">
-          <p class="info-detail-title"><strong> Ubicación Consultorio: </strong></p>
-          <p class="info-detail"><%= @professional.adress %></p>
-          <p class="info-detail-title" style="margin-top: 25px"><strong> Teléfono </strong></p>
-          <p class="info-detail"><%= @professional.user.phone %></p>
-          <p class="info-detail-title" style="margin-top: 25px"><strong> Email: </strong></p>
-          <p class="info-detail"> <%= @professional.user.email %></p>
-        </div>
-
-        <div class="info-prices">
-          <div class="row text-center">
-            <div class="col-6">
-              <p><strong> Primera Consulta:</strong></p>
-              <p class="price">$<%= @professional.first_cost %></p>
-            </div>
-            <div class="col-6">
-              <p><strong> Segunda Consulta: </strong></p>
-              <p class="price">$<%= @professional.follow_cost %></p></p>
-            </div>
-          </div>
-        </div>
-        
-
-        
-        <% if !@current_user.professional %>
-          <div class="buttonContainer">
-              <%= button_to new_professional_appointment_path(@professional), method: :get do%>
-                    Agendar Cita <i class="fa-solid fa-pen"></i>
-              <%end%>
-          </div>
-        <% end %>
-        <%if @current_user.professional %>
-          <% if @professional.id == @current_user.professional.id%>
-            <div class="buttonContainer">
-              <%= button_to professional_appointments_path(@professional), method: :get do %>
-                  Próximas citas <i class="fa-solid fa-calendar-days"></i>
-              <% end %>
-            </div>
-          <% end %>
-        <%end%>
-      </div>
+      <%= render 'professionals/profile/user_general_info' %>
     </div>
 
     <div class="col col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8" id="colRightProfile">
       <div class="contenedorDerecho"  data-controller="tab-menu">
 
-        <div class="unHeader">
-          <div class="tabs-container">
-            <div class="tabs">
-              <a role="button" tabindex="0" class="active" data-action="click->tab-menu#openTab" data-tab-name="tab1" data-tab-menu-target="tablink">Ubicación</a>
-              <a role="button" tabindex="0" id="tabDos" data-action="click->tab-menu#openTab" data-tab-name="tab2"  data-tab-menu-target="tablink">Imágenes</a>
-              <a role="button" tabindex="0" id="tabTres" data-action="click->tab-menu#openTab" data-tab-name="tab3"  data-tab-menu-target="tablink">Área profesional</a>
-              <a role="button" tabindex="0" id="tabCuatro" data-action="click->tab-menu#openTab" data-tab-name="tab4"  data-tab-menu-target="tablink">Comentarios del servicio</a>
-            </div> 
-          </div>
-        </div>
+        <%= render 'professionals/profile/tab_menu' %>
         
-
         <div class="contenedorSecciones">
  
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab1">
-            <h3 class="mb-5">La ubicación del consultorio se muestra en el mapa</h3>
-            <div class="container mapa-perfil">
-              <div id="mapaPerfil"
-                data-controller="map-show"
-                data-map-show-marker-value="<%= @marker.to_json %>"
-                data-map-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-              </div>
-            </div>
+            <%= render 'professionals/profile/mapa' %>
           </div>
 
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab2">
@@ -99,70 +32,7 @@
           </div>
 
           <div class="tabcontent tabs-container" data-tab-menu-target="tabcontent" id="tab4">
-            <div>
-              <ul class="rating-stars">
-                <li><i class="far fa-star"></i></li>
-                <li><i class="far fa-star"></i></li>
-                <li><i class="far fa-star"></i></li>
-                <li><i class="far fa-star"></i></li>
-                <li><i class="far fa-star"></i></li>
-              </ul>
-              <div class="row text-center">
-                  <div class="col">
-                      <h3>Calificacion general:</h3>
-                      
-                      <% if @final_score %>
-                        <p><%= @final_score %>/10.0</p>
-                      <%else%>
-                        sin calificacion
-                      <% end %>
-                      
-                  </div>
-                  <div class="col">
-                      <h3>Calificaciones:</h3>
-                      
-                      <% if @reviews %>
-                        <p><%= @reviews.length %>  </p> 
-                      <% else %>
-                        <p>0</p> 
-                      <% end %>
-                      
-                      
-                  </div>
-              </div>
-
-              <div class="comments">
-                <% if @reviews.present? %>
-                  <%@reviews.each do |review|%>
-                    <div class="comment">
-                      <div class="usernameScore">
-                          <p> <%= review.user.name %> </p>
-                          <p id="calificacion"> <%=review.score%> </p>
-                      </div>
-                      <p> <%= review.comment %> </p>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <h1>Este profesional aun no tiene ninguna calificacion</h1>
-                <% end %>
-              </div>
-
-              <%= form_with(model: @review, url: review_path, method: :post, local: true) do |f| %>
-              <%= f.fields_for :review, @review do |review_fields| %>
-                <%= review_fields.hidden_field :professional_id, value: @professional.id %>
-                <%= review_fields.hidden_field :user_id, value: @current_user.id %>
-                <div class="mb-3">
-                  <%= review_fields.label :score, "Calificación:", class: "form-label" %>
-                  <%= review_fields.number_field :score, class: "form-control", id: "score", in: 1.0..5.0, step: 0.5 %>
-                </div >
-                <div class="mb-3">
-                  <%= review_fields.label :comment, "Comentario:", class: "form-label" %>
-                  <%= review_fields.text_area :comment, class: "form-control", id: "comentario"%>
-                </div >
-                <% end %>
-                <%= f.submit "Publicar", class: "btn btn-primary" %>
-              <% end %>
-            </div>
+            <%= render 'professionals/profile/ranking_and_comments' %>
           </div>       
         </div>
       </div>
@@ -171,25 +41,29 @@
 </div>
 
 <script>
-
 $(document).ready(function() {
-  var rating = 3.5; // Valor float obtenido desde el backend o cualquier fuente de datos en el front-end
+  $('.rating-stars').each(function() {
+    let scoreElement = document.getElementById("scoreValue");
+    let scoreText = scoreElement.textContent
+    let scoreValue = parseFloat(scoreText);
+    let rating = scoreValue; // Valor float obtenido desde el backend o cualquier fuente de datos en el front-end
 
-  var stars = $('.rating-stars li');
+    
+    let stars = $(this).find('li');
+    // Calcula el número de estrellas llenas y parciales
+    let fullStars = Math.floor(rating);
+    let partialStar = rating - fullStars;
 
-  // Calcula el número de estrellas llenas y parciales
-  var fullStars = Math.floor(rating);
-  var partialStar = rating - fullStars;
-
-  // Establece las clases adecuadas en las estrellas
-  stars.each(function(index) {
-    if (index < fullStars) {
-      $(this).html('<i class="fas fa-star"></i>'); // Estrella llena
-    } else if (index === fullStars && partialStar > 0) {
-      $(this).html('<i class="fas fa-star-half-alt"></i>'); // Estrella parcial
-    } else {
-      $(this).html('<i class="far fa-star"></i>'); // Estrella vacía
-    }
-  });
+    // Establece las clases adecuadas en las estrellas
+    stars.each(function(index) {
+      if (index < fullStars) {
+        $(this).html('<i class="fas fa-star"></i>'); // Estrella llena
+      } else if (index === fullStars && partialStar > 0) {
+        $(this).html('<i class="fas fa-star-half-alt"></i>'); // Estrella parcial
+      } else {
+        $(this).html('<i class="far fa-star"></i>'); // Estrella vacía
+      }
+    });
+  })
 });
 </script>

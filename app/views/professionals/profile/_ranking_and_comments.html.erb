@@ -1,0 +1,76 @@
+<div>
+    <div class="row text-center">
+        <div class="col col-sm-12 col-md-6">
+            <div class="tableScoreTitle">
+                <h3>Calificación general:</h3>
+            </div>
+            <div class="tableScoreContent">
+                <div>
+                    <ul class="rating-stars" style="margin-top: 10px">
+                        <li><i class="far fa-star"></i></li>
+                        <li><i class="far fa-star"></i></li>
+                        <li><i class="far fa-star"></i></li>
+                        <li><i class="far fa-star"></i></li>
+                        <li><i class="far fa-star"></i></li>
+                    </ul>
+                    <% if @final_score %>
+                        <p style="color: #3f3844"><span id="scoreValue"><%= @final_score %></span>/5</p>
+                    <%else%>
+                        sin calificación
+                    <% end %>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col col-sm-12 col-md-6">
+            <div class="tableScoreTitle">
+                <h3>Total de calificaciones:</h3>
+            </div>
+            <div class="tableScoreContent">
+                <% if @reviews %>
+                    <p id="totalReviews"><%= @reviews.length %>  </p> 
+                <% else %>
+                    <p id="totalReviews">0</p> 
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <h2 style="margin: 20px 0px 0px 0px; font-size: 2rem; color: #3f3844">Comentarios y calificaciones</h2>
+    </div>
+    <div class="comments">
+    <% if @reviews.present? %>
+        <%@reviews.each do |review|%>
+            <div class="comment" style="margin-bottom: 30px">
+                <div><i class="fa-solid fa-circle-user userCommentIcon"></i></div>
+                <div class="usernameScore">
+                    <p class="userReviewName"><%= review.user.name %> <span style="margin-left: 20px"><%=review.score%> / 5.0</span> </p>
+                </div>
+                <p class="userReviewComment"> <%= review.comment %> </p>
+            </div>
+        <% end %>
+    <% else %>
+        <div class="text-center">
+            <h2 style="margin: 20px 0px 0px 0px; font-size: 2rem; color: #5c7d68">Este profesional aun no tiene ningun comentario, ¡Se el primero en tomar consulta!</h2>
+        </div>
+    <% end %>
+    </div>
+    <div class="formContainer" style="padding: 50px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+        <%= form_with(model: @review, url: review_path, method: :post, local: true) do |f| %>
+        <%= f.fields_for :review, @review do |review_fields| %>
+        <%= review_fields.hidden_field :professional_id, value: @professional.id %>
+        <%= review_fields.hidden_field :user_id, value: @current_user.id %>
+        <div class="mb-3">
+            <%= review_fields.label :score, "Calificación:", class: "form-label" %>
+            <%= review_fields.number_field :score, class: "form-control", id: "score", in: 1.0..5.0, step: 0.5 %>
+        </div >
+        <div class="mb-3">
+            <%= review_fields.label :comment, "Comentario:", class: "form-label" %>
+            <%= review_fields.text_area :comment, class: "form-control", id: "comentario"%>
+        </div >
+        <% end %>
+            <%= f.submit "Publicar", id: "botonComentario"%>
+        <% end %>
+    </div>
+</div>

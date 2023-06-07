@@ -1,0 +1,8 @@
+<h3 class="mb-5">La ubicación del consultorio se muestra en el mapa</h3>
+<div class="container mapa-perfil">
+    <div id="mapaPerfil"
+    data-controller="map-show"
+    data-map-show-marker-value="<%= @marker.to_json %>"
+    data-map-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
+</div>

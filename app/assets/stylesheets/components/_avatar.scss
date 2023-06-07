@@ -284,8 +284,100 @@ div.unHeader a:visited {
 
 .usernameScore {
   display: flex;
+  margin-bottom: 0;
 }
 
-#calificacion {
-  margin-left: 20px;
+.rating-stars {
+  padding: 0 !important;
+  margin-bottom: 12px !important;
+}
+
+.rating-stars li {
+  display: inline;
+  color: #e6b400;
+  font-size: 1.5rem;
+}
+.rating-stars p {
+  display: inline;
+  margin-left: 5px; /* Ajusta el margen según tus necesidades */
+}
+
+.tableScoreTitle {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d7e8ea;
+  color: #4fa7b1;
+  font-size: 0.9rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.comments {
+  height: 300px;
+  overflow-y: auto;
+  margin-top: 35px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 20px 50px;
+  margin-bottom: 35px;
+}
+
+@media only screen and(max-width: 768px) {
+  .comments {
+    height: 400px;
+    overflow-y: auto;
+    margin-top: 35px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 20px 10px;
+    margin-bottom: 35px;
+  }
+}
+
+.tableScoreContent {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#totalReviews {
+  font-size: 3rem;
+  color: #3f3844;
+}
+
+.userCommentIcon {
+  font-size: 2.5rem;
+  color: #76ba1b;
+}
+.comment p {
+  line-height: 10px;
+}
+
+.comment p.userReviewName {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #3f3844;
+}
+
+.comment p.userReviewComment {
+  font-size: 1rem;
+  color: #3f3844;
+}
+
+#botonComentario {
+  padding: 12px 24px;
+  background-color: #ee7784;
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+#botonComentario:hover {
+  padding: 12px 30px;
 }

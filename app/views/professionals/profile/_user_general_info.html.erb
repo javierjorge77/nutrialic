@@ -1,0 +1,57 @@
+<div class="userGeneralInfo">
+    <div class="avatar-bordered"><img src="<%= @professional.photo.url%>"/></div>
+    <h1><%= "#{@professional.user.name} #{@professional.user.lastname}"%> </h1>
+    <div class="text-center">
+        <ul class="rating-stars">
+            <li><i class="far fa-star"></i></li>
+            <li><i class="far fa-star"></i></li>
+            <li><i class="far fa-star"></i></li>
+            <li><i class="far fa-star"></i></li>
+            <li><i class="far fa-star"></i></li>
+            <% if @reviews %>
+                <p>(<%= @reviews.length %>)</p> 
+            <% else %>
+                <p>(0)</p> 
+            <% end %>
+        </ul>
+    </div>
+    <div class="especialidad">
+        <h2> <%= @professional.branch %></h2>
+    </div>
+    <div class="info text-center">
+        <p class="info-detail-title"><strong> Ubicación Consultorio: </strong></p>
+        <p class="info-detail"><%= @professional.adress %></p>
+        <p class="info-detail-title" style="margin-top: 25px"><strong> Teléfono </strong></p>
+        <p class="info-detail"><%= @professional.user.phone %></p>
+        <p class="info-detail-title" style="margin-top: 25px"><strong> Email: </strong></p>
+        <p class="info-detail"> <%= @professional.user.email %></p>
+    </div>
+    <div class="info-prices">
+        <div class="row text-center">
+        <div class="col-6">
+            <p><strong> Primera Consulta:</strong></p>
+            <p class="price">$<%= @professional.first_cost %></p>
+        </div>
+        <div class="col-6">
+            <p><strong> Segunda Consulta: </strong></p>
+            <p class="price">$<%= @professional.follow_cost %></p></p>
+        </div>
+        </div>
+    </div>
+    <% if !@current_user.professional %>
+        <div class="buttonContainer">
+            <%= button_to new_professional_appointment_path(@professional), method: :get do%>
+                Agendar Cita <i class="fa-solid fa-pen"></i>
+            <%end%>
+        </div>
+    <% end %>
+    <%if @current_user.professional %>
+        <% if @professional.id == @current_user.professional.id%>
+        <div class="buttonContainer">
+            <%= button_to professional_appointments_path(@professional), method: :get do %>
+                Próximas citas <i class="fa-solid fa-calendar-days"></i>
+            <% end %>
+        </div>
+        <% end %>
+    <%end%>
+</div>

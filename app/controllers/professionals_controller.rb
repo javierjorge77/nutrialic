@@ -29,13 +29,16 @@ class ProfessionalsController < ApplicationController
     @current_user = current_user
     @professional = Professional.find(params[:id])
     @reviews = @professional.reviews
-    if @reviews.length > 0
+    if @reviews && @reviews.length > 0
       @total_score = 0
       @reviews.each do |review|
         @total_score += review.score 
       end
-      @final_score = @total_score / @reviews.length
+      @final_score = (@total_score / @reviews.length).round(1)
+    else 
+      @final_score = 0
     end
+
     @marker = {
       lat: @professional.latitude,
       lng: @professional.longitude
