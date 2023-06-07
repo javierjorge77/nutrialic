@@ -47,7 +47,7 @@
                 <div class="usernameScore">
                     <p class="userReviewName"><%= review.user.name %> <span style="margin-left: 20px"><%=review.score%> / 5.0</span> </p>
                 </div>
-                <p class="userReviewComment"> <%= review.comment %> </p>
+                <p class="userReviewComment" style="line-height: 20px"> <%= review.comment %> </p>
             </div>
         <% end %>
     <% else %>
@@ -56,7 +56,8 @@
         </div>
     <% end %>
     </div>
-    <div class="formContainer" style="padding: 50px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+    <div class="formAddCommentContainer">
+        <h5 class="mb-3">Agregar comentario del servicio</h5>
         <%= form_with(model: @review, url: review_path, method: :post, local: true) do |f| %>
         <%= f.fields_for :review, @review do |review_fields| %>
         <%= review_fields.hidden_field :professional_id, value: @professional.id %>
