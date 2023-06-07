@@ -14,24 +14,6 @@
         <p>Felicitaciones por comenzar este viaje junto a nosotros. Cuenta con nuestro apoyo para lograr tus objetivos y mantente enfocado en tus metas!</p>
     </div>
   </div>
-  <div class="container">
-<% unless current_user.appointments.empty? %>
-  <h2 style="color: black; margin-top: 50px; margin-bottom: 50px;" class="text-center">Consultas pendientes:</h2>
-  <% current_user.appointments.each do |appointment| %>
-    <div class="card-product" style="margin-top:16px">
-      <img src="<%= appointment.professional.photo.url%>"/>
-      <div class="card-product-infos">
-
-        <h2><%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-        <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
-        <p><strong>Fecha:</strong> <span class="fecha-element"><%= appointment.date %></span> </p>
-        <p><strong>Hora:</strong> <span class="hora-element"><%= appointment.time%></span> </p>
-        <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
-      </div>
-    </div>
-  <% end %>
-<% end %>
-</div>
 <% else %>
     <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
       <div class="container">
@@ -54,29 +36,3 @@
 <div class="container boton text-center" id="contenedorBotomHome">
   <button class="btn btn-flat" id="botonHome"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function(){
-    let fechaElements = document.querySelectorAll(".fecha-element");
-    let horaElements = document.querySelectorAll(".hora-element");
-    // Recorrer cada elemento y formatear fecha y hora
-   fechaElements.forEach(function(fechaElement) {
-  var fechaValue = fechaElement.innerText;
-  var fechaUTC = new Date(fechaValue);
-  var fechaLocal = new Date(fechaUTC.getTime() + fechaUTC.getTimezoneOffset() * 60000);
-  var fechaFormateada = fechaLocal.toLocaleDateString("es-ES", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric"
-  });
-  fechaElement.innerText = fechaFormateada;
-});
-
-    horaElements.forEach(function(horaElement) {
-      var horaValue = horaElement.innerText;
-      var horaCorrecta = horaValue.substring(11, 19)
-      horaElement.innerText = horaCorrecta;
-      console.log(horaCorrecta)
-    });
-  })
-</script>

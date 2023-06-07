@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import DateAndTimeController from "./date_and_time_controller"
+application.register("date-and-time", DateAndTimeController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 

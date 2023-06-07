@@ -4,6 +4,12 @@ require 'sendgrid-ruby'
 include SendGrid
 
 class AppointmentsController < ApplicationController
+
+  def show
+        
+  end
+  
+
   def new
     @appointment = Appointment.new
     @professional = Professional.find(params[:professional_id])
