@@ -12,7 +12,7 @@ class ProfessionalsController < ApplicationController
     current_user.nutritionist = true
     current_user.save
 
-    redirect_to professional_path(@professional)
+    redirect_to nutriologos_path(@professional)
   end
 
   def index
@@ -53,7 +53,7 @@ class ProfessionalsController < ApplicationController
   def update
     @professional = Professional.find(params[:id])
     @professional.update(professional_params) # Will raise
-    redirect_to professionals_path, status: :see_other
+    redirect_to nutriologos_path, status: :see_other
   end
 
   def destroy

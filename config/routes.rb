@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   resources :professionals do
     resources :appointments, only: [:new, :create, :index]
+    member do
+      get ':name', action: :show, as: ''
+    end
   end
   resources :users, only: [:show]
   post 'review', to: 'reviews#create'
