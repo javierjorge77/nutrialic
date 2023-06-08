@@ -2,7 +2,7 @@
     <% if user_signed_in? %>
         <% unless current_user.appointments.empty? %>
                 <div class="row rowCitas">
-                    <div class="col col-sm-12 col-md-6">
+                    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6">
                         <h2 class="citasSubTitle text-center">Pendientes por aprobar</h2>
                         <% current_user.appointments.each do |appointment| %>
                             <% if !appointment.aprobado %>
@@ -21,7 +21,7 @@
                             <% end %>
                         <% end %>    
                     </div> 
-                    <div class="col col-sm-12 col-md-6">
+                    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6">
                         <h2 class="citasSubTitle text-center">Aprobadas</h2>
                         <% current_user.appointments.each do |appointment| %>
                             <% if appointment.aprobado %>
