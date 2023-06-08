@@ -1,37 +1,40 @@
 <div class="container" data-controller="date-and-time" style="width: 90%">
     <% if user_signed_in? %>
         <% unless current_user.appointments.empty? %>
-            <h2 style="color: black; margin-top: 50px; margin-bottom: 50px;" class="text-center">Consultas</h2>
-                <div class="row">
+                <div class="row rowCitas">
                     <div class="col">
-                        <h2>Pendientes</h2>
+                        <h2 class="citasSubTitle text-center">Pendientes por aprobar</h2>
                         <% current_user.appointments.each do |appointment| %>
                             <% if !appointment.aprobado %>
-                                <div class="card-product" style="margin-top:16px">
-                                    <img src="<%= appointment.professional.photo.url%>"/>
+                                <div class="card-product card-product-pendiente">
                                     <div class="card-product-infos">
-                                        <h2><%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
+                                        <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
                                         <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
                                         <p><strong>Fecha:</strong> <span class="fecha-element" data-date-and-time-target="fechaelement"><%= appointment.date %></span> </p>
                                         <p><strong>Hora:</strong> <span class="hora-element" data-date-and-time-target="horaelement"><%= appointment.time%></span> </p>
                                         <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
+                                    </div>
+                                    <div class="imgCardContainer">
+                                        <img src="<%= appointment.professional.photo.url%>"/>
                                     </div>
                                 </div>
                             <% end %>
                         <% end %>    
                     </div> 
                     <div class="col">
+                        <h2 class="citasSubTitle text-center">Aprobadas</h2>
                         <% current_user.appointments.each do |appointment| %>
                             <% if appointment.aprobado %>
-                                <h2>Aprobada</h2>
-                                <div class="card-product" style="margin-top:16px">
-                                    <img src="<%= appointment.professional.photo.url%>"/>
+                                <div class="card-product card-product-aprobado" style="margin-top:16px">
                                     <div class="card-product-infos">
-                                        <h2><%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
+                                        <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
                                         <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
                                         <p><strong>Fecha:</strong> <span class="fecha-element" data-date-and-time-target="fechaelement"><%= appointment.date %></span> </p>
                                         <p><strong>Hora:</strong> <span class="hora-element" data-date-and-time-target="horaelement"><%= appointment.time%></span> </p>
                                         <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
+                                    </div>
+                                    <div class="imgCardContainer">
+                                        <img src="<%= appointment.professional.photo.url%>"/>
                                     </div>
                                 </div>
                             <% end %>
