@@ -1,6 +1,6 @@
 <h1>Perfil Profesional: <%= "#{@professional.user.name} #{@professional.user.lastname}" %> </h1>
 
-<%= simple_form_for( @professional,
+<%= simple_form_for( @professional, url:  professional_path(@professional.id), method: :patch,
   data: {turbo: false}) do |f| %>
 
   <%= f.error_notification %>
@@ -49,6 +49,6 @@
 <br>
 
 <%= link_to "Borrar Cuenta Profesional",
-    professional_path(@professional),
+    new_professional_path(@professional.id),
     data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
 %>

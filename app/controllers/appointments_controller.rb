@@ -4,6 +4,7 @@ require 'sendgrid-ruby'
 include SendGrid
 
 class AppointmentsController < ApplicationController
+  before_action :authenticate_user!
 
   def show
         
@@ -32,8 +33,29 @@ class AppointmentsController < ApplicationController
   end
 
   def index
-    @professional = Professional.find(params[:professional_id])
+    if current_user.nutritionist?
+      if current_user.professional.id == params[:professional_id].to_i
+        @professional = Professional.find(params[:professional_id])
+      else
+        flash[:notice] = "No tienes permiso de acceder a las citas de otro profesional"
+        redirect_to root_path
+      end
+    else
+      flash[:notice] = "No tienes permiso de acceder a esta pagina"
+      redirect_to root_path
+    end
   end
+
+  def update
+    @appointment = Appointment.find(params[:id])
+    if @appointment.update(aprobado: params[:appointment][:aprobado])
+      flash[:notice] = "La cita ha sido aprobada por ti"
+      redirect_to root_path
+    else
+      render :edit
+    end
+  end
+  
 
 
 private

@@ -4,11 +4,14 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :professionals do
-    resources :appointments, only: [:new, :create, :index]
+    resources :appointments, only: [:new, :create, :index, :update]
     member do
-      get ':name', action: :show, as: ''
+      get 'edit', action: :edit
+      patch 'update', action: :update
+      get ':name', action: :show, as: 'show_by_name'
     end
   end
+
   resources :users, only: [:show]
   post 'review', to: 'reviews#create'
 

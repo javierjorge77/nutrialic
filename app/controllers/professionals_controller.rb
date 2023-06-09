@@ -53,7 +53,7 @@ class ProfessionalsController < ApplicationController
   def update
     @professional = Professional.find(params[:id])
     @professional.update(professional_params) # Will raise
-    redirect_to nutriologos_path, status: :see_other
+    redirect_to professionals_path, status: :see_other
   end
 
   def destroy

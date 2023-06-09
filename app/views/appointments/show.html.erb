@@ -1,46 +1,83 @@
-<div class="container" data-controller="date-and-time" style="width: 90%">
+<div class="container" data-controller="date-and-time" style="width: 90%; height: 100%">
     <% if user_signed_in? %>
         <% unless current_user.appointments.empty? %>
-                <div class="row rowCitas">
-                    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6">
-                        <h2 class="citasSubTitle text-center">Pendientes por aprobar</h2>
-                        <% current_user.appointments.each do |appointment| %>
-                            <% if !appointment.aprobado %>
-                                <div class="card-product card-product-pendiente">
-                                    <div class="card-product-infos">
-                                        <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-                                        <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
-                                        <p><strong>Fecha:</strong> <span class="fecha-element" data-date-and-time-target="fechaelement"><%= appointment.date %></span> </p>
-                                        <p><strong>Hora:</strong> <span class="hora-element" data-date-and-time-target="horaelement"><%= appointment.time%></span> </p>
-                                        <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
-                                    </div>
-                                    <div class="imgCardContainer">
-                                        <img src="<%= appointment.professional.photo.url%>"/>
-                                    </div>
+            <div class="row rowCitas">
+                <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <h2 class="citasSubTitle text-center">Pendientes por aprobar</h2>
+                    <% current_user.appointments.each do |appointment| %>
+                        <% if !appointment.aprobado %>
+                             <div class="card-product card-product-pendiente">
+                                <div class="card-product-infos">
+                                    <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
+                                    <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
+                                    <p><strong>Fecha:</strong> <span class="fecha-element" data-date-and-time-target="fechaelement"><%= appointment.date %></span> </p>
+                                    <p><strong>Hora:</strong> <span class="hora-element" data-date-and-time-target="horaelement"><%= appointment.time%></span> </p>
+                                    <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
                                 </div>
-                            <% end %>
-                        <% end %>    
-                    </div> 
-                    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6">
-                        <h2 class="citasSubTitle text-center">Aprobadas</h2>
-                        <% current_user.appointments.each do |appointment| %>
-                            <% if appointment.aprobado %>
-                                <div class="card-product card-product-aprobado" style="margin-top:16px">
-                                    <div class="card-product-infos">
-                                        <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-                                        <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
-                                        <p><strong>Fecha:</strong> <span class="fecha-element" data-date-and-time-target="fechaelement"><%= appointment.date %></span> </p>
-                                        <p><strong>Hora:</strong> <span class="hora-element" data-date-and-time-target="horaelement"><%= appointment.time%></span> </p>
-                                        <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
-                                    </div>
-                                    <div class="imgCardContainer">
-                                        <img src="<%= appointment.professional.photo.url%>"/>
-                                    </div>
+                                <div class="imgCardContainer">
+                                    <img src="<%= appointment.professional.photo.url%>"/>
                                 </div>
-                            <% end %>
-                        <% end %>      
-                    </div>    
+                            </div>  
+                        <%else%>
+                            <div style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+                                <div style="width: 100%; padding: 50px 50px 0px 50px; text-align: center;">
+                                    <h3>Que bien! todas tus citas han sido aprobadas</h3>
+                                </div>
+                                <div style="width: 100%; padding: 50px" class="text-center">
+                                <%= image_tag('happyNews.svg', alt: 'Example SVG', id: "searchsvg", style: "width: 70%") %>
+                                </div>
+                            </div>
+                        <% end %>
+                    <% end %>    
+                </div> 
+                <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <h2 class="citasSubTitle text-center">Aprobadas</h2>
+                    <% current_user.appointments.each do |appointment| %>
+                        <% if appointment.aprobado %>
+                            <div class="card-product card-product-aprobado" style="margin-top:16px">
+                                <div class="card-product-infos">
+                                    <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
+                                    <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
+                                    <p><strong>Fecha:</strong> <span class="fecha-element" data-date-and-time-target="fechaelement"><%= appointment.date %></span> </p>
+                                    <p><strong>Hora:</strong> <span class="hora-element" data-date-and-time-target="horaelement"><%= appointment.time%></span> </p>
+                                    <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
+                                </div>
+                                <div class="imgCardContainer">
+                                    <img src="<%= appointment.professional.photo.url%>"/>
+                                </div>
+                            </div>
+                        <%else%>
+                            <div style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+                                <div style="width: 100%; padding: 50px 50px 0px 50px; text-align: center;">
+                                    <h3>Aún no tienes citas aprobadas</h3>
+                                </div>
+                                <div style="width: 100%; padding: 50px" class="text-center">
+                                <%= image_tag('noData.svg', alt: 'Example SVG', id: "searchsvg", style: "width: 70%") %>
+                                </div>
+                            </div>
+                        <% end %>
+                    <% end %>      
+                </div>    
+            </div>
+        <% else %>
+           <div class="container" id="noAppointments">
+                <div style="height: 80%">
+                <div class="row" id="rowNoAppointments">
+                    <div class="col col-xs-12 col-sm-12 col-md-6" style="display: flex; align-items: center; flex: initial">
+                        <div style="padding: 40px">
+                        <h2>Vaya, no hemos encontrado ninguna cita!</h2>
+                        <h4>No pierdas la oportunidad de agendar una con uno de nuestros nutriologos.</h4>
+                        <button class="btn btn-flat"> <%= link_to "Ver nutriologos", professionals_path%> </button>
+                        </div>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-6" style="display: flex; align-items: center; justify-content: center; flex: initial">
+                        <div style="width: 100%; padding: 40px">
+                            <%= image_tag('byTheRoad.svg', alt: 'Example SVG', id: "searchsvg", style: "width: 100%") %>
+                        </div>
+                    </div>
+                </div>            
                 </div>
+           </div> 
         <% end %>
     <% end %>
 </div>
