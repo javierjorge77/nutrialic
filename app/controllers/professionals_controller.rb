@@ -16,7 +16,11 @@ class ProfessionalsController < ApplicationController
   end
 
   def index
-    @professionals= Professional.all
+    if params[:search].present?
+      @professionals = Professional.search_by_fields(params[:search])
+    else
+      @professionals = Professional.all
+    end
     @markers = @professionals.geocoded.map do |professional|
       {
         lat: professional.latitude,

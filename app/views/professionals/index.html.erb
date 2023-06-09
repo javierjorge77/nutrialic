@@ -3,15 +3,19 @@
 
 <h2> <%= @professional %>  </h2>
 
+<%= form_tag professionals_path, method: :get do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Buscar profesionales" %>
+  <%= submit_tag "Buscar" %>
+<% end %>
+
 <div class="show-map">
   <div class="cards">
       <% @professionals.each do |professional|  %>
 
     <div class="card-trip">
 
-        <%= link_to cl_image_tag(professional.photo.key.to_s,
-        width: 400, height: 300, :gravity=>"face", crop: :fill), show_by_name_professional_path( id: professional.id, name: "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}")  %>
-
+      <%= link_to cl_image_tag(professional.photo.key.to_s,
+      width: 400, height: 300, :gravity=>"face", crop: :fill), show_by_name_professional_path( id: professional.id, name: "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}")  %>
       <div class="card-trip-infos">
         <div>
           <% @rating=5 %>
@@ -27,17 +31,13 @@
 
         </div>
         <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
-
-
       </div>
-
     </div>
     <% end %>
   </div>
-   <div class="mapa"
-    data-controller="map"
-    data-map-markers-value="<%= @markers.to_json %>"
-    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-
-    </div>
+  <div class="mapa"
+  data-controller="map"
+  data-map-markers-value="<%= @markers.to_json %>"
+  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 </div>
