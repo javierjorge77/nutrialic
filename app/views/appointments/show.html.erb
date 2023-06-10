@@ -17,18 +17,21 @@
                                 <div class="imgCardContainer">
                                     <img src="<%= appointment.professional.photo.url%>"/>
                                 </div>
-                            </div>  
-                        <%else%>
+                            </div>                             
+                        <% end %>
+                    <% end %>    
+                    <% if current_user.appointments.none? { |appointment| !appointment.aprobado } %>
+                        <div style="width: 100%; height: 100%; padding: 0 50px 50px 50px">
                             <div style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
                                 <div style="width: 100%; padding: 50px 50px 0px 50px; text-align: center;">
-                                    <h3>Que bien! todas tus citas han sido aprobadas</h3>
+                                <h3>¡Qué bien! Todas tus citas han sido aprobadas</h3>
                                 </div>
                                 <div style="width: 100%; padding: 50px" class="text-center">
                                 <%= image_tag('happyNews.svg', alt: 'Example SVG', id: "searchsvg", style: "width: 70%") %>
                                 </div>
                             </div>
-                        <% end %>
-                    <% end %>    
+                        </div>
+                    <% end %>
                 </div> 
                 <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <h2 class="citasSubTitle text-center">Aprobadas</h2>
@@ -46,7 +49,10 @@
                                     <img src="<%= appointment.professional.photo.url%>"/>
                                 </div>
                             </div>
-                        <%else%>
+                        <% end %>
+                    <% end %>      
+                    <% if current_user.appointments.none? { |appointment| appointment.aprobado } %>
+                        <div style="width: 100%; height: 100%; padding: 0 50px 50px 50px">
                             <div style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
                                 <div style="width: 100%; padding: 50px 50px 0px 50px; text-align: center;">
                                     <h3>Aún no tienes citas aprobadas</h3>
@@ -55,8 +61,8 @@
                                 <%= image_tag('noData.svg', alt: 'Example SVG', id: "searchsvg", style: "width: 70%") %>
                                 </div>
                             </div>
-                        <% end %>
-                    <% end %>      
+                        </div>
+                    <% end %>
                 </div>    
             </div>
         <% else %>
