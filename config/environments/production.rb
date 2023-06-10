@@ -42,6 +42,7 @@ config.action_mailer.default_url_options = { host: "https://nutrialic.herokuapp.
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :cloudinary
+  config.hosts << "www.nutrialic.com" << "nutrialic.herokuapp.com" << "nutrialic.com"
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
