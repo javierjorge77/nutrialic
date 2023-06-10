@@ -4,53 +4,68 @@
 <div class="container consultas"  data-controller="date-and-time">
   
   <% if @professional.appointments.any? %>
-    <% @professional.appointments.each do |appointment| %>
+
       <div class="row rowCitas">
+
         <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 col-citas-nutri">
-          <% if !appointment.aprobado %>
-            <h2 class="text-center">Pendientes:</h2>
-            <div class="card-product" style="margin-top:16px">
-              <img src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%"/>
-              <div class="card-product-infos">
-                <h2> <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-                <span> <p> <strong>Paciente:</strong> :<%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
-                <p> <strong>Direccion:</strong><%= appointment.professional.adress %></p>
-                <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
-                <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
-                <%= form_with(model: appointment, url: professional_appointment_path(appointment.professional_id, appointment.id), method: :patch, local: true) do |f| %>
-                  <%= f.hidden_field :aprobado, value: true %>
-                  <%= f.submit 'Confirmar', class: 'btn btn-primary' %>
-                <% end %>
+          <% @professional.appointments.each do |appointment| %>
+            <% if !appointment.aprobado %>
+              <h2 class="text-center">Pendientes:</h2>
+              <div class="card-product" style="margin-top:16px">
+                <img src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%"  style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
+                <div class="card-product-infos">
+                  <h2> <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
+                  <span> <p> <strong>Paciente:</strong> :<%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
+                  <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
+                  <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
+                  <%= form_with(model: appointment, url: professional_appointment_path(appointment.professional_id, appointment.id), method: :patch, local: true) do |f| %>
+                    <%= f.hidden_field :aprobado, value: true %>
+                    <%= f.submit 'Confirmar', class: 'btn btn-primary' %>
+                  <% end %>
+                </div>
               </div>
-            </div>
-          <% else %>
+            <% end %>
+          <% end %>  
+
+          <% if @professional.appointments.none? { |appointment| !appointment.aprobado } %>
             <div id="nutSinCitasPendsMsjContainer">
               <h2 id="sinCitasPendientes">No tienes citas pendientes por aprobar <i class="fa-regular fa-face-smile-wink"></i></h2>
               <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
             </div>
           <% end %>
+
         </div>
+
+        
+
         <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 col-citas-nutri">
-          <% if appointment.aprobado %>
-            <h2 class="text-center">Aprobadas:</h2>
-            <div class="card-product" style="margin-top:16px">
-              <img id="imgAvatarEjemplo" src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%" style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
-              <div class="card-product-infos">
-                <h2> Hola <%= " #{appointment.professional.user.name}" %>, te recordamos que aprobaste una cita con</h2>
-                <span> <p> <strong>Paciente:</strong><%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
-                <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
-                <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
-              </div>
+          <% @professional.appointments.each do |appointment| %>
+            <% if appointment.aprobado %>
+              <h2 class="text-center">Aprobadas:</h2>
+              <div class="card-product" style="margin-top:16px">
+                <img id="imgAvatarEjemplo" src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%" style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
+                <div class="card-product-infos">
+                  <h2> Hola <%= " #{appointment.professional.user.name}" %>, te recordamos que aprobaste una cita con</h2>
+                  <span> <p> <strong>Paciente:</strong><%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
+                  <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
+                  <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
+                </div>
+              </div>            
+            <% end %>
+          <%end%>
+
+          <% if @professional.appointments.none? { |appointment| appointment.aprobado } %>
+            <div id="nutSinCitasPendsMsjContainer" style="background-color: rgba(0, 255, 30, 0.167)">
+              <h2 id="sinCitasPendientes" style="color: rgba(20, 80, 30)">No has aprobado ninguna cita <i class="fa-regular fa-face-smile-wink"></i></h2>
+              <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
             </div>
-          <% else %>
-              <div id="nutSinCitasPendsMsjContainer" style="background-color: rgba(0, 255, 30, 0.167)">
-                <h2 id="sinCitasPendientes" style="color: rgba(20, 80, 30)">No has aprobado ninguna cita <i class="fa-regular fa-face-smile-wink"></i></h2>
-                <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
-              </div>
           <% end %>
+
         </div>
+
+        
       </div>   
-    <% end %>
+
   <% else %>
     <h2>No tienes citas confirmadas o por confirmar!</h2>
   <% end %>
