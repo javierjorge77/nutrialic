@@ -8,12 +8,13 @@
       <div class="row rowCitas">
 
         <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 col-citas-nutri">
+          <h2 class="text-center">Pendientes:</h2>
           <% @professional.appointments.each do |appointment| %>
             <% if !appointment.aprobado %>
-              <h2 class="text-center">Pendientes:</h2>
               <div class="card-product" style="margin-top:16px">
-                <img src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%"  style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
-                <div class="card-product-infos">
+                  <div class="imgCardContainer">
+                    <img src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%" style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
+                  </div>                <div class="card-product-infos">
                   <h2> <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
                   <span> <p> <strong>Paciente:</strong> :<%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
                   <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
@@ -39,11 +40,13 @@
         
 
         <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 col-citas-nutri">
+          <h2 class="text-center">Aprobadas:</h2>
           <% @professional.appointments.each do |appointment| %>
             <% if appointment.aprobado %>
-              <h2 class="text-center">Aprobadas:</h2>
               <div class="card-product" style="margin-top:16px">
-                <img id="imgAvatarEjemplo" src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%" style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
+                <div class="imgCardContainer">
+                  <img src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%" style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
+                </div>
                 <div class="card-product-infos">
                   <h2> Hola <%= " #{appointment.professional.user.name}" %>, te recordamos que aprobaste una cita con</h2>
                   <span> <p> <strong>Paciente:</strong><%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
