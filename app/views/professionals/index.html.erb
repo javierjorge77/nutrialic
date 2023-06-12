@@ -15,33 +15,29 @@
     <div class="card-trip">
 
       <%= link_to cl_image_tag(professional.photo.key.to_s,
-      width: 400, height: 300, :gravity=>"face", crop: :fill), show_by_name_professional_path( id: professional.id, name: "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}")  %>
+      width: 350, height: 280, :gravity=>"face", crop: :fill), show_by_name_professional_path( id: professional.id, name: "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}")  %>
       <div class="card-trip-infos">
         <div>
-          <% @rating=5 %>
-          <h2> Rating:
-          <% @rating.times do %>
-              <i class="fa-regular fa-star "></i>
-            <% end %></h2>
-
-          <h3><%= link_to "#{professional.user.name} #{professional.user.lastname}",  show_by_name_professional_path( id: professional.id, name:  "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}") %></h3>
-          <h2> <%= professional.branch %></h2>
-          <h6> Cédula: <%= professional.diploma %></h6>
-          <h6 class="scoreValue"> <%= professional.reviews.average(:score).to_f.round(1) %> </h6>
+        <h6 class="scoreValue" style="display: none"> <%= professional.reviews.average(:score).to_f.round(1) %> </h6>
           <ul class="rating-stars">
+            <p class="pTagCard"> Rating: </p>
             <li><i class="far fa-star"></i></li>
             <li><i class="far fa-star"></i></li>
             <li><i class="far fa-star"></i></li>
             <li><i class="far fa-star"></i></li>
             <li><i class="far fa-star"></i></li>
             <% if professional.reviews %>
-                <p>(<%= professional.reviews.length %>)</p> 
+              <p class="pTagCard">(<%= professional.reviews.length %>)</p> 
             <% else %>
-                <p>(0)</p> 
+              <p class="pTagCard">(0)</p> 
             <% end %>
           </ul>
+          <div class="nameContainer">
+            <h3><%= link_to "#{professional.user.name} #{professional.user.lastname}",  show_by_name_professional_path( id: professional.id, name:  "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}") %></h3>
+          </div>
+          <p> <%= professional.branch %></p>
+          <h6> Cédula: <%= professional.diploma %></h6>
           <p> <%= professional.adress %></p>
-
         </div>
         <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
       </div>
