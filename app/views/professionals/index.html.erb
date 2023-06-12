@@ -27,6 +27,19 @@
           <h3><%= link_to "#{professional.user.name} #{professional.user.lastname}",  show_by_name_professional_path( id: professional.id, name:  "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}") %></h3>
           <h2> <%= professional.branch %></h2>
           <h6> Cédula: <%= professional.diploma %></h6>
+          <h6 class="scoreValue"> <%= professional.reviews.average(:score).to_f.round(1) %> </h6>
+          <ul class="rating-stars">
+            <li><i class="far fa-star"></i></li>
+            <li><i class="far fa-star"></i></li>
+            <li><i class="far fa-star"></i></li>
+            <li><i class="far fa-star"></i></li>
+            <li><i class="far fa-star"></i></li>
+            <% if professional.reviews %>
+                <p>(<%= professional.reviews.length %>)</p> 
+            <% else %>
+                <p>(0)</p> 
+            <% end %>
+          </ul>
           <p> <%= professional.adress %></p>
 
         </div>
@@ -41,3 +54,29 @@
   data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+  $('.rating-stars').each(function() {
+    let scoreElement = $(this).prev('.scoreValue'); 
+    let scoreText = scoreElement.text();
+    let scoreValue = parseFloat(scoreText);
+    let rating = scoreValue; 
+
+    let stars = $(this).find('li');
+ 
+    let fullStars = Math.floor(rating);
+    let partialStar = rating - fullStars;
+
+    stars.each(function(index) {
+      if (index < fullStars) {
+        $(this).html('<i class="fas fa-star"></i>'); 
+      } else if (index === fullStars && partialStar > 0) {
+        $(this).html('<i class="fas fa-star-half-alt"></i>'); 
+      } else {
+        $(this).html('<i class="far fa-star"></i>'); 
+      }
+    });
+  });
+});
+</script>

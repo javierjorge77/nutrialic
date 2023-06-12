@@ -17,9 +17,9 @@ class ProfessionalsController < ApplicationController
 
   def index
     if params[:search].present?
-      @professionals = Professional.search_by_fields(params[:search])
+      @professionals = Professional.search_by_fields(params[:search]).includes(:reviews)
     else
-      @professionals = Professional.all
+      @professionals = Professional.all.includes(:reviews)
     end
     @markers = @professionals.geocoded.map do |professional|
       {
@@ -34,11 +34,7 @@ class ProfessionalsController < ApplicationController
     @professional = Professional.find(params[:id])
     @reviews = @professional.reviews
     if @reviews && @reviews.length > 0
-      @total_score = 0
-      @reviews.each do |review|
-        @total_score += review.score 
-      end
-      @final_score = (@total_score / @reviews.length).round(1)
+      @final_score = @reviews.average(:score).to_f.round(1)
     else 
       @final_score = 0
     end

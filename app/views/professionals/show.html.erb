@@ -46,22 +46,20 @@ $(document).ready(function() {
     let scoreElement = document.getElementById("scoreValue");
     let scoreText = scoreElement.textContent
     let scoreValue = parseFloat(scoreText);
-    let rating = scoreValue; // Valor float obtenido desde el backend o cualquier fuente de datos en el front-end
+    let rating = scoreValue; 
 
     
     let stars = $(this).find('li');
-    // Calcula el número de estrellas llenas y parciales
     let fullStars = Math.floor(rating);
     let partialStar = rating - fullStars;
 
-    // Establece las clases adecuadas en las estrellas
     stars.each(function(index) {
       if (index < fullStars) {
-        $(this).html('<i class="fas fa-star"></i>'); // Estrella llena
+        $(this).html('<i class="fas fa-star"></i>'); 
       } else if (index === fullStars && partialStar > 0) {
-        $(this).html('<i class="fas fa-star-half-alt"></i>'); // Estrella parcial
+        $(this).html('<i class="fas fa-star-half-alt"></i>'); 
       } else {
-        $(this).html('<i class="far fa-star"></i>'); // Estrella vacía
+        $(this).html('<i class="far fa-star"></i>'); 
       }
     });
   })
