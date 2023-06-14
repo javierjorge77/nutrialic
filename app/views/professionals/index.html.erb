@@ -1,11 +1,13 @@
-<h1 style="margin:16px">Nutritiólogos  cerca:</h1>
+<h1 id="professionistIndexTitle">Nutritiólogos verificados</h1>
 
 
 <h2> <%= @professional %>  </h2>
 
 <%= form_tag professionals_path, method: :get do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Buscar profesionales" %>
-  <%= submit_tag "Buscar" %>
+  <div class="input-group mb-3 mt-4" id="buscadorContainer">
+    <%= text_field_tag :search, params[:search], placeholder: "Buscar profesionales", class: "form-control", style: "border-top-left-radius: 20px; border-bottom-left-radius: 20px"%>
+    <%= submit_tag "Buscar", class: "btn btn-light", style: "border-top-right-radius: 20px; border-bottom-right-radius: 20px; background-color: #ee7784; border-color: #ee7784"%>
+  </div>  
 <% end %>
 
 <div class="show-map">
@@ -20,23 +22,25 @@
         <div>
         <h6 class="scoreValue" style="display: none"> <%= professional.reviews.average(:score).to_f.round(1) %> </h6>
           <ul class="rating-stars">
-            <p class="pTagCard"> Rating: </p>
+            <p class="pTagCardRating"> Rating: </p>
             <li><i class="far fa-star"></i></li>
             <li><i class="far fa-star"></i></li>
             <li><i class="far fa-star"></i></li>
             <li><i class="far fa-star"></i></li>
             <li><i class="far fa-star"></i></li>
             <% if professional.reviews %>
-              <p class="pTagCard">(<%= professional.reviews.length %>)</p> 
+              <p class="pTagCardRating">(<%= professional.reviews.length %>)</p> 
             <% else %>
-              <p class="pTagCard">(0)</p> 
+              <p class="pTagCardRating">(0)</p> 
             <% end %>
           </ul>
           <div class="nameContainer">
             <h3><%= link_to "#{professional.user.name} #{professional.user.lastname}",  show_by_name_professional_path( id: professional.id, name:  "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}") %></h3>
           </div>
-          <p> <%= professional.branch %></p>
-          <h6> Cédula: <%= professional.diploma %></h6>
+          <div class="branchContainer">
+            <p> Especialidad(es): <%= professional.branch %></p>
+          </div>
+          <h6 class="cedulaTag"> Cédula: <%= professional.diploma %></h6>
           <p> <%= professional.adress %></p>
         </div>
         <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
@@ -44,11 +48,14 @@
     </div>
     <% end %>
   </div>
-  <div class="mapa"
-  data-controller="map"
-  data-map-markers-value="<%= @markers.to_json %>"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-  </div>
+
+    <div class="mapa"
+    style="margin-top: 30px; margin-right: 30px; width: 90%; margin-bottom: 30px"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
+
 </div>
 
 <script>
