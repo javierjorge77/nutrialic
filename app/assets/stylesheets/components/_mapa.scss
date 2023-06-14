@@ -1,4 +1,4 @@
-.mapa{
+.mapa {
   width: 700px;
   margin-left: 70px;
   height: 100vh;
@@ -11,4 +11,16 @@
 
 .container .map {
   margin-top: 30px;
+}
+
+#mapaIndex {
+  margin: 30px;
+  width: 90%;
+  height: 100vh;
+}
+
+@media only screen and(max-width: 450px) {
+  #mapaIndex {
+    display: none;
+  }
 }

@@ -13,9 +13,7 @@
 <div class="show-map">
   <div class="cards">
       <% @professionals.each do |professional|  %>
-
     <div class="card-trip">
-
       <%= link_to cl_image_tag(professional.photo.key.to_s,
       width: 350, height: 280, :gravity=>"face", crop: :fill), show_by_name_professional_path( id: professional.id, name: "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}")  %>
       <div class="card-trip-infos">
@@ -48,13 +46,14 @@
     </div>
     <% end %>
   </div>
+  <div class="mapa"
+  id="mapaIndex"
+  data-controller="map"
+  data-map-markers-value="<%= @markers.to_json %>"
+  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 
-    <div class="mapa"
-    style="margin-top: 30px; margin-right: 30px; width: 90%; margin-bottom: 30px"
-    data-controller="map"
-    data-map-markers-value="<%= @markers.to_json %>"
-    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-    </div>
+  
 
 </div>
 

@@ -1,4 +1,7 @@
 .show-map {
   display: flex;
   flex-direction: row;
+  overflow: hidden;
+  justify-content: center;
+  height: auto;
 }
