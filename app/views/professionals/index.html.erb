@@ -10,9 +10,15 @@
   </div>  
 <% end %>
 
+<nav id="paginacionNav">
+  <ul class="pagination">
+    <%== pagy_nav(@pagy) %>
+  </ul>
+</nav>
+
 <div class="show-map">
   <div class="cards">
-      <% @professionals.each do |professional|  %>
+    <% @professionals.each do |professional|  %>
     <div class="card-trip">
       <%= link_to cl_image_tag(professional.photo.key.to_s,
       width: 350, height: 280, :gravity=>"face", crop: :fill), show_by_name_professional_path( id: professional.id, name: "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}")  %>

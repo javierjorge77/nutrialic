@@ -17,9 +17,11 @@ class ProfessionalsController < ApplicationController
 
   def index
     if params[:search].present?
-      @professionals = Professional.search_by_fields(params[:search]).includes(:reviews)
+      #@professionals = Professional.search_by_fields(params[:search]).includes(:reviews)
+      @pagy, @professionals = pagy(Professional.search_by_fields(params[:search]).includes(:reviews), items: 6)
     else
-      @professionals = Professional.all.includes(:reviews)
+      #@professionals = Professional.all.includes(:reviews)
+      @pagy, @professionals = pagy(Professional.all.includes(:reviews), items: 6)
     end
     @markers = @professionals.geocoded.map do |professional|
       {
