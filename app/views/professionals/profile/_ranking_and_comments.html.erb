@@ -48,6 +48,11 @@
                     <p class="userReviewName"><%= review.user.name %> <span style="margin-left: 20px"><%=review.score%> / 5.0</span> </p>
                 </div>
                 <p class="userReviewComment" style="line-height: 20px"> <%= review.comment %> </p>
+                 <% if current_user && review.user == current_user %>
+                    <%= form_with(model: review, url: review_delete_path(review.id), method: :delete, local: true) do |f| %>
+                    <%= f.submit 'Eliminar', class: 'btn btn-primary' %>
+                    <% end %>
+                <% end %>
             </div>
         <% end %>
     <% else %>
@@ -75,3 +80,5 @@
         <% end %>
     </div>
 </div>
+
+

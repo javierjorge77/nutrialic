@@ -11,6 +11,31 @@ class ReviewsController < ApplicationController
         
     end
 
+    def destroy
+        @review = Review.find(params[:id])
+        if @review.destroy
+            flash[:notice] = "El comentario ha sido eliminado correctamente"
+            redirect_to root_path
+        else 
+            flash[:notice] = "A ocurrido un error al eliminar el comentario"
+            redirect_to root_path        
+        end
+        
+    end
+
+    def update
+        @review = Review.find(params[:id])
+        
+        if @review.update(review_params)
+            flash[:notice] = "El comentario ha sido actualizado correctamente"
+            redirect_to root_path
+        else 
+            flash[:notice] = "Ocurrió un error al actualizar el comentario"
+            redirect_to root_path        
+        end
+    end
+
+
     private 
 
     def review_params

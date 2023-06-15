@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   post 'review', to: 'reviews#create'
+  delete '/review/:id', to: 'reviews#destroy', as: 'review_delete'
+  patch '/review/:id', to: 'reviews#update', as: 'review_update'
 
   get 'appointments', to: 'appointments#show'
 
