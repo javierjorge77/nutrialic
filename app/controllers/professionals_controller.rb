@@ -65,7 +65,6 @@ class ProfessionalsController < ApplicationController
     current_user.save
     # No need for app/views/professionals/destroy.html.erb
     redirect_to professionals_path, status: :see_other
-
   end
 
 

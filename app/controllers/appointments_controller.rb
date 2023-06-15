@@ -56,8 +56,14 @@ class AppointmentsController < ApplicationController
     end
   end
   
-
-
+  def destroy
+    @professional = Professional.find(params[:professional_id])
+    @appointment = @professional.appointments.find(params[:id])
+    @appointment.destroy 
+    flash[:notice] = "La cita ha sido eliminada correctamente"
+    redirect_to root_path
+  end
+  
 private
 
   def appointment_params

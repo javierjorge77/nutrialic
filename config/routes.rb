@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :professionals do
-    resources :appointments, only: [:new, :create, :index, :update]
+    resources :appointments
     member do
       get 'edit', action: :edit
       patch 'update', action: :update

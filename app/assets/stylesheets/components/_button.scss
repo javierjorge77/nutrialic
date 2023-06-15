@@ -54,3 +54,57 @@
 #botonHome:hover {
   padding: 10px 35px 10px 35px;
 }
+
+#confirmAppointmentBtn {
+  background-color: #03c04a;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+#confirmAppointmentBtn:hover {
+  background-color: #006e2a;
+}
+
+#deleteAppointmentBtn {
+  background-color: #f42941;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+#deleteAppointmentBtn:hover {
+  background-color: #b12334;
+}
+
+#aceptarEliminacionCita {
+  background-color: rgb(17, 159, 17);
+  border: none;
+  border-radius: 7px;
+  color: white;
+  padding: 6px 13px 6px 13px;
+}
+
+#cancelarEliminacionCita {
+  background-color: red;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  padding: 6px 13px 6px 13px;
+}
+
+#confirmarAceptacionCita {
+  background-color: rgb(17, 159, 17);
+  border: none;
+  border-radius: 7px;
+  color: white;
+  padding: 6px 13px 6px 13px;
+}
+
+#cancelarAceptacionCita {
+  background-color: red;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  padding: 6px 13px 6px 13px;
+}

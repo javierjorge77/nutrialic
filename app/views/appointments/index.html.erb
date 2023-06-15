@@ -16,13 +16,23 @@
                     <img src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%" style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
                   </div>                <div class="card-product-infos">
                   <h2> <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-                  <span> <p> <strong>Paciente:</strong> :<%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
+                  <span> <p> <strong>Paciente:</strong><%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
                   <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
                   <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
-                  <%= form_with(model: appointment, url: professional_appointment_path(appointment.professional_id, appointment.id), method: :patch, local: true) do |f| %>
-                    <%= f.hidden_field :aprobado, value: true %>
-                    <%= f.submit 'Confirmar', class: 'btn btn-primary' %>
-                  <% end %>
+                  <div class="row mt-3" style="width: 100%">
+                    <div class="col-6">
+                      <%= form_with(model: appointment, url: professional_appointment_path(appointment.professional_id, appointment.id), method: :patch, local: true, id: "confirmAppointmentForm_#{appointment.id}") do |f| %>
+                        <%= f.hidden_field :aprobado, value: true %>
+                        <%= f.submit 'Confirmar', class: 'btn btn-primary', id: "confirmAppointmentBtn", onclick: "return mostrarConfirmacionCita(event, #{appointment.id});"%>
+                      <% end %>
+                    </div>
+                    <div class="col-6">
+                      <%= form_with(model: appointment, url: professional_appointment_path(@professional, appointment), method: :delete, local: true, id: "deleteAppointmentForm_#{appointment.id}") do |f| %>
+                        <%= f.submit 'Eliminar', class: 'btn btn-primary', id: "deleteAppointmentBtn",onclick: "return mostrarConfirmacionEliminacion(event, #{appointment.id});" %>
+                      <% end %>
+                    </div>
+                  </div>
+                  
                 </div>
               </div>
             <% end %>
@@ -67,7 +77,7 @@
         </div>
 
         
-      </div>   
+      </div>  
 
   <% else %>
     <h2>No tienes citas confirmadas o por confirmar!</h2>
@@ -77,3 +87,68 @@
 </div>
 </div>
 
+<div id="confirmacionEliminacion" class="confirmacion">
+  <div class="confirmacion-contenido">
+    <h2>¿Estás seguro de que deseas eliminar esta cita?</h2>
+    <p>El usuario sera notificado via correo electronico.</p>
+    <p>¡Esta accion no puede ser desecha!</p>
+    <div class="confirmacion-botones">
+      <button onclick="confirmacionAceptarEliminacion(event)" id="aceptarEliminacionCita">Aceptar</button>
+      <button onclick="confirmacionCancelarEliminacion()" id="cancelarEliminacionCita">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div id="confirmacionAceptacion" class="confirmacion">
+  <div class="confirmacion-contenido">
+    <h2>¿Estás seguro de que deseas confirmar esta cita?</h2>
+    <p>El usuario sera notificado via correo electronico.</p>
+    <div class="confirmacion-botones">
+      <button onclick="confirmacionAceptarCita(event)" id="confirmarAceptacionCita">Aceptar</button>
+      <button onclick="confirmacionCancelarAcepCita()" id="cancelarAceptacionCita">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  //cancelacion cita
+  function mostrarConfirmacionEliminacion(event, appointmentId) {
+    event.preventDefault();
+    document.getElementById('confirmacionEliminacion').style.display = 'flex';
+    document.getElementById('aceptarEliminacionCita').setAttribute('data-appointment-id', appointmentId); // Almacena el ID de la cita en el botón 'Aceptar'
+    return false;
+  }
+
+  function confirmacionAceptarEliminacion() {
+    const appointmentId = event.target.getAttribute('data-appointment-id'); 
+    const form = document.getElementById('deleteAppointmentForm_' + appointmentId); 
+    document.getElementById('confirmacionEliminacion').style.display = 'none';
+    form.submit(); // Envía el formulario correspondiente
+  }
+
+  function confirmacionCancelarEliminacion() {
+    document.getElementById('confirmacionEliminacion').style.display = 'none';
+    return false;
+  }
+
+  //aceptacion cita
+  function mostrarConfirmacionCita(event, appointmentId) {
+    event.preventDefault(); // Previene el envío del formulario automáticamente
+    document.getElementById('confirmacionAceptacion').style.display = 'flex';
+    document.getElementById('confirmarAceptacionCita').setAttribute('data-appointment-id', appointmentId); // Almacena el ID de la cita en el botón 'Aceptar'
+    return false;
+  }
+
+  function confirmacionAceptarCita(event) {
+    const appointmentId = event.target.getAttribute('data-appointment-id'); // Obtiene el ID de la cita desde el botón 'Aceptar'
+    const form = document.getElementById('confirmAppointmentForm_' + appointmentId); // Obtiene el formulario correspondiente
+    document.getElementById('confirmacionAceptacion').style.display = 'none';
+    form.submit(); // Envía el formulario correspondiente
+  }
+
+  function confirmacionCancelarAcepCita() {
+    document.getElementById('confirmacionAceptacion').style.display = 'none';
+    return false;
+  }
+</script>
