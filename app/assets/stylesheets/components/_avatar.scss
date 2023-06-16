@@ -118,6 +118,8 @@
   position: relative;
   width: 490px;
   height: 400px;
+  border-radius: 10px;
+  border: 3px solid #5c7d68;
 }
 
 .buttonContainer {
@@ -175,7 +177,7 @@
 
   #mapaPerfil {
     position: relative;
-    width: 200px;
+    width: 300px;
     height: 400px;
   }
 }

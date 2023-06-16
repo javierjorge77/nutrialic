@@ -44,15 +44,21 @@
         <%@reviews.each do |review|%>
             <div class="comment" style="margin-bottom: 30px">
                 <div><i class="fa-solid fa-circle-user userCommentIcon"></i></div>
-                <div class="usernameScore">
-                    <p class="userReviewName"><%= review.user.name %> <span style="margin-left: 20px"><%=review.score%> / 5.0</span> </p>
+                <div class="row" style="background-color: #f5f5f5">
+                    <div class="col col-xs-12 col-sm-12 col-md-9" style="background-color: #f5f5f5; flex: initial; ">
+                        <div class="usernameScore">
+                            <p class="userReviewName"><%= review.user.name %> <span style="margin-left: 20px"><%=review.score%> / 5.0</span> </p>
+                        </div>
+                        <p class="userReviewComment" style="line-height: 20px"> <%= review.comment %> </p>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-3" style="background-color: #f5f5f5; flex: initial;">
+                        <% if current_user && review.user == current_user %>
+                            <%= form_with(model: review, url: review_delete_path(review.id), method: :delete, local: true, id: "deleteReviewForm_#{review.id}") do |f| %>
+                            <%= f.submit 'Eliminar', class: 'btn btn-primary',id: "eliminarComentarioBtn", onclick: "return mostrarConfirmacionEliminacion(event, #{review.id});" %>
+                            <% end %>
+                        <% end %>
+                    </div>
                 </div>
-                <p class="userReviewComment" style="line-height: 20px"> <%= review.comment %> </p>
-                 <% if current_user && review.user == current_user %>
-                    <%= form_with(model: review, url: review_delete_path(review.id), method: :delete, local: true) do |f| %>
-                    <%= f.submit 'Eliminar', class: 'btn btn-primary' %>
-                    <% end %>
-                <% end %>
             </div>
         <% end %>
     <% else %>
@@ -82,3 +88,36 @@
 </div>
 
 
+
+<div id="confirmacionEliminacion" class="confirmacion">
+  <div class="confirmacion-contenido">
+    <h2>¿Estás seguro de que deseas eliminar tu comentario?</h2>
+    <p>¡Esta accion no puede ser desecha!</p>
+    <div class="confirmacion-botones">
+      <button onclick="confirmacionAceptarEliminacion(event)" id="aceptarEliminacionCita">Aceptar</button>
+      <button onclick="confirmacionCancelarEliminacion()" id="cancelarEliminacionCita">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+ //cancelacion cita
+  function mostrarConfirmacionEliminacion(event, reviewId) {
+    event.preventDefault();
+    document.getElementById('confirmacionEliminacion').style.display = 'flex';
+    document.getElementById('aceptarEliminacionCita').setAttribute('data-review-id', reviewId); // Almacena el ID de la cita en el botón 'Aceptar'
+    return false;
+  }
+
+  function confirmacionAceptarEliminacion() {
+    const reviewId = event.target.getAttribute('data-review-id'); 
+    const form = document.getElementById('deleteReviewForm_' + reviewId); 
+    document.getElementById('confirmacionEliminacion').style.display = 'none';
+    form.submit(); // Envía el formulario correspondiente
+  }
+
+  function confirmacionCancelarEliminacion() {
+    document.getElementById('confirmacionEliminacion').style.display = 'none';
+    return false;
+  }
+</script>
