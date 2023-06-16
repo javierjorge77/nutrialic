@@ -72,11 +72,11 @@ private
 
 
   def send_email
-    receptor= @appointment.user.email
-    fecha= @appointment.date
+    receptor = @appointment.user.email
+    fecha = @appointment.date
     texto = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname} te atenderá en #{@appointment.professional.adress}, el día #{fecha} \n para cualquier duda previa puedes escribir o llamar por teléfono: #{@appointment.professional.user.phone}"
 
-    from = SendGrid::Email.new(email: 'javierjorge77@gmail.com')
+    from = SendGrid::Email.new(email: 'daniel_carrillo_2003@outlook.com')
     to = SendGrid::Email.new(email: receptor)
     subject = "Cita agendada en Nutrialic: #{fecha} "
     content = SendGrid::Content.new(type: 'text/plain', value: texto)
