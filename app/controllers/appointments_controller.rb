@@ -25,7 +25,6 @@ class AppointmentsController < ApplicationController
 
     if @appointment.valid? && appointment_is_valid?
       @appointment.save
-      send_email
       redirect_to "/", notice: "La cita ha sido guardada exitosamente"
     else
       render :new, status: :unprocessable_entity
@@ -49,6 +48,7 @@ class AppointmentsController < ApplicationController
   def update
     @appointment = Appointment.find(params[:id])
     if @appointment.update(aprobado: params[:appointment][:aprobado])
+      send_email
       flash[:notice] = "La cita ha sido aprobada por ti"
       redirect_to root_path
     else
@@ -73,7 +73,7 @@ private
 
   def send_email
     receptor= @appointment.user.email
-    fecha= @appointment.time
+    fecha= @appointment.date
     texto = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname} te atenderá en #{@appointment.professional.adress}, el día #{fecha} \n para cualquier duda previa puedes escribir o llamar por teléfono: #{@appointment.professional.user.phone}"
 
     from = SendGrid::Email.new(email: 'javierjorge77@gmail.com')
@@ -88,7 +88,6 @@ private
     puts response.body
     # puts response.parsed_body
     puts response.headers
-
   end
 
   def appointment_is_valid?
