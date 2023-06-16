@@ -22,10 +22,14 @@ class AppointmentsController < ApplicationController
     @appointment.user = current_user
     @appointment.professional = @professional
     @appointment.date = Date.parse(params[:appointment][:date]) if params[:appointment][:date].present?
-
+    professional_email = @professional.user.email 
+    professional_name = "#{@professional.user.name} #{@professional.user.lastname}"
+    user_name = "#{current_user.name} #{current_user.lastname}" 
+    appointment_date = @appointment.date 
+    appointment_time = @appointment.time
     if @appointment.valid? && appointment_is_valid?
       @appointment.save
-      AppointmentMailer.notifyCreation.deliver_now
+      AppointmentMailer.notifyCreation(professional_email, professional_name, user_name, appointment_date, appointment_time).deliver_now
       redirect_to "/", notice: "La cita ha sido guardada exitosamente"
     else
       render :new, status: :unprocessable_entity
