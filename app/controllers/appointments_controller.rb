@@ -48,7 +48,7 @@ class AppointmentsController < ApplicationController
   def update
     @appointment = Appointment.find(params[:id])
     if @appointment.update(aprobado: params[:appointment][:aprobado])
-      send_email
+      AppointmentMailer.notifyConfirmation.deliver_now
       flash[:notice] = "La cita ha sido aprobada por ti"
       redirect_to root_path
     else
@@ -71,24 +71,24 @@ private
   end
 
 
-  def send_email
-    receptor = @appointment.user.email
-    fecha = @appointment.date
-    texto = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname} te atenderá en #{@appointment.professional.adress}, el día #{fecha} \n para cualquier duda previa puedes escribir o llamar por teléfono: #{@appointment.professional.user.phone}"
+  # def send_email
+  #   receptor = @appointment.user.email
+  #   fecha = @appointment.date
+  #   texto = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname} te atenderá en #{@appointment.professional.adress}, el día #{fecha} \n para cualquier duda previa puedes escribir o llamar por teléfono: #{@appointment.professional.user.phone}"
 
-    from = SendGrid::Email.new(email: 'daniel_carrillo_2003@outlook.com')
-    to = SendGrid::Email.new(email: receptor)
-    subject = "Cita agendada en Nutrialic: #{fecha} "
-    content = SendGrid::Content.new(type: 'text/plain', value: texto)
-    mail = SendGrid::Mail.new(from, subject, to, content)
+  #   from = SendGrid::Email.new(email: 'daniel_carrillo_2003@outlook.com')
+  #   to = SendGrid::Email.new(email: receptor)
+  #   subject = "Cita agendada en Nutrialic: #{fecha} "
+  #   content = SendGrid::Content.new(type: 'text/plain', value: texto)
+  #   mail = SendGrid::Mail.new(from, subject, to, content)
 
-    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-    response = sg.client.mail._('send').post(request_body: mail.to_json)
-    puts response.status_code
-    puts response.body
-    # puts response.parsed_body
-    puts response.headers
-  end
+  #   sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+  #   response = sg.client.mail._('send').post(request_body: mail.to_json)
+  #   puts response.status_code
+  #   puts response.body
+  #   # puts response.parsed_body
+  #   puts response.headers
+  # end
 
   def appointment_is_valid?
     start_attending_time = @professional.startAttendingTime
