@@ -25,6 +25,7 @@ class AppointmentsController < ApplicationController
 
     if @appointment.valid? && appointment_is_valid?
       @appointment.save
+      AppointmentMailer.notifyCreation.deliver_now
       redirect_to "/", notice: "La cita ha sido guardada exitosamente"
     else
       render :new, status: :unprocessable_entity
@@ -60,6 +61,7 @@ class AppointmentsController < ApplicationController
     @professional = Professional.find(params[:professional_id])
     @appointment = @professional.appointments.find(params[:id])
     @appointment.destroy 
+    AppointmentMailer.notifyCancelation.deliver_now
     flash[:notice] = "La cita ha sido eliminada correctamente"
     redirect_to root_path
   end
