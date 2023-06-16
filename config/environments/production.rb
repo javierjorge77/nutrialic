@@ -62,7 +62,7 @@ config.action_mailer.default_url_options = { host: "https://nutrialic.herokuapp.
   config.action_mailer.smtp_settings = {
     address: 'smtp.sendgrid.net',
     port: 587,
-    domain: 'nutrialic.herokuapp.com',
+    domain: 'em3338.nutrialic.com',
     user_name: 'apikey',
     password: ENV['SENDGRID_API_KEY'],
     authentication: :plain,
