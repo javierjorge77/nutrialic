@@ -12,7 +12,7 @@ class ProfessionalsController < ApplicationController
     current_user.nutritionist = true
     current_user.save
 
-    redirect_to nutriologos_path(@professional)
+    redirect_to professional_path(@professional)
   end
 
   def index
