@@ -16,6 +16,8 @@ class Professional < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_adress?
   has_many :reviews
   has_many :users, through: :reviews
-
+  validates :first_cost, presence: true
+  validates :follow_cost, presence: true
+  validates :diploma, presence: true, length: {minimum:10}
 
 end
