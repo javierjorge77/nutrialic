@@ -3,7 +3,7 @@ class AppointmentMailer < ApplicationMailer
     @professional_name = professional_name 
     @user_name = user_name
     @appointment_date = appointment_date
-    @appointment_time = appoinment_time
+    @appointment_time = appointment_time
     mail to: professional_email, subject: "Nutrialic nueva cita"
   end
   
