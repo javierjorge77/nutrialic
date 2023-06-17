@@ -1,5 +1,11 @@
-<h1>Nueva cita</h1>
-
-<p>
-  Hola, tienes una nueva cita pendiente por aprobar
-</p>
+<div style="width: 90%; text-align: center; background-color: #ecc4cc">
+  <%= image_tag('logo.png', alt: 'Logo de mi empresa', style: "width: 150px; padding: 20px") %>
+</div>
+<div style="width: 90%; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+  <h1 style="padding: 20px">Hola <%= @professional_name %>, tienes una nueva cita pendiente por aprobar</h1>
+  <div style="padding: 20px">
+    <h3>Paciente: <%= @user_name %></h3>
+    <h3>Fecha de la cita: <%= @appointment_date %> </h3>
+    <h3>Hora de la cita: <%= @appointment_time %> </h3>
+  </div>
+</div>

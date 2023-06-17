@@ -52,8 +52,12 @@ class AppointmentsController < ApplicationController
 
   def update
     @appointment = Appointment.find(params[:id])
+    user_name = "#{@appointment.user.name} #{@appointment.user.lastname}"
+    user_email = @appointment.user.email
+    professional_name = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname}"
+    #professional_email @appointment.professional.user.email 
     if @appointment.update(aprobado: params[:appointment][:aprobado])
-      AppointmentMailer.notifyConfirmation.deliver_now
+      AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name).deliver_now
       flash[:notice] = "La cita ha sido aprobada por ti"
       redirect_to root_path
     else
@@ -64,8 +68,12 @@ class AppointmentsController < ApplicationController
   def destroy
     @professional = Professional.find(params[:professional_id])
     @appointment = @professional.appointments.find(params[:id])
+    user_name = "#{@appointment.user.name} #{@appointment.user.lastname}"
+    user_email = @appointment.user.email
+    professional_name = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname}"
+    #professional_email @appointment.professional.user.email 
+    AppointmentMailer.notifyCancelation(user_name, user_email, professional_name).deliver_now
     @appointment.destroy 
-    AppointmentMailer.notifyCancelation.deliver_now
     flash[:notice] = "La cita ha sido eliminada correctamente"
     redirect_to root_path
   end
