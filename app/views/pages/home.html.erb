@@ -8,21 +8,25 @@
 <% @top6= @ranking[5]%>
 
 <% if user_signed_in? %>
-  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
-    <div class="container">
-      <h1>Bienvenido a Nutrialic</h1>
+  <section  id="firstSection">
+    <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg); display: flex; align-items: center;">
+      <div class="container text-center">
+        <h1>Bienvenido a Nutrialic</h1>
         <p>Felicitaciones por comenzar este viaje junto a nosotros. Cuenta con nuestro apoyo para lograr tus objetivos y mantente enfocado en tus metas!</p>
+      </div>
     </div>
-  </div>
+  </section>
 <% else %>
-    <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg);">
-      <div class="container">
+  <section id="firstSection" >
+    <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg); display: flex; align-items: center;">
+      <div class="container text-center">
         <h1>¡Nutrialic hace que la Nutrición sea accesible para todos!</h1>
         <p>Si quieres mejorar tu alimentación, registrate como Usuario</p>
         <p> Si eres nutriólogo, registrate como Profesional! </p>
         <%= link_to "Registrarse", new_user_registration_path, class:"btn btn-flat" %>
       </div>
     </div>
+  </section> 
 <% end %>
 
 
@@ -36,3 +40,4 @@
 <div class="container boton text-center" id="contenedorBotomHome">
   <button class="btn btn-flat" id="botonHome"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
 </div>
+
