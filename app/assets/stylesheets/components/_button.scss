@@ -119,3 +119,23 @@
 #eliminarComentarioBtn:hover {
   background-color: #b12334;
 }
+
+#btnRegister {
+  background-color: #ee7784;
+  border-radius: 5px;
+  margin-top: 30px;
+  padding: 12px 25px;
+  transition: all 0.3s ease;
+  font-size: 1.5rem;
+}
+
+#btnRegister:hover {
+  color: white;
+  padding: 12px 45px;
+}
+
+@media only screen and(max-width: 750px) {
+  #btnRegister {
+    font-size: 1rem;
+  }
+}

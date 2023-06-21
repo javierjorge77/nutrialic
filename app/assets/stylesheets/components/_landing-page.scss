@@ -2,11 +2,115 @@
   height: 100vh;
   position: relative;
   top: -65px;
+  overflow: hidden;
 }
 
-@media only screen and(max-width: 490px) {
-  #firstSection {
-    height: 100vh;
-    position: static;
+#nutricionPng {
+  position: absolute;
+  width: 150px;
+  top: 95px;
+  left: 80px;
+  transform: rotate(5deg);
+}
+
+#dietaPng {
+  position: absolute;
+  bottom: 95px;
+  width: 150px;
+  right: 80px;
+  transform: rotate(5deg) scaleX(-1);
+}
+
+#manzanitaPng {
+  position: absolute;
+  top: 95px;
+  right: 80px;
+  width: 150px;
+  transform: rotate(-10deg);
+}
+
+#verduraPng {
+  position: absolute;
+  bottom: 95px;
+  left: 80px;
+  width: 150px;
+  transform: rotate(10deg);
+}
+
+@media only screen and(max-width: 950px) {
+  #nutricionPng {
+    position: absolute;
+    width: 130px;
+    top: 95px;
+    left: 40px;
+    transform: rotate(5deg);
+  }
+
+  #dietaPng {
+    position: absolute;
+    bottom: 95px;
+    width: 130px;
+    right: 40px;
+    transform: rotate(5deg) scaleX(-1);
+  }
+
+  #manzanitaPng {
+    position: absolute;
+    top: 95px;
+    right: -10px;
+    width: 130px;
+    transform: rotate(-10deg);
+  }
+
+  #verduraPng {
+    position: absolute;
+    bottom: 95px;
+    left: 40px;
+    width: 130px;
+    transform: rotate(10deg);
+  }
+}
+
+.titleContainer {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and(max-width: 750px) {
+  #nutricionPng {
+    position: absolute;
+    width: 100px;
+    top: 95px;
+    left: -40px;
+    transform: rotate(20deg);
+  }
+
+  #dietaPng {
+    position: absolute;
+    bottom: 55px;
+    width: 100px;
+    right: -30px;
+    transform: rotate(-10deg) scaleX(-1);
+  }
+
+  #manzanitaPng {
+    position: absolute;
+    top: 95px;
+    right: -20px;
+    width: 90px;
+    transform: rotate(-10deg);
+  }
+
+  #verduraPng {
+    position: absolute;
+    bottom: 55px;
+    left: -25px;
+    width: 105px;
+    transform: rotate(75deg);
+  }
+
+  .titleContainer {
+    width: 75%;
   }
 }

@@ -1,8 +1,10 @@
 .banner {
-  background-size: cover;
-  background-position: center;
+  background-color: #ecc4cc;
+  display: flex;
+  align-items: center;
   padding: 185px 0;
   height: 100vh;
+  overflow: hidden;
 }
 
 @media (max-width: 950px) {
@@ -11,30 +13,40 @@
   }
 
   .banner h1 {
-    font-size: 3rem !important;
+    font-size: 3rem;
     margin-bottom: 30px;
   }
 }
 
-.banner h1 {
-  margin: 0;
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-  font-size: 4rem;
+.bannerTitle {
+  font-size: 3rem;
   margin-bottom: 30px;
+  color: #3f3844;
 }
 
 .banner h2 {
   margin: 0;
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  color: #3f3844;
   font-size: 24px;
   font-weight: bold;
 }
 
 .banner p {
   font-size: 1.5rem;
-  color: white;
+  color: #3f3844;
   opacity: 0.8;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 750px) {
+  .bannerTitle {
+    font-size: 2rem !important;
+    margin-bottom: 30px;
+    color: #3f3844;
+  }
+
+  .banner p {
+    font-size: 1.1rem;
+    color: #3f3844;
+    opacity: 0.8;
+  }
 }
