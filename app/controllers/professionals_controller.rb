@@ -11,8 +11,7 @@ class ProfessionalsController < ApplicationController
     @professional.save
     current_user.nutritionist = true
     current_user.save
-
-    redirect_to professional_path(@professional)
+    redirect_to show_by_username_path(@professional.username)
   end
 
   def index
@@ -33,14 +32,13 @@ class ProfessionalsController < ApplicationController
 
   def show
     @current_user = current_user
-    @professional = Professional.find(params[:id])
+    @professional = Professional.find_by(username: params[:id])
     @reviews = @professional.reviews
     if @reviews && @reviews.length > 0
       @final_score = @reviews.average(:score).to_f.round(1)
     else 
       @final_score = 0
     end
-
     @marker = {
       lat: @professional.latitude,
       lng: @professional.longitude
@@ -72,7 +70,7 @@ class ProfessionalsController < ApplicationController
 
 
   def professional_params
-    params.require(:professional).permit(:branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime)
+    params.require(:professional).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime)
   end
 
 

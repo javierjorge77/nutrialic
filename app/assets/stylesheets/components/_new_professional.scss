@@ -1,0 +1,27 @@
+#newProfessionalContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#newProfessionalBox {
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 95%;
+}
+
+#newProfessionalBox .col {
+  padding: 0;
+}
+
+.picker-time {
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  border: 1px solid rgb(203, 203, 203);
+}

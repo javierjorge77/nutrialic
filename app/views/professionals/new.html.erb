@@ -1,58 +1,79 @@
-<div class="container">
-<h1> Eres Nutriólogo?</h1>
-<h2>Inscríbete, es muy fácil</h2>
-<p> En menos de 24h recibirás una confirmación</p>
+<div class="container" id="newProfessionalContainer">
+  <div class="row" id="newProfessionalBox">
+    <div class="col col-lg-6 col-md-4" id="imageCol">
+      <div class="image-container">
+        <%= image_tag("register.jpg", alt: "Cutting food", class: "cover-image")%>
+      </div>
+    </div>
+    <div class="col col-lg-6 col-xs-12 col-sm-12 col-md-8">
+      <h1 class="mt-5"> Eres Nutriólogo?</h1>
+      <h2>Inscríbete, es muy fácil</h2>
+      <p> En menos de 24h recibirás una confirmación</p>
 
-<%= simple_form_for( @professional,
-  data: {turbo: false}) do |f| %>
+      <div class="registerForm">
+        <%= simple_form_for( @professional,
+          data: {turbo: false}) do |f| %>
 
-  <%= f.error_notification %>
+          <%= f.error_notification %>
 
-  <div class="form-inputs">
+          <div class="form-inputs">
 
-              <%# NEW INPUTS  %>
-    <%= f.input :branch, label: "Especialidad",
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "branch" }%>
+          <%= f.input :username, label: "Nombre de usuario unico:",
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "username" }%>
 
-    <%= f.input :adress, label: "Dirección: ",
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "adress" }%>
+                      <%# NEW INPUTS  %>
+            <%= f.input :branch, label: "Especialidad:",
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "branch" }%>
 
-    <%= f.input :diploma, label: "Número de Cédula: ",
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "diploma" }%>
+            <%= f.input :adress, label: "Dirección: ",
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "adress" }%>
 
-    <%= f.input :first_cost, label: "Costo de Primera Consulta ",
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "first_cost" }%>
+            <%= f.input :diploma, label: "Número de Cédula: ",
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "diploma" }%>
 
-    <%= f.input :follow_cost, label: "Costo de Segunda Consulta ",
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "follow_cost" }%>
+            <%= f.input :first_cost, label: "Costo de Primera Consulta ",
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "first_cost" }%>
 
-    <p>Horarios de atención</p>
-    <%= f.label :startAttendingTime, "Desde", required: true %>
-    <%= f.time_field :startAttendingTime, required: true %>
-     <%= f.label :endAttendingTime, "Hasta", required: true %>
-    <%= f.time_field :endAttendingTime, required: true %>
+            <%= f.input :follow_cost, label: "Costo de Segunda Consulta ",
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "follow_cost" }%>
 
-    <%= f.input :photo, label: "foto ",
-    as: :file %>
+            <p style="font-weight: bold">Horarios de atención</p>
+            <div style="margin-bottom: 15px">
+              <%= f.label :startAttendingTime, "Desde: ", required: true %>
+              <div>
+              <%= f.time_field :startAttendingTime, required: true, class: "picker-time" %>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 15px">
+              <%= f.label :endAttendingTime, "Hasta: ", required: true %>
+              <div>
+                <%= f.time_field :endAttendingTime, required: true, class: "picker-time"%>
+              </div>
+            </div>
+            
 
+            <%= f.input :photo, label: "Foto de perfil: ",
+            as: :file %>
+          </div>
+          <div class="buton-area text-center" style="margin-top: 30px">
+            <%= f.button :submit, "Registrarse" %>
+          </div>
+        <% end %>
+      </div> 
 
-
-
+    </div>  
   </div>
-
-  <div class="btn btn-flat" style="color:white">
-    <%= f.button :submit, "Registrarse" %>
-  </div>
-<% end %>
-
 </div>

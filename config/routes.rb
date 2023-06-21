@@ -8,9 +8,10 @@ Rails.application.routes.draw do
     member do
       get 'edit', action: :edit
       patch 'update', action: :update
-      get ':name', action: :show, as: 'show_by_name'
     end
   end
+
+  get '/professionals/:id', to: 'professionals#show', as: 'show_by_username'
 
   resources :users, only: [:show]
   post 'review', to: 'reviews#create'

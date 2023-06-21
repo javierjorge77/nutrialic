@@ -21,7 +21,7 @@
     <% @professionals.each do |professional|  %>
     <div class="card-trip">
       <%= link_to cl_image_tag(professional.photo.key.to_s,
-      width: 350, height: 280, :gravity=>"face", crop: :fill), show_by_name_professional_path( id: professional.id, name: "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}")  %>
+      width: 350, height: 280, :gravity=>"face", crop: :fill), show_by_username_path(id: professional.username)  %>
       <div class="card-trip-infos">
         <div>
         <h6 class="scoreValue" style="display: none"> <%= professional.reviews.average(:score).to_f.round(1) %> </h6>
@@ -39,7 +39,7 @@
             <% end %>
           </ul>
           <div class="nameContainer">
-            <h3><%= link_to "#{professional.user.name} #{professional.user.lastname}",  show_by_name_professional_path( id: professional.id, name:  "#{professional.user.name.parameterize}-#{professional.user.lastname.parameterize}") %></h3>
+            <h3><%= link_to "#{professional.user.name} #{professional.user.lastname}", show_by_username_path(id: professional.username) %></h3>
           </div>
           <div class="branchContainer">
             <p> Especialidad(es): <%= professional.branch %></p>

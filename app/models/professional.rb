@@ -18,6 +18,6 @@ class Professional < ApplicationRecord
   has_many :users, through: :reviews
   validates :first_cost, presence: true
   validates :follow_cost, presence: true
-  validates :diploma, presence: true, length: {minimum:10}
-
+  validates :diploma, presence: true
+  validates :username, presence: true, uniqueness: {case_sensitive: false}, length: {minimum:5, maximum:15}
 end

@@ -12,7 +12,7 @@
                         </div>
                         <div class="details">
                             <div class="nutricionist-name">
-                                <div class="name"><%= link_to " #{@top1.user.name} #{@top1.user.lastname}"   , professional_path(id: @top1.id, name: "#{@top1.user.name.parameterize}-#{@top1.user.lastname.parameterize}")  %></div>
+                                <div class="name"><%= link_to " #{@top1.user.name} #{@top1.user.lastname}", show_by_username_path(id: @top1.username)  %></div>
                             </div>
                             <div class="nutricionist-speciality">
                                 <div class="job"><%= @top1.branch %></div>
@@ -30,7 +30,7 @@
                         </div>
                         <div class="details">
                             <div class="nutricionist-name">
-                                <div class="name"><%= link_to " #{@top2.user.name} #{@top2.user.lastname}"   , professional_path(id: @top2.id, name: "#{@top2.user.name.parameterize}-#{@top2.user.lastname.parameterize}")  %></div>
+                                <div class="name"><%= link_to " #{@top2.user.name} #{@top2.user.lastname}", show_by_username_path(id: @top2.username) %></div>
                             </div>
                             <div class="nutricionist-speciality">
                                 <div class="job"><%= @top2.branch %></div>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="details">
                             <div class="nutricionist-name">
-                                <div class="name"><%= link_to " #{@top3.user.name} #{@top3.user.lastname}"   , professional_path(id: @top3.id, name: "#{@top3.user.name.parameterize}-#{@top3.user.lastname.parameterize}") %></div>
+                                <div class="name"><%= link_to " #{@top3.user.name} #{@top3.user.lastname}", show_by_username_path(id: @top3.username) %></div>
                             </div>
                             <div class="nutricionist-speciality">
                                 <div class="job"><%= @top3.branch %></div>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="details">
                             <div class="nutricionist-name">
-                                <div class="name"><%= link_to " #{@top4.user.name} #{@top4.user.lastname}"   , professional_path(id: @top4.id, name: "#{@top4.user.name.parameterize}-#{@top4.user.lastname.parameterize}")  %></div>
+                                <div class="name"><%= link_to " #{@top4.user.name} #{@top4.user.lastname}", show_by_username_path(id: @top4.username)%></div>
                             </div>
                             <div class="nutricionist-speciality">
                                 <div class="job"><%= @top4.branch %></div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="details">
                             <div class="nutricionist-name">
-                                <div class="name"><%= link_to " #{@top5.user.name} #{@top5.user.lastname}"   , professional_path(id: @top5.id, name: "#{@top5.user.name.parameterize}-#{@top5.user.lastname.parameterize}")  %></div>
+                                <div class="name"><%= link_to " #{@top5.user.name} #{@top5.user.lastname}", show_by_username_path(id: @top5.username)%></div>
                             </div>
                             <div class="nutricionist-speciality">
                                 <div class="job"><%= @top5.branch %></div>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="details">
                             <div class="nutricionist-name">
-                                <div class="name"><%= link_to " #{@top6.user.name} #{@top6.user.lastname}"   , professional_path(id: @top6.id, name: "#{@top6.user.name.parameterize}-#{@top6.user.lastname.parameterize}")  %></div>
+                                <div class="name"><%= link_to " #{@top6.user.name} #{@top6.user.lastname}", show_by_username_path(id: @top6.username) %></div>
                             </div>
                             <div class="nutricionist-speciality">
                                 <div class="job"><%= @top6.branch %></div>
