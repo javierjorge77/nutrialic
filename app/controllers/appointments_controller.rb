@@ -27,9 +27,11 @@ class AppointmentsController < ApplicationController
     user_name = "#{current_user.name} #{current_user.lastname}" 
     appointment_date = @appointment.date 
     appointment_time = @appointment.time
+    @appointment.authentication_token = Devise.friendly_token
+    auth_token =  @appointment.authentication_token
     if @appointment.valid? && appointment_is_valid?
       @appointment.save
-      AppointmentMailer.notifyCreation(professional_email, professional_name, user_name, appointment_date, appointment_time).deliver_now
+      AppointmentMailer.notifyCreation(professional_email, professional_name, user_name, appointment_date, appointment_time, auth_token).deliver_now
       redirect_to "/", notice: "La cita ha sido guardada exitosamente"
     else
       render :new, status: :unprocessable_entity
