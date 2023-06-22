@@ -1,50 +1,52 @@
 
-<div class="container">
-<h2>Editar Usuario </h2>
+<div class="container" id="editUserContainer">
+  <div class="row" id="editUserBox">
+    <div class="col col-lg-6 col-md-4" id="imageCol">
+      <div class="image-container">
+        <%= image_tag("editCurrri.jpg", alt: "Register Image", class: "cover-image")%>
+      </div>
+    </div>
+    <div class="col col-lg-6 col-xs-12 col-sm-12 col-md-8">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    <%= f.input :name, label: "Nombre(s) ",
-                required: false,
-                input_html: { autocomplete: "name" } %>
-    <%= f.input :lastname, label: "Apellidos ",
-                required: false,
-                input_html: { autocomplete: "lastname" } %>
-    <%= f.input :password, label: "Contraseña: ",
-                hint: "déjalo en blanco si no quieres cambiarlo",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation, label: "Confirmar contraseña: ",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "necesitamos su contraseña actual para confirmar sus cambios",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
-  </div>
-
-  <div class="btn btn-flat">
-    <%= f.button :submit, "Actualizar" %>
-  </div>
-
-  <div class="btn btn-back"> <%= link_to "Regresar", :back %> </div>
-
-<% end %>
-
-</div>
-<br>
-<br>
-
-<div class="container">
-<p>Eliminar Cuenta? <%= link_to "Eliminar Cuenta", registration_path(resource_name), data: {turbo_method: :delete, turbo_confirm: "Are you sure?" }%></p>
-
-
+      <h2  id="editUserTitle">Editar Usuario </h2>
+      <div class="registerForm">
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.error_notification %>
+          <div class="form-inputs">
+            <%= f.input :email, required: true, autofocus: true %>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            <% end %>
+            <%= f.input :name, label: "Nombre(s) ",
+                        required: false,
+                        input_html: { autocomplete: "name" } %>
+            <%= f.input :lastname, label: "Apellidos ",
+                        required: false,
+                        input_html: { autocomplete: "lastname" } %>
+            <%= f.input :password, label: "Contraseña: ",
+                        hint: "déjalo en blanco si no quieres cambiarlo",
+                        required: false,
+                        input_html: { autocomplete: "new-password" } %>
+            <%= f.input :password_confirmation, label: "Confirmar contraseña: ",
+                        required: false,
+                        input_html: { autocomplete: "new-password" } %>
+            <%= f.input :current_password,
+                        hint: "necesitamos su contraseña actual para confirmar sus cambios",
+                        required: true,
+                        input_html: { autocomplete: "current-password" } %>
+          </div>
+          <div class="buton-area text-center mt-5">
+            <%= f.button :submit, "Guardar Cambios" %>
+          </div>
+          <div class="buton-area text-center">
+            <div class="btn btn-back"> <%= link_to "Regresar", :back %> </div>
+          </div>
+        <% end %>
+          <div style="margin-top:30px">
+            <%= link_to "Eliminar Cuenta", registration_path(resource_name),data: {turbo_method: :delete, turbo_confirm: "Are you sure?" }%>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>  
 </div>

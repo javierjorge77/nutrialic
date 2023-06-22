@@ -19,9 +19,91 @@
   padding: 0;
 }
 
+#editProfessionalContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#editUserContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#editProfessionalBox {
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 95%;
+}
+
+#editUserBox {
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 95%;
+}
+
+#editProfessionalBox .col {
+  padding: 0;
+}
+
 .picker-time {
   padding: 10px;
   border-radius: 8px;
   width: 100%;
   border: 1px solid rgb(203, 203, 203);
+}
+
+#editProfessionalProfile {
+  font-size: 2rem;
+  margin-top: 50px;
+  color: #ee7784;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#newProfessionalTitle {
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #ee7784;
+}
+
+#editUserTitle {
+  font-size: 2rem;
+  margin-top: 50px;
+  color: #ee7784;
+}
+
+#inscribete {
+  font-size: 1.5rem;
+}
+
+@media only screen and(max-width: 768px) {
+  #newProfessionalTitle {
+    font-size: 1.5rem;
+  }
+
+  #inscribete {
+    font-size: 1.1rem;
+  }
+
+  #editUserTitle {
+    font-size: 1.5rem;
+  }
+
+  #editProfessionalProfile {
+    font-size: 1.5rem;
+  }
 }
