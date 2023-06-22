@@ -4,8 +4,8 @@ class AppointmentMailer < ApplicationMailer
     @user_name = user_name
     @appointment_date = appointment_date
     @appointment_time = appointment_time
-    @auth_token = auth_token
-    @confirmation_link = new_user_session_url(confirmation_token: @auth_token)
+    #@auth_token = auth_token
+    @authentication_token = auth_token
     mail to: professional_email, subject: "Nutrialic nueva cita"
   end
   

@@ -1,5 +1,7 @@
 class Professional < ApplicationRecord
-
+  
+  devise :confirmable
+  
   include PgSearch::Model
   belongs_to :user
 
