@@ -8,6 +8,6 @@
     <h3>Fecha de la cita: <%= @appointment_date %> </h3>
     <h3>Hora de la cita: <%= @appointment_time %> </h3>
     <p>Para acceder a tu cuenta y ver la cita, por favor haz clic en el siguiente enlace:</p>
-    <%= link_to 'Iniciar sesión', devise.confirmation_url(confirmation_token: @authentication_token) %>
+    <%= link_to 'Iniciar sesión', user_confirmation_url(confirmation_token: @authentication_token) %>
   </div>
 </div>
