@@ -1,5 +1,4 @@
 class Professional < ApplicationRecord
-    
   include PgSearch::Model
   belongs_to :user
 

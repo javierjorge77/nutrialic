@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   patch '/review/:id', to: 'reviews#update', as: 'review_update'
 
   get 'appointments', to: 'appointments#show'
+  get '/login_with_token', to: 'sessions#login_with_token', as: 'login_with_token'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
