@@ -21,8 +21,5 @@ Rails.application.routes.draw do
   get 'appointments', to: 'appointments#show'
   get '/login_with_token', to: 'sessions#login_with_token', as: 'login_with_token'
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get '/meetings', to: 'meetings#index'
 end
