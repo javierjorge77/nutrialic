@@ -38,7 +38,7 @@
 
 
 <section id="secondSection">
-  <div class="container">
+  <div class="container reveal">
     <div id="secondSectionContent">
       <div class="row">
       <div class="col col-sm-12 col-md-6" id="secondSectionSecondCol" style="display: flex; align-items: center; flex: initial;">
@@ -58,7 +58,7 @@
 </section>
 
 <section id="thirdSection">
-  <div class="text-center">  
+  <div class="text-center reveal">  
   <%= render 'pages/slider' %>
   </div>
   <div class="container boton text-center" id="contenedorBotomHome">
@@ -67,4 +67,21 @@
 </section>
 
 
+<script>
+window.addEventListener("scroll", reveal);
+function reveal() {
+  const reveals = document.querySelectorAll(".reveal");
 
+  for (let i = 0; i < reveals.length; i++) {
+    let windowHeight = window.innerHeight;
+    let revealTop = reveals[i].getBoundingClientRect().top;
+    let revealPoint = 150;
+
+    if (revealTop < windowHeight - revealPoint) {
+      reveals[i].classList.add("active");
+    } else {
+      reveals[i].classList.remove("active");
+    }
+  }
+}
+</script>
