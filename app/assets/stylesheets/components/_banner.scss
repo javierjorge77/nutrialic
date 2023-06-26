@@ -1,10 +1,13 @@
 .banner {
-  background-color: #ecc4cc;
+  background-image: asset-url("pinkWavesBanner.svg");
   display: flex;
   align-items: center;
   padding: 185px 0;
   height: 100vh;
   overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 @media (max-width: 950px) {

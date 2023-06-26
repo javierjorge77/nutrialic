@@ -33,21 +33,38 @@
       </div>
     </div>
   </section> 
+  
 <% end %>
 
-<%# <section id="secondSection" style="height: 100vh">
 
-</section> %>
+<section id="secondSection">
+  <div class="container">
+    <div id="secondSectionContent">
+      <div class="row">
+      <div class="col col-sm-12 col-md-6" id="secondSectionSecondCol" style="display: flex; align-items: center; flex: initial;">
+          <div id="svgSecondSection">
+            <%= image_tag('mimi.jpg', alt: 'sandwich', id: "mimiImg") %>
+          </div>
+        </div>
+        <div class="col col-sm-12 col-md-6" class="columSecondSection"  style="display: flex; align-items: center; flex: initial;">
+          <div id="contentSecondFirstCol">
+            <h1>Servicio de calidad al alcance de un click</h1>
+            <p>Nutrialic es una plataforma social en la que pacientes de diferentes partes de Mexico pueden encontrar nutriologos cerca de ellos de una forma rapida, tambien ofrecemos un servicio de consultas en linea que facilita la toma de consultas para nutriologos y clientes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="thirdSection">
+  <div class="text-center">  
+  <%= render 'pages/slider' %>
+  </div>
+  <div class="container boton text-center" id="contenedorBotomHome">
+    <button class="btn btn-flat" id="botonHome"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
+  </div>
+</section>
 
 
-
-<div class="text-center">  
-<%= render 'pages/slider' %>
-</div>
-
-
-
-<div class="container boton text-center" id="contenedorBotomHome">
-  <button class="btn btn-flat" id="botonHome"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
-</div>
 
