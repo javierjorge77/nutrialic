@@ -2,19 +2,22 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application"
+import { application } from "./application";
 
-import DateAndTimeController from "./date_and_time_controller"
-application.register("date-and-time", DateAndTimeController)
+import DateAndTimeController from "./date_and_time_controller";
+application.register("date-and-time", DateAndTimeController);
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import HelloController from "./hello_controller";
+application.register("hello", HelloController);
 
-import MapController from "./map_controller"
-application.register("map", MapController)
+import MapController from "./map_controller";
+application.register("map", MapController);
 
-import MapShowController from "./map_show_controller"
-application.register("map-show", MapShowController)
+import MapShowController from "./map_show_controller";
+application.register("map-show", MapShowController);
 
-import TabMenuController from "./tab_menu_controller"
-application.register("tab-menu", TabMenuController)
+import TabMenuController from "./tab_menu_controller";
+application.register("tab-menu", TabMenuController);
+
+import ZoomController from "./zoom_controller";
+application.register("zoom", ZoomController);

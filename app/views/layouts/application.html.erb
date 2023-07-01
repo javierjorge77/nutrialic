@@ -19,14 +19,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Dependencies for client view and component view -->
-    <script src="https://source.zoom.us/2.10.1/lib/vendor/react.min.js"></script>
-    <script src="https://source.zoom.us/2.10.1/lib/vendor/react-dom.min.js"></script>
-    <script src="https://source.zoom.us/2.10.1/lib/vendor/redux.min.js"></script>
-    <script src="https://source.zoom.us/2.10.1/lib/vendor/redux-thunk.min.js"></script>
-    <script src="https://source.zoom.us/2.10.1/lib/vendor/lodash.min.js"></script>
-    <script src="https://source.zoom.us/zoom-meeting-embedded-2.10.1.min.js"></script>
   </head>
 
   <body>
@@ -41,7 +33,7 @@
       <%= render "shared/footer" %>
     </footer>
     <%= render "shared/flashes" %>
-    
+    <div id="zmmtg-root"></div>
+    <div id="aria-notify-area"></div>
   </body>
-
 </html>
