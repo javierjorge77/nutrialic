@@ -21,5 +21,5 @@ Rails.application.routes.draw do
   get 'appointments', to: 'appointments#show'
   get '/login_with_token', to: 'sessions#login_with_token', as: 'login_with_token'
 
-  get '/meetings', to: 'meetings#index'
+  get '/meetings/:meeting_id', to: 'meetings#index', as: 'meeting'
 end

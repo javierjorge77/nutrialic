@@ -3,38 +3,60 @@ import jsrsasign from "jsrsasign";
 import CryptoJS from "crypto-js";
 
 export default class extends Controller {
-  async connect() {
-    document.addEventListener("DOMContentLoaded", async () => {
-      if (window.ZoomMtg) {
-        console.log("ZoomMtg is available in the window");
-      } else {
-        console.log("ZoomMtg is not available in the window");
-        const { ZoomMtg } = await import("@zoomus/websdk");
+  static targets = [
+    "sdkKey",
+    "secretKey",
+    "userName",
+    "userLastname",
+    "userNutritionist",
+    "meetingId",
+  ];
 
+  async connect() {
+    const initializeZoom = async () => {
+      const zoomController = document.querySelector('[data-controller="zoom"]');
+      if (zoomController) {
         if (window.ZoomMtg) {
-          console.log("Now it is");
-          ZoomMtg.setZoomJSLib("https://source.zoom.us/2.13.0/lib", "/av");
-          ZoomMtg.preLoadWasm();
-          ZoomMtg.prepareWebSDK();
-          ZoomMtg.i18n.load("en-US");
-          ZoomMtg.i18n.reload("en-US");
-          this.initializeZoom();
+          console.log("ZoomMtg is available in the window");
+        } else {
+          console.log("ZoomMtg is not available in the window");
+          const { ZoomMtg } = await import("@zoomus/websdk");
+          const sdkKey = this.sdkKeyTarget.dataset.sdkKey;
+          const secretKey = this.secretKeyTarget.dataset.secretKey;
+          const userName = this.userNameTarget.dataset.userName;
+          const userLastname = this.userLastnameTarget.dataset.userLastname;
+          const userNutritionist =
+            this.userNutritionistTarget.dataset.userNutritionist;
+          const zoomName = `${userName} ${userLastname}`;
+          const rol = userNutritionist == "true" ? 1 : 0;
+          const meetingId = this.meetingIdTarget.dataset.meetingId;
+          const meetingNum = Number(meetingId);
+
+          if (window.ZoomMtg) {
+            console.log("Now it is");
+            ZoomMtg.setZoomJSLib("https://source.zoom.us/2.13.0/lib", "/av");
+            ZoomMtg.preLoadWasm();
+            ZoomMtg.prepareWebSDK();
+            ZoomMtg.i18n.load("en-US");
+            ZoomMtg.i18n.reload("en-US");
+            this.initializeZoom(sdkKey, secretKey, zoomName, rol, meetingNum);
+          }
         }
       }
-    });
+    };
+
+    document.addEventListener("turbo:load", initializeZoom);
   }
 
   disconnect() {
     location.reload();
   }
 
-  initializeZoom() {
+  initializeZoom(sdkKey, secretSdkKey, zoomName, rol, meetingNum) {
     const leaveUrl = "http://localhost:3000/";
-    const sdkKey = "p2k_JOnpTs6sN6LLSyoGVQ";
-    const secretSdkKey = "6VSnpg1ygTNIzjF1OJFMBAJ16SMGdp6h";
-    const meetingNumber = 5503906924;
-    const userName = "Daniel Carrillo";
-    const role = 1;
+    const meetingNumber = meetingNum;
+    const userName = zoomName;
+    const role = rol;
 
     const signature = this.generateSignature(
       sdkKey,
@@ -101,7 +123,7 @@ export default class extends Controller {
       sdkKey: sdkKey,
       signature: signature,
       meetingNumber: meetingNumber,
-      passWord: "",
+      passWord: "nu7ri4",
       userName: userName,
       success: (success) => {
         console.log(success);

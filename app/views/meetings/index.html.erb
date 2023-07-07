@@ -1,9 +1,13 @@
-<div data-controller="zoom">
-<style>
-    @import url("https://source.zoom.us/2.13.0/css/bootstrap.css");
-    @import url("https://source.zoom.us/2.13.0/css/react-select.css");
-</style>
-
-
+<div data-controller="zoom" data-action="turbo:load">
+    <span data-zoom-target="sdkKey" data-sdk-key="<%= @sdk_key %>"></span>
+    <span data-zoom-target="secretKey" data-secret-key="<%= @secret_key %>"></span>
+    <span data-zoom-target="userName" data-user-name="<%= @user.name %>"></span>
+    <span data-zoom-target="userLastname" data-user-lastname="<%= @user.lastname %>"></span>
+    <span data-zoom-target="userNutritionist" data-user-nutritionist="<%=  @user.nutritionist %>"></span>
+    <span data-zoom-target="meetingId" data-meeting-id="<%= @meeting_id %>"></span>
+    <style>
+        @import url("https://source.zoom.us/2.13.0/css/bootstrap.css");
+        @import url("https://source.zoom.us/2.13.0/css/react-select.css");
+    </style>
 </div>
 

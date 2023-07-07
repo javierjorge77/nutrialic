@@ -32,7 +32,6 @@
                       <% end %>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             <% end %>
@@ -62,7 +61,17 @@
                   <span> <p> <strong>Paciente:</strong><%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
                   <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
                   <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
+                  <% if appointment.online %>
+                    <% if appointment.online_reunion_id %>
+                      <div class="row mt-3" style="width: 100%">
+                        <div class="col-12">
+                          <%= link_to 'Unirme a la reunión', meeting_path(appointment.online_reunion_id.to_s), class: 'btn btn-primary', id: "joinMeetingBtn" %>
+                        </div>
+                      </div>
+                    <% end %>  
+                  <% end %>
                 </div>
+                
               </div>            
             <% end %>
           <%end%>

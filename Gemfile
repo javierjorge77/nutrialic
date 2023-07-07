@@ -39,8 +39,10 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem 'pagy'
 
-
-
+gem 'zoomus'
+gem 'net-http'
+gem 'base64'
+gem 'json'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

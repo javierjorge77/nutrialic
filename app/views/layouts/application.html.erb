@@ -22,16 +22,20 @@
   </head>
 
   <body>
-    <header>
-      <%= render "shared/navbar" %>
-    </header>
+    <% unless request.path.include?('/meetings/') %>
+      <header>
+        <%= render "shared/navbar" %>
+      </header>
+    <% end %>
     <div class="wrapper">
       <%= yield %>
     </div>
     <p class="alert"><%= alert %></p>
-    <footer>
-      <%= render "shared/footer" %>
-    </footer>
+    <% unless request.path.include?('/meetings/') %>
+      <footer>
+        <%= render "shared/footer" %>
+      </footer>
+    <% end %>
     <%= render "shared/flashes" %>
     <div id="zmmtg-root"></div>
     <div id="aria-notify-area"></div>

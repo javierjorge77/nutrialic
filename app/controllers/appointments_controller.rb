@@ -1,6 +1,9 @@
 # using SendGrid's Ruby Library
 # https://github.com/sendgrid/sendgrid-ruby
 require 'sendgrid-ruby'
+require 'net/http'
+require 'base64'
+require 'json'
 include SendGrid
 
 class AppointmentsController < ApplicationController
@@ -32,7 +35,7 @@ class AppointmentsController < ApplicationController
     if @appointment.valid? && appointment_is_valid?
       @appointment.save
       AppointmentMailer.notifyCreation(professional_email, professional_name, user_name, appointment_date, appointment_time, auth_token).deliver_now
-      redirect_to "/", notice: "La cita ha sido guardada exitosamente"
+      redirect_to "/appointments", notice: "La cita ha sido guardada exitosamente"
     else
       render :new, status: :unprocessable_entity
     end
@@ -57,11 +60,81 @@ class AppointmentsController < ApplicationController
     user_name = "#{@appointment.user.name} #{@appointment.user.lastname}"
     user_email = @appointment.user.email
     professional_name = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname}"
-    #professional_email @appointment.professional.user.email 
+    professional_email = @appointment.professional.user.email 
+    appointment_date = @appointment.date.strftime("%Y-%m-%d") 
+    appointment_time = @appointment.time.strftime("%H:%M:%S")
+    start_datetime = "#{appointment_date}T#{appointment_time}Z"
+    puts "Appointment date #{appointment_date}"
+    puts "Appointment time #{appointment_time}"
+    puts "start datetime #{start_datetime}"
     if @appointment.update(aprobado: params[:appointment][:aprobado])
-      AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name).deliver_now
-      flash[:notice] = "La cita ha sido aprobada por ti"
-      redirect_to root_path
+      params = {
+        grant_type: 'account_credentials',
+        account_id: 'veszz43ySs2F5GuxGNPARg'
+      }
+      url = URI.parse('https://zoom.us/oauth/token')
+      request = Net::HTTP::Post.new(url.request_uri)
+      request.basic_auth('qRu4sb4eSh2KiiRWRbH4RA', 'Ix04IDo2GHNu1vCrsYR0K2vADuNf8hBK')
+      request.set_form_data(params)
+
+      response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
+        http.request(request)
+      end
+      if response.is_a?(Net::HTTPSuccess)
+        data = JSON.parse(response.body)
+        access_token = data['access_token']
+        puts access_token
+      else
+        puts "Valio cacahuate mi mai"
+        puts "Error: #{response.code} #{response.message}"
+        puts response.body
+      end
+      
+      if access_token 
+        url = URI.parse('https://api.zoom.us/v2/users/me/meetings')
+        request = Net::HTTP::Post.new(url.request_uri)
+        request['Authorization'] = "Bearer #{access_token}"
+        request['Content-Type'] = 'application/json'
+
+        meeting_data = {
+          "topic": "Testing server to server app from local app",
+          "type": 2,
+          "start_time": start_datetime,
+          "duration": 40,
+          "password": "nu7ri4",
+          "settings": {
+            "join_before_host": true,
+            "schedule_for": professional_email,
+            "allow_multiple_meetings": true
+          },
+          "host_id": "832893"
+        }
+
+        request.body = meeting_data.to_json
+
+        response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
+          http.request(request)
+        end
+        if response.is_a?(Net::HTTPSuccess)
+          meeting_info = JSON.parse(response.body)
+          puts "Cita creada exitosamente:"
+          puts meeting_info
+          @appointment.update(online_reunion_id: meeting_info["id"])
+          flash[:notice] = "Cita aprobada con exito"
+          redirect_to professional_appointments_path(current_user.professional.id)
+          meeting_number_id = @appointment.online_reunion_id
+        else
+          puts "Error al crear la cita: #{response.code} #{response.message}"
+          puts response.body
+        end
+      else
+        puts "No token available"
+      end
+      if meeting_number_id
+        AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name, meeting_number_id).deliver_now
+      else
+        AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name).deliver_now
+      end
     else
       render :edit
     end
@@ -73,7 +146,6 @@ class AppointmentsController < ApplicationController
     user_name = "#{@appointment.user.name} #{@appointment.user.lastname}"
     user_email = @appointment.user.email
     professional_name = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname}"
-    #professional_email @appointment.professional.user.email 
     AppointmentMailer.notifyCancelation(user_name, user_email, professional_name).deliver_now
     @appointment.destroy 
     flash[:notice] = "La cita ha sido eliminada correctamente"
@@ -86,25 +158,6 @@ private
     params.require(:appointment).permit(:first, :online, :time, :date)
   end
 
-
-  # def send_email
-  #   receptor = @appointment.user.email
-  #   fecha = @appointment.date
-  #   texto = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname} te atenderá en #{@appointment.professional.adress}, el día #{fecha} \n para cualquier duda previa puedes escribir o llamar por teléfono: #{@appointment.professional.user.phone}"
-
-  #   from = SendGrid::Email.new(email: 'daniel_carrillo_2003@outlook.com')
-  #   to = SendGrid::Email.new(email: receptor)
-  #   subject = "Cita agendada en Nutrialic: #{fecha} "
-  #   content = SendGrid::Content.new(type: 'text/plain', value: texto)
-  #   mail = SendGrid::Mail.new(from, subject, to, content)
-
-  #   sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-  #   response = sg.client.mail._('send').post(request_body: mail.to_json)
-  #   puts response.status_code
-  #   puts response.body
-  #   # puts response.parsed_body
-  #   puts response.headers
-  # end
 
   def appointment_is_valid?
     start_attending_time = @professional.startAttendingTime
