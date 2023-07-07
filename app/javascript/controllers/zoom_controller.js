@@ -53,7 +53,7 @@ export default class extends Controller {
   }
 
   initializeZoom(sdkKey, secretSdkKey, zoomName, rol, meetingNum) {
-    const leaveUrl = "http://localhost:3000/";
+    const leaveUrl = "https://www.nutrialic.com";
     const meetingNumber = meetingNum;
     const userName = zoomName;
     const role = rol;
