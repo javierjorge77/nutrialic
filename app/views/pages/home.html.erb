@@ -9,10 +9,20 @@
 
 <% if user_signed_in? %>
   <section  id="firstSection">
-    <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(https://res.cloudinary.com/dp693fkkc/image/upload/v1667078055/hero-bg_quswze.jpg); display: flex; align-items: center;">
+    <div class="banner">
       <div class="container text-center">
-        <h1 class="bannerTitle" style="color: white">Bienvenido a Nutrialic</h1>
-        <p style="color: white">Felicitaciones por comenzar este viaje junto a nosotros. Cuenta con nuestro apoyo para lograr tus objetivos y mantente enfocado en tus metas!</p>
+        <%= image_tag("nutricion.png", alt: "logo", id: "nutricionPng")%>
+        <%= image_tag("dieta.png", alt: "logo", id: "dietaPng")%>
+        <%= image_tag("manzanita.png", alt: "logo", id: "manzanitaPng")%>
+        <%= image_tag("verdura.png", alt: "logo", id: "verduraPng")%>   
+        <h1 class="bannerTitle">Bienvenido a Nutrialic <%= @user.name %></h1>
+        
+        <% if !@user.professional %>
+          <p>Felicitaciones por comenzar este viaje junto a nosotros. Cuenta con nuestro apoyo para lograr tus objetivos y mantente enfocado en tus metas!</p>
+        <% elsif %>
+          <p>No olvides personalizar tu perfil personal, sube imagenes y agrega la informacion profesional que desees.</p>
+        <% end %>
+        <%= link_to "Ir a mi Perfil", show_by_username_path(id: @user.professional.username), class:"btn",id: "btnRegister" %>
       </div>
     </div>
   </section>
@@ -36,7 +46,7 @@
   
 <% end %>
 
-
+<% if !user_signed_in? %>
 <section id="secondSection">
   <div class="container reveal">
     <div id="secondSectionContent">
@@ -56,8 +66,16 @@
     </div>
   </div>
 </section>
+<% end %>
 
-<section id="thirdSection">
+
+
+<% if !@user || !@user.professional%>
+  <% if user_signed_in? %>
+  <section id="thirdSection" style="top: 0px;">
+<% else %>
+  <section id="thirdSection">
+<% end %>
   <div class="text-center reveal">  
   <%= render 'pages/slider' %>
   </div>
@@ -65,6 +83,9 @@
     <button class="btn btn-flat" id="botonHome"> <%= link_to "Más Nutriólogos", professionals_path%> </button>
   </div>
 </section>
+<% end %>
+
+
 
 
 <script>
