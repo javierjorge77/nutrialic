@@ -15,7 +15,7 @@ class AppointmentMailer < ApplicationMailer
     @professional_name = professional_name 
     @user_name = user_name
     @meeting_number_id = meeting_number_id
-    if @meeting_number_id
+    if @meeting_number_id != 0 
       meeting_url = meeting_url(@meeting_number_id)
       @meeting_link = ActionController::Base.helpers.link_to 'Unirme a la reunión', meeting_url, class: 'btn btn-primary', id: 'joinMeetingBtn'
     end

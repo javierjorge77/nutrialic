@@ -14,16 +14,6 @@
             data: {turbo: false}) do |f| %>
             <%= f.error_notification %>
             <div class="form-inputs">
-            <%# t.boolean "first"
-              t.boolean "online"
-              t.datetime "time"
-              t.bigint "user_id", null: false
-              t.bigint "professional_id", null: false %>
-              <%= f.input :first, label: "Es tu primera Cita?",
-                          required: true,
-                          autofocus: true,
-                          input_html: { autocomplete: "first", checked: false , class: "firstAppo"}%>
-
               <%= f.input :online, label: "Deseas consulta en línea?",
                           required: true,
                           autofocus: true,
@@ -50,7 +40,6 @@
 <div id="confirmacion" class="confirmacion">
   <div class="confirmacion-contenido">
     <h2>¿Estás seguro de que deseas guardar la cita con esta información?</h2>
-    <p id="firstAppointment"></p>
     <p id="onlineAppointment"></p>
     <p id="dateAppoinment"></p>
     <p id="timeAppoinment"></p>
@@ -67,18 +56,9 @@
     const date = document.querySelector('#dateAppo').value 
     const time = document.querySelector('#timeAppo').value 
 
-    const first = document.querySelector('.firstAppo')
-    let firstValue = first.checked ? 'Si' : 'No';
-    document.querySelector('#firstAppointment').innerText = 'Es tu primera Cita?: ' + firstValue;
-
     const online = document.querySelector('.onlineAppo')
     let onlineValue = online.checked ? 'Si' : 'No';
     document.querySelector('#onlineAppointment').innerText = 'Deseas consulta en línea?: ' + onlineValue;
-
-    first.addEventListener('click', function() {
-      firstValue = this.checked ? 'Si' : 'No';
-      document.querySelector('#firstAppointment').innerText = 'Es tu primera Cita?: ' + firstValue;
-    });
 
     online.addEventListener('click', function() {
       onlineValue = this.checked ? 'Si' : 'No';

@@ -25,17 +25,25 @@ class AppointmentsController < ApplicationController
     @appointment.user = current_user
     @appointment.professional = @professional
     @appointment.date = Date.parse(params[:appointment][:date]) if params[:appointment][:date].present?
+    @appointment.authentication_token = Devise.friendly_token
     professional_email = @professional.user.email 
     professional_name = "#{@professional.user.name} #{@professional.user.lastname}"
     user_name = "#{current_user.name} #{current_user.lastname}" 
     appointment_date = @appointment.date 
     appointment_time = @appointment.time
-    @appointment.authentication_token = Devise.friendly_token
     auth_token =  @appointment.authentication_token
     if @appointment.valid? && appointment_is_valid?
-      @appointment.save
-      AppointmentMailer.notifyCreation(professional_email, professional_name, user_name, appointment_date, appointment_time, auth_token).deliver_now
-      redirect_to "/appointments", notice: "La cita ha sido guardada exitosamente"
+      if current_user.appointments.where(professional_id: @professional.id).exists?
+        @appointment.first = false
+      else 
+        @appointment.first = true
+      end
+      if @appointment.save
+        AppointmentMailer.notifyCreation(professional_email, professional_name, user_name, appointment_date, appointment_time, auth_token).deliver_now
+        redirect_to "/appointments", notice: "La cita ha sido guardada exitosamente"
+      else 
+        render :new, status: :unprocessable_entity
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -57,6 +65,7 @@ class AppointmentsController < ApplicationController
 
   def update
     @appointment = Appointment.find(params[:id])
+    appointment = @appointment
     user_name = "#{@appointment.user.name} #{@appointment.user.lastname}"
     user_email = @appointment.user.email
     professional_name = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname}"
@@ -64,77 +73,10 @@ class AppointmentsController < ApplicationController
     appointment_date = @appointment.date.strftime("%Y-%m-%d") 
     appointment_time = @appointment.time.strftime("%H:%M:%S")
     start_datetime = "#{appointment_date}T#{appointment_time}Z"
-    puts "Appointment date #{appointment_date}"
-    puts "Appointment time #{appointment_time}"
-    puts "start datetime #{start_datetime}"
-    if @appointment.update(aprobado: params[:appointment][:aprobado])
-      params = {
-        grant_type: 'account_credentials',
-        account_id: 'veszz43ySs2F5GuxGNPARg'
-      }
-      url = URI.parse('https://zoom.us/oauth/token')
-      request = Net::HTTP::Post.new(url.request_uri)
-      request.basic_auth('qRu4sb4eSh2KiiRWRbH4RA', 'Ix04IDo2GHNu1vCrsYR0K2vADuNf8hBK')
-      request.set_form_data(params)
-
-      response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
-        http.request(request)
-      end
-      if response.is_a?(Net::HTTPSuccess)
-        data = JSON.parse(response.body)
-        access_token = data['access_token']
-        puts access_token
-      else
-        puts "Valio cacahuate mi mai"
-        puts "Error: #{response.code} #{response.message}"
-        puts response.body
-      end
-      
-      if access_token 
-        url = URI.parse('https://api.zoom.us/v2/users/me/meetings')
-        request = Net::HTTP::Post.new(url.request_uri)
-        request['Authorization'] = "Bearer #{access_token}"
-        request['Content-Type'] = 'application/json'
-
-        meeting_data = {
-          "topic": "Testing server to server app from local app",
-          "type": 2,
-          "start_time": start_datetime,
-          "duration": 40,
-          "password": "nu7ri4",
-          "settings": {
-            "join_before_host": true,
-            "schedule_for": professional_email,
-            "allow_multiple_meetings": true
-          },
-          "host_id": "832893"
-        }
-
-        request.body = meeting_data.to_json
-
-        response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
-          http.request(request)
-        end
-        if response.is_a?(Net::HTTPSuccess)
-          meeting_info = JSON.parse(response.body)
-          puts "Cita creada exitosamente:"
-          puts meeting_info
-          @appointment.update(online_reunion_id: meeting_info["id"])
-          flash[:notice] = "Cita aprobada con exito"
-          redirect_to professional_appointments_path(current_user.professional.id)
-          meeting_number_id = @appointment.online_reunion_id
-        else
-          puts "Error al crear la cita: #{response.code} #{response.message}"
-          puts response.body
-        end
-      else
-        puts "No token available"
-      end
-      if meeting_number_id
-        AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name, meeting_number_id).deliver_now
-      else
-        AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name).deliver_now
-      end
+    if @appointment.update(aprobado: params[:appointment][:aprobado]) && @appointment.online
+      create_online_appointment(appointment, user_name, user_email, professional_name, professional_email, start_datetime)
+    elsif  @appointment.update(aprobado: params[:appointment][:aprobado]) && !@appointment.online
+      create_normal_appointment(appointment, user_name, user_email, professional_name)
     else
       render :edit
     end
@@ -152,13 +94,80 @@ class AppointmentsController < ApplicationController
     redirect_to root_path
   end
   
-private
+  private
 
   def appointment_params
-    params.require(:appointment).permit(:first, :online, :time, :date)
+    params.require(:appointment).permit(:online, :time, :date)
   end
 
+  def create_normal_appointment(appointment, user_name, user_email, professional_name)
+    flash[:notice] = "Cita aprobada con exito"
+    redirect_to professional_appointments_path(current_user.professional.id)
+    AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name, 0).deliver_now
+  end
+  
 
+  def create_online_appointment(appointment, user_name, user_email, professional_name, professional_email, start_datetime)
+    params = {
+      grant_type: 'account_credentials',
+      account_id: 'veszz43ySs2F5GuxGNPARg'
+    }
+    url = URI.parse('https://zoom.us/oauth/token')
+    request = Net::HTTP::Post.new(url.request_uri)
+    request.basic_auth('qRu4sb4eSh2KiiRWRbH4RA', 'Ix04IDo2GHNu1vCrsYR0K2vADuNf8hBK')
+    request.set_form_data(params)
+    response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
+      http.request(request)
+    end
+    if response.is_a?(Net::HTTPSuccess)
+      data = JSON.parse(response.body)
+      access_token = data['access_token']
+    else
+      puts "Error: #{response.code} #{response.message}"
+      puts response.body
+    end
+    if access_token 
+      url = URI.parse('https://api.zoom.us/v2/users/me/meetings')
+      request = Net::HTTP::Post.new(url.request_uri)
+      request['Authorization'] = "Bearer #{access_token}"
+      request['Content-Type'] = 'application/json'
+      meeting_data = {
+        "topic": "Testing server to server app from local app",
+        "type": 2,
+        "start_time": start_datetime,
+        "duration": 40,
+        "password": "nu7ri4",
+        "settings": {
+          "join_before_host": true,
+          "schedule_for": professional_email,
+          "allow_multiple_meetings": true
+        },
+        "host_id": "832893"
+      }
+      request.body = meeting_data.to_json
+      response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
+        http.request(request)
+      end
+      if response.is_a?(Net::HTTPSuccess)
+        meeting_info = JSON.parse(response.body)
+        puts "Cita creada exitosamente:"
+        puts meeting_info
+        appointment.update(online_reunion_id: meeting_info["id"])
+        flash[:notice] = "Cita aprobada con exito"
+        redirect_to professional_appointments_path(current_user.professional.id)
+        meeting_number_id = appointment.online_reunion_id
+      else
+        puts "Error al crear la cita: #{response.code} #{response.message}"
+        puts response.body
+      end
+    else
+      puts "No token available"
+    end
+    if meeting_number_id
+      AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name, meeting_number_id).deliver_now
+    end
+  end
+  
   def appointment_is_valid?
     start_attending_time = @professional.startAttendingTime
     end_attending_time = @professional.endAttendingTime
