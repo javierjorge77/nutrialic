@@ -63,7 +63,13 @@ export default class extends Controller {
   }
 
   initializeZoom(sdkKey, secretSdkKey, zoomName, rol, meetingNum, username) {
-    const leaveUrl = `https://www.nutrialic.com/review/new/${username}`;
+    let leaveUrl;
+    if (rol === 0) {
+      leaveUrl = `https://www.nutrialic.com/review/new/${username}`;
+    } else {
+      leaveUrl = "https://www.nutrialic.com/";
+    }
+
     const meetingNumber = meetingNum;
     const userName = zoomName;
     const role = rol;
