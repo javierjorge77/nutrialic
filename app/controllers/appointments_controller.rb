@@ -70,6 +70,7 @@ class AppointmentsController < ApplicationController
     user_email = @appointment.user.email
     professional_name = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname}"
     professional_email = @appointment.professional.user.email 
+    professional_username = @appointment.professional.username 
     appointment_date = @appointment.date.strftime("%Y-%m-%d") 
     appointment_time = @appointment.time.strftime("%H:%M:%S")
     start_datetime = "#{appointment_date}T#{appointment_time}Z"
@@ -77,6 +78,7 @@ class AppointmentsController < ApplicationController
       create_online_appointment(appointment, user_name, user_email, professional_name, professional_email, start_datetime)
     elsif  @appointment.update(aprobado: params[:appointment][:aprobado]) && !@appointment.online
       create_normal_appointment(appointment, user_name, user_email, professional_name)
+      AppointmentMailer.sendReviewLink(user_name, user_email, professional_name, professional_username).deliver_later(wait_until: @appointment.date.to_datetime + @appointment.time.seconds_since_midnight.seconds + 1.hour)
     else
       render :edit
     end

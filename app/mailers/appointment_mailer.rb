@@ -27,6 +27,15 @@ class AppointmentMailer < ApplicationMailer
     @user_name = user_name
     mail to: user_email, subject: "Nutrialic cita rechazada"  
   end
+
+  def sendReviewLink(user_name, user_email, professional_name, professional_username)
+    @professional_name = professional_name 
+    @user_name = user_name
+    @username = professional_username
+    review_url = new_review_url(id: @username)
+    @review_link = ActionController::Base.helpers.link_to 'Calificar mi cita', review_url, class: 'btn btn-primary', id: 'reviewUrlBtn'
+    mail to: user_email, subject: "Calificacion de tu cita Nutrialic"  
+  end
 end
 
 

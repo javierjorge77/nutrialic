@@ -23,6 +23,7 @@ module Nutrialic
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.active_job.queue_adapter = :delayed_job
     config.action_mailer.default_url_options = { host: "example.com" }
 
     config.action_mailer.delivery_method = :smtp 
