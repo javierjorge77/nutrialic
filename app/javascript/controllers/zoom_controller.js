@@ -10,6 +10,7 @@ export default class extends Controller {
     "userLastname",
     "userNutritionist",
     "meetingId",
+    "professionalUsername",
   ];
 
   async connect() {
@@ -31,6 +32,8 @@ export default class extends Controller {
           const rol = userNutritionist == "true" ? 1 : 0;
           const meetingId = this.meetingIdTarget.dataset.meetingId;
           const meetingNum = Number(meetingId);
+          const professionalUsername =
+            this.professionalUsernameTarget.dataset.professionalUsername;
 
           if (window.ZoomMtg) {
             console.log("Now it is");
@@ -39,7 +42,14 @@ export default class extends Controller {
             ZoomMtg.prepareWebSDK();
             ZoomMtg.i18n.load("en-US");
             ZoomMtg.i18n.reload("en-US");
-            this.initializeZoom(sdkKey, secretKey, zoomName, rol, meetingNum);
+            this.initializeZoom(
+              sdkKey,
+              secretKey,
+              zoomName,
+              rol,
+              meetingNum,
+              professionalUsername
+            );
           }
         }
       }
@@ -52,8 +62,8 @@ export default class extends Controller {
     location.reload();
   }
 
-  initializeZoom(sdkKey, secretSdkKey, zoomName, rol, meetingNum) {
-    const leaveUrl = "https://www.nutrialic.com";
+  initializeZoom(sdkKey, secretSdkKey, zoomName, rol, meetingNum, username) {
+    const leaveUrl = `https://www.nutrialic.com/review/new/${username}`;
     const meetingNumber = meetingNum;
     const userName = zoomName;
     const role = rol;

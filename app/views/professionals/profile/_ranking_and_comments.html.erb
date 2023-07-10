@@ -67,24 +67,6 @@
         </div>
     <% end %>
     </div>
-    <div class="formAddCommentContainer">
-        <h5 class="mb-3">Agregar comentario del servicio</h5>
-        <%= form_with(model: @review, url: review_path, method: :post, local: true) do |f| %>
-        <%= f.fields_for :review, @review do |review_fields| %>
-        <%= review_fields.hidden_field :professional_id, value: @professional.id %>
-        <%= review_fields.hidden_field :user_id, value: @current_user.id %>
-        <div class="mb-3">
-            <%= review_fields.label :score, "Calificación:", class: "form-label" %>
-            <%= review_fields.number_field :score, class: "form-control", id: "score", in: 1.0..5.0, step: 0.5 %>
-        </div >
-        <div class="mb-3">
-            <%= review_fields.label :comment, "Comentario:", class: "form-label" %>
-            <%= review_fields.text_area :comment, class: "form-control", id: "comentario"%>
-        </div >
-        <% end %>
-            <%= f.submit "Publicar", id: "botonComentario"%>
-        <% end %>
-    </div>
 </div>
 
 

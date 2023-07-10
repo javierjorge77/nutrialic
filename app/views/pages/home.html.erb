@@ -21,8 +21,8 @@
           <p>Felicitaciones por comenzar este viaje junto a nosotros. Cuenta con nuestro apoyo para lograr tus objetivos y mantente enfocado en tus metas!</p>
         <% elsif %>
           <p>No olvides personalizar tu perfil personal, sube imagenes y agrega la informacion profesional que desees.</p>
+          <%= link_to "Ir a mi Perfil", show_by_username_path(id: @user.professional.username), class:"btn",id: "btnRegister" %>
         <% end %>
-        <%= link_to "Ir a mi Perfil", show_by_username_path(id: @user.professional.username), class:"btn",id: "btnRegister" %>
       </div>
     </div>
   </section>

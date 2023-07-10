@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/professionals/:id', to: 'professionals#show', as: 'show_by_username'
 
   resources :users, only: [:show]
+  get '/review/new/:id', to: 'reviews#new', as: 'new_review'
   post 'review', to: 'reviews#create'
   delete '/review/:id', to: 'reviews#destroy', as: 'review_delete'
   patch '/review/:id', to: 'reviews#update', as: 'review_update'

@@ -1,0 +1,19 @@
+<div class="container" style="height: 100%; display: flex; align-items: center; justify-content: center"> 
+    <div class="formAddCommentContainer" style="width: 70%">
+        <h1 class="mb-3" style="text-align: center; font-size: 2rem"><span style="color: #3f3844;">Calificación de tu cita con </span><%= @professional.user.name %></h1>
+        <h3 style="text-align: center; font-size: 1.5rem; color: #3f3844; margin-bottom: 30px">Tus comentarios son muy importantes para nosotros</h3>
+        <%= form_with(model: @review, url: review_path, method: :post, local: true) do |f| %>
+            <%= f.hidden_field :professional_id, value: @professional.id %>
+            <%= f.hidden_field :user_id, value: @user.id %>
+            <div class="mb-3">
+            <%= f.label :score, "Calificación:", class: "form-label", style: "color: #3f3844;" %>
+            <%= f.number_field :score, class: "form-control", id: "score", in: 1.0..5.0, step: 0.5 %>
+            </div>
+            <div class="mb-3">
+            <%= f.label :comment, "Comentario:", class: "form-label", style: "color: #3f3844;" %>
+            <%= f.text_area :comment, class: "form-control", id: "comentario" %>
+            </div>
+            <div class="text-center"><%= f.submit "Publicar", id: "botonComentario" %></div>
+        <% end %>
+    </div>
+</div>

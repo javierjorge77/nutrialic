@@ -1,5 +1,12 @@
 class ReviewsController < ApplicationController
 
+    def new
+        @review = Review.new        
+        @professional = Professional.find_by(username: params[:id])
+        @user = current_user
+    end
+    
+
     def create
         @review = Review.new(review_params)
         if @review.save
@@ -8,7 +15,6 @@ class ReviewsController < ApplicationController
         else  
             flash[:notice] = "Comment was not added"
         end
-        
     end
 
     def destroy
