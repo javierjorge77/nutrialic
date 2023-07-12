@@ -83,4 +83,6 @@ professional10= ProfessionalAccountRequest.new(user: user10, branch: "Nutrición
 file = URI.open("https://res.cloudinary.com/dp693fkkc/image/upload/v1667067822/Nivia_kf81oc.jpg")
 professional10.photo.attach(io: file, filename: user10.name, content_type: "image/png")
 professional10.save!
-AdminUser.create!(email: 'admin@gemhack.io', password: 'Saratiel_99#', password_confirmation: 'Saratiel_99#') if Rails.env.development?
+
+user = AdminUser.new(email: 'admin@gemhack.io', password: ENV['ADMIN_PASSWORD'], password_confirmation: ENV['ADMIN_PASSWORD'])
+user.save
