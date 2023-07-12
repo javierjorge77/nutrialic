@@ -33,4 +33,4 @@ file = URI.open("https://res.cloudinary.com/dp693fkkc/image/upload/v1667067820/J
 professional5.photo.attach(io: file, filename: user5.name, content_type: "image/png")
 professional5.save!
 
-AdminUser.create!(email: 'admin@example.com', password: 'saratiel_99#', password_confirmation: 'saratiel_99#') if Rails.env.development?
+AdminUser.create!(email: 'admin@gemhack.io', password: 'saratiel_99#', password_confirmation: 'saratiel_99#') if Rails.env.development?
