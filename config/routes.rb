@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
 
   root to: "pages#home"
   devise_for :users
 
-  resources :professionals do
+  resources :professionals, except: [:new] do
     resources :appointments
     member do
       get 'edit', action: :edit
@@ -23,4 +25,5 @@ Rails.application.routes.draw do
   get '/login_with_token', to: 'sessions#login_with_token', as: 'login_with_token'
 
   get '/meetings/:meeting_id', to: 'meetings#index', as: 'meeting'
+  resources :professional_account_requests, only: [:new, :create, :update]
 end

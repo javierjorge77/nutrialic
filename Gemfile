@@ -44,6 +44,8 @@ gem 'net-http'
 gem 'base64'
 gem 'json'
 gem 'delayed_job_active_record'
+
+gem 'activeadmin'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

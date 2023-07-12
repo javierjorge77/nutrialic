@@ -1,10 +1,6 @@
 
 class ProfessionalsController < ApplicationController
 
-  def new
-    @professional = Professional.new
-  end
-
   def create
     @professional = Professional.new(professional_params)
     @professional.user = current_user
