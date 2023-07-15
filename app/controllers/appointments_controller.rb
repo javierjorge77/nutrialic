@@ -4,6 +4,8 @@ require 'sendgrid-ruby'
 require 'net/http'
 require 'base64'
 require 'json'
+require 'stripe_service'
+require 'product'
 include SendGrid
 
 class AppointmentsController < ApplicationController
@@ -26,23 +28,38 @@ class AppointmentsController < ApplicationController
     @appointment.professional = @professional
     @appointment.date = Date.parse(params[:appointment][:date]) if params[:appointment][:date].present?
     @appointment.authentication_token = Devise.friendly_token
-    professional_email = @professional.user.email 
     professional_name = "#{@professional.user.name} #{@professional.user.lastname}"
-    user_name = "#{current_user.name} #{current_user.lastname}" 
-    appointment_date = @appointment.date 
-    appointment_time = @appointment.time
-    auth_token =  @appointment.authentication_token
     if @appointment.valid? && appointment_is_valid?
       if current_user.appointments.where(professional_id: @professional.id).exists?
         @appointment.first = false
+        amount_to_be_paid = @appointment.professional.follow_cost * 100
       else 
         @appointment.first = true
+        amount_to_be_paid =  @appointment.professional.first_cost * 100;
       end
-      if @appointment.save
-        AppointmentMailer.notifyCreation(professional_email, professional_name, user_name, appointment_date, appointment_time, auth_token).deliver_now
-        redirect_to "/appointments", notice: "La cita ha sido guardada exitosamente"
-      else 
-        render :new, status: :unprocessable_entity
+      product_name = "Consulta con #{professional_name}"
+      description = "Esta pago es un cobro realizado para la confirmacion de una cita con el nutriologo"
+      product = Product.stripe_nutritionist(@appointment.professional.id, product_name, description, amount_to_be_paid)
+        
+      session = StripeService.create_checkout_session(
+        current_user,
+        product,
+        success_url: success_checkouts_url(session_id: ''),
+        cancel_url: root_url,
+        appointment_online: @appointment.online,
+        appointment_time: @appointment.time,
+        appointment_date: @appointment.date,
+        appointment_first: @appointment.first,
+        appointment_user_id: @appointment.user_id,
+        appointment_professional_id: @appointment.professional_id,
+        appointment_autentication_token: @appointment.authentication_token
+      )
+      if session.success?
+        puts session
+        redirect_to session.url, allow_other_host: true
+      else
+        flash[:alert] = session.error
+        redirect_to root_url
       end
     else
       render :new, status: :unprocessable_entity
@@ -76,8 +93,26 @@ class AppointmentsController < ApplicationController
     start_datetime = "#{appointment_date}T#{appointment_time}Z"
     if @appointment.update(aprobado: params[:appointment][:aprobado]) && @appointment.online
       create_online_appointment(appointment, user_name, user_email, professional_name, professional_email, start_datetime)
+      id = @appointment.checkout_session_id
+      payment = StripeService.capture_payment(id)
+      if payment.success?
+        puts payment
+      else
+        puts 'it failed'
+        puts payment.error if payment.error
+      end
+      AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name, @appointment.online_reunion_id)
     elsif  @appointment.update(aprobado: params[:appointment][:aprobado]) && !@appointment.online
       create_normal_appointment(appointment, user_name, user_email, professional_name)
+      id = @appointment.checkout_session_id
+      payment = StripeService.capture_payment(id)
+      if payment.success?
+        puts payment
+      else
+        puts 'it failed'
+        puts payment.error if payment.error
+      end
+      AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name, 0)
       AppointmentMailer.sendReviewLink(user_name, user_email, professional_name, professional_username).deliver_later(wait_until: @appointment.date.to_datetime + @appointment.time.seconds_since_midnight.seconds + 1.hour)
     else
       render :edit
@@ -91,6 +126,14 @@ class AppointmentsController < ApplicationController
     user_email = @appointment.user.email
     professional_name = "#{@appointment.professional.user.name} #{@appointment.professional.user.lastname}"
     AppointmentMailer.notifyCancelation(user_name, user_email, professional_name).deliver_now
+    id = @appointment.checkout_session_id
+    cancel_payment = StripeService.cancel_payment_authorization(id)
+    if cancel_payment.success?
+      puts cancel_payment
+    else
+        puts 'it failed'
+        puts cancel_payment.error if cancel_payment.error
+    end
     @appointment.destroy 
     flash[:notice] = "La cita ha sido eliminada correctamente"
     redirect_to root_path

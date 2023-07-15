@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_12_045621) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_13_205644) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_045621) do
     t.boolean "aprobado", default: false
     t.string "authentication_token"
     t.string "online_reunion_id"
+    t.string "checkout_session_id"
     t.index ["authentication_token"], name: "index_appointments_on_authentication_token"
     t.index ["professional_id"], name: "index_appointments_on_professional_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"

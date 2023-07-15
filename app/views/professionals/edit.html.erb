@@ -50,10 +50,10 @@
             <%= f.button :submit, "Guardar Cambios" %>
           </div>
         <% end %>
-        <%= link_to "Borrar Cuenta Profesional",
+        <%# <%= link_to "Borrar Cuenta Profesional",
                     new_professional_path(@professional.id),
                     data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-                %>
+                %> 
         </div>
         
       </div>  

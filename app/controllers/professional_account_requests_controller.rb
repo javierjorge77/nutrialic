@@ -1,4 +1,6 @@
 class ProfessionalAccountRequestsController < ApplicationController
+    skip_before_action :authenticate_user!, only: [:update], raise: false
+
     def new
         @professional_account_request = ProfessionalAccountRequest.new
     end
@@ -15,8 +17,12 @@ class ProfessionalAccountRequestsController < ApplicationController
 
     def update
         @professional_account_request = ProfessionalAccountRequest.find(params[:id])
-        if @professional_account_request.update(professional_account_request_params)
-            redirect_to admin_professional_account_requests_path, notice: 'Professional account request was successfully updated.'
+        user = User.find(@professional_account_request.user_id)
+        user.nutritionist = true
+        puts "Confirmed value: #{professional_account_request_params[:confirmed]}"
+        puts "User ya deberia ir con el cambio tambien"
+        if user.save && @professional_account_request.update(professional_account_request_params)
+            redirect_to admin_professional_account_requests_path, notice: 'La cuenta se actualizo con exito'
         else
             render :edit
         end
@@ -25,6 +31,6 @@ class ProfessionalAccountRequestsController < ApplicationController
     private
 
     def professional_account_request_params
-        params.require(:professional_account_request).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime)
+        params.require(:professional_account_request).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime, :user_id, :confirmed)
     end
 end

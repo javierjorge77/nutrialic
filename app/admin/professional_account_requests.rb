@@ -1,5 +1,5 @@
 ActiveAdmin.register ProfessionalAccountRequest do
-    actions :index, :show, :edit, :update
+    actions :index, :show, :edit
     permit_params :username, :branch, :adress, :diploma, :first_cost, :follow_cost, :startAttendingTime, :endAttendingTime, :photo, :user_id, :confirmed
     index do
         selectable_column
@@ -41,19 +41,10 @@ ActiveAdmin.register ProfessionalAccountRequest do
             f.input :follow_cost
             f.input :startAttendingTime
             f.input :endAttendingTime
-            f.input :confirmed, as: :select, collection: ['pending', 'accepted']
+            f.input :confirmed, as: :select, collection: [[true, 'Accepted'], [false, 'Pending']]
             f.input :photo, as: :file
             f.input :user_id, as: :select, collection: User.all.map { |user| [user.email, user.id] }
         end
         f.actions
-    end
-
-    member_action :confirm_accepted, method: :put do
-        resource.update(confirmed: true)
-        redirect_to admin_professional_account_request_path(resource), notice: 'Professional account request confirmed.'
-    end
-
-    action_item :confirm_accepted, only: :show, if: -> { !resource.confirmed } do
-        link_to 'Confirm Accepted', confirm_accepted_admin_professional_account_request_path(resource), method: :put
     end
 end

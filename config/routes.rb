@@ -25,5 +25,11 @@ Rails.application.routes.draw do
   get '/login_with_token', to: 'sessions#login_with_token', as: 'login_with_token'
 
   get '/meetings/:meeting_id', to: 'meetings#index', as: 'meeting'
-  resources :professional_account_requests, only: [:new, :create, :update]
+
+  resources :professional_account_requests, only: [:new, :create]
+  patch '/admin/professional_account_requests/:id', to: 'professional_account_requests#update', as: 'admin_update_professional_account_request'
+
+  resources :checkouts do
+    get 'success',  to: 'checkouts#success', on: :collection, as: 'success'
+  end
 end
