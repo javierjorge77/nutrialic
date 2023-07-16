@@ -3,6 +3,7 @@ class ProfessionalAccountRequestsController < ApplicationController
 
     def new
         @professional_account_request = ProfessionalAccountRequest.new
+        @marker = {}
     end
 
     def create
@@ -19,8 +20,6 @@ class ProfessionalAccountRequestsController < ApplicationController
         @professional_account_request = ProfessionalAccountRequest.find(params[:id])
         user = User.find(@professional_account_request.user_id)
         user.nutritionist = true
-        puts "Confirmed value: #{professional_account_request_params[:confirmed]}"
-        puts "User ya deberia ir con el cambio tambien"
         if user.save && @professional_account_request.update(professional_account_request_params)
             redirect_to admin_professional_account_requests_path, notice: 'La cuenta se actualizo con exito'
         else
@@ -31,6 +30,6 @@ class ProfessionalAccountRequestsController < ApplicationController
     private
 
     def professional_account_request_params
-        params.require(:professional_account_request).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime, :user_id, :confirmed)
+        params.require(:professional_account_request).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime, :user_id, :confirmed, :latitude, :longitude)
     end
 end

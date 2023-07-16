@@ -18,7 +18,7 @@ class ProfessionalsController < ApplicationController
       #@professionals = Professional.all.includes(:reviews)
       @pagy, @professionals = pagy(Professional.all.includes(:reviews), items: 6)
     end
-    @markers = @professionals.geocoded.map do |professional|
+    @markers = @professionals.map do |professional|
       {
         lat: professional.latitude,
         lng: professional.longitude
@@ -39,11 +39,17 @@ class ProfessionalsController < ApplicationController
       lat: @professional.latitude,
       lng: @professional.longitude
     }
+    puts @professional.latitude 
+    puts @professional.longitude
   end
 
 
   def edit
     @professional = Professional.find(params[:id])
+    @marker = {
+      lat: @professional.latitude,
+      lng: @professional.longitude
+    }
   end
 
   def update
@@ -66,7 +72,7 @@ class ProfessionalsController < ApplicationController
 
 
   def professional_params
-    params.require(:professional).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime)
+    params.require(:professional).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime, :latitude, :longitude)
   end
 
 

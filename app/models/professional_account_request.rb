@@ -20,6 +20,8 @@ class ProfessionalAccountRequest < ApplicationRecord
       username: username,
       branch: branch,
       adress: adress,
+      longitude: longitude,
+      latitude: latitude,
       diploma: diploma,
       first_cost: first_cost,
       follow_cost: follow_cost,

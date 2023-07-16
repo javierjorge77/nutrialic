@@ -44,7 +44,7 @@
           <div class="branchContainer">
             <p> Especialidad(es): <%= professional.branch %></p>
           </div>
-          <h6 class="cedulaTag"> Cédula: <%= professional.diploma %></h6>
+          <h6 class="cedulaTag"> Cédula: <span style="color: #085925"><%= professional.diploma %></span></h6>
           <p> <%= professional.adress %></p>
         </div>
         <h2 class="card-trip-pricing">$<%= professional.first_cost %></h2>
@@ -53,10 +53,10 @@
     <% end %>
   </div>
   <div class="mapa"
-  id="mapaIndex"
-  data-controller="map"
-  data-map-markers-value="<%= @markers.to_json %>"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    id="mapaIndex"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
 
   

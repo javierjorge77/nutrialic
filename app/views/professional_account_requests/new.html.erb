@@ -1,4 +1,4 @@
-<div class="container" id="newProfessionalContainer">
+<div class="container" id="newProfessionalContainer" data-controller="map-select" data-map-select-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>" data-map-select-marker-value="<%= @marker.to_json %>" >
   <div class="row" id="newProfessionalBox">
     <div class="col col-lg-6 col-md-4" id="imageCol">
       <div class="image-container">
@@ -15,7 +15,11 @@
           <div class="form-inputs">
             <%= f.input :username, label: "Nombre de usuario unico:", required: true, autofocus: true, input_html: { autocomplete: "username" }%>
             <%= f.input :branch, label: "Especialidad:", required: true, autofocus: true, input_html: { autocomplete: "branch" }%>
-            <%= f.input :adress, label: "Dirección: ", required: true, autofocus: true, input_html: { autocomplete: "adress" }%>
+            <p>Dirección:* (Coloca el puntero en la ubicación del consultorio)</p>
+            <div id="map-container" style="height: 400px;" data-map-select-target="mapContainer"></div>
+            <%= f.text_field :adress, id: "adress", data: { map_select_target: "addressField" }, style: "width: 100%; margin-bottom: 15px", readonly: true%>
+            <%= f.hidden_field :longitude, id: "longitude", data: { map_select_target: "longitudeField" }%>
+            <%= f.hidden_field :latitude, id: "latitude", data: { map_select_target: "latitudeField" } %>
             <%= f.input :diploma, label: "Número de Cédula: ", required: true, autofocus: true, input_html: { autocomplete: "diploma" }%>
             <%= f.input :first_cost, label: "Costo de Primera Consulta ", required: true, autofocus: true, input_html: { autocomplete: "first_cost" }%>
             <%= f.input :follow_cost, label: "Costo de Segunda Consulta ", required: true, autofocus: true, input_html: { autocomplete: "follow_cost" }%>

@@ -20,7 +20,9 @@
     </div>
     <div class="info text-center">
         <p class="info-detail-title"><strong> Ubicación Consultorio: </strong></p>
-        <p class="info-detail"><%= @professional.adress %></p>
+        <div style="width: 90%; text-align: center; margin: auto">
+            <p class="info-detail"><%= @professional.adress %></p>
+        </div>
         <p class="info-detail-title" style="margin-top: 25px"><strong> Teléfono </strong></p>
         <p class="info-detail"><%= @professional.user.phone %></p>
         <p class="info-detail-title" style="margin-top: 25px"><strong> Email: </strong></p>
