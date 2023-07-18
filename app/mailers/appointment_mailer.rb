@@ -36,6 +36,12 @@ class AppointmentMailer < ApplicationMailer
     @review_link = ActionController::Base.helpers.link_to 'Calificar mi cita', review_url, class: 'btn btn-primary', id: 'reviewUrlBtn'
     mail to: user_email, subject: "Calificacion de tu cita Nutrialic"  
   end
+
+  def appointmentReminder(user_name, user_email, professional_name)
+    @professional_name = professional_name 
+    @user_name = user_name
+    mail to: user_email, subject: "Recordatorio de cita"
+  end
 end
 
 

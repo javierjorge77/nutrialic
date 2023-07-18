@@ -89,7 +89,8 @@ class AppointmentsController < ApplicationController
     professional_email = @appointment.professional.user.email 
     professional_username = @appointment.professional.username 
     appointment_date = @appointment.date.strftime("%Y-%m-%d") 
-    appointment_time = @appointment.time.strftime("%H:%M:%S")
+    appointment_time_fixed = @appointment.time + 6.hours
+    appointment_time = appointment_time_fixed.strftime("%H:%M:%S")
     start_datetime = "#{appointment_date}T#{appointment_time}Z"
     if @appointment.update(aprobado: params[:appointment][:aprobado]) && @appointment.online
       create_online_appointment(appointment, user_name, user_email, professional_name, professional_email, start_datetime)
@@ -102,6 +103,7 @@ class AppointmentsController < ApplicationController
         puts payment.error if payment.error
       end
       AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name, @appointment.online_reunion_id)
+      AppointmentMailer.appointmentReminder(user_name, user_email, professional_name).deliver_later(wait_until: @appointment.date.to_datetime + @appointment.time.seconds_since_midnight.seconds - 5.hours)
     elsif  @appointment.update(aprobado: params[:appointment][:aprobado]) && !@appointment.online
       create_normal_appointment(appointment, user_name, user_email, professional_name)
       id = @appointment.checkout_session_id
@@ -114,6 +116,7 @@ class AppointmentsController < ApplicationController
       end
       AppointmentMailer.notifyConfirmation(user_name, user_email, professional_name, 0)
       AppointmentMailer.sendReviewLink(user_name, user_email, professional_name, professional_username).deliver_later(wait_until: @appointment.date.to_datetime + @appointment.time.seconds_since_midnight.seconds + 1.hour)
+      AppointmentMailer.appointmentReminder(user_name, user_email, professional_name).deliver_later(wait_until: @appointment.date.to_datetime + @appointment.time.seconds_since_midnight.seconds - 5.hours)
     else
       render :edit
     end
