@@ -1,35 +1,37 @@
 <div class="container" id="appointmentContainer">
   <div class="contenedorCita">
     <div class="row">
-      <div class="col col-sm-12 col-md-6" id="colNameUser">
+      <div class="col col-sm-12 col-md-6" id="colNameUser" style="flex: initial;">
         <div class="text-center">
           <h1>Agenda tu Cita con <%= @professional.user.name %></h1>
           <i class="fa-solid fa-calendar-days"></i>
         </div>
       </div>
-      <div class="col col-sm-12 col-md-6">
+      <div class="col col-sm-12 col-md-6" style="flex: initial;">
         <div id="contenedorFormCita">
           <p class="text-center"> En menos de 24h recibirás una confirmación</p>
           <%= simple_form_for( [@professional, @appointment],
             data: {turbo: false}) do |f| %>
-            <%= f.error_notification %>
-            <div class="form-inputs">
-              <%= f.input :online, label: "Deseas consulta en línea?",
-                          required: true,
-                          autofocus: true,
-                          input_html: { autocomplete: "online", checked: false, class: "onlineAppo"}%>
-
+            <div class="form-inputs text-center">
+              <div>
+                <%= f.label :online, "¿Deseas consulta en línea?" %>
+                <%= f.input :online, label: "Si",input_html: { autocomplete: "online", checked: false, class: "onlineAppo", style: "float: initial; margin-right: 10px"}%>
+              </div>
               <div>
                 <%= f.label :date, "Fecha de la Cita:", required: true %>
+                <br>
                 <%= f.date_field :date, required: true, value: @appointment.date&.strftime('%Y-%m-%d'), class: "picker-appointment", id: "dateAppo"%>
               </div>
 
               <div class="mt-4">
                 <%= f.label :time, "Hora de la Cita:", required: true %>
+                <br>
                 <%= f.time_field :time, required: true, class: "picker-appointment", id: "timeAppo"%>
               </div>  
             </div>
+            <div class="text-center">
               <%= f.button :submit, "Agendar", id: "botonAgendar", class: "btn btn-flat", onclick: "return mostrarConfirmacion();"%>
+            </div>
           <% end %>
         </div>
       </div>
@@ -39,12 +41,12 @@
 
 <div id="confirmacion" class="confirmacion">
   <div class="confirmacion-contenido">
-    <h2>¿Estás seguro de que deseas guardar la cita con esta información?</h2>
+    <h2>Tu cita sera guardada con la siguiente información, ¿Estas de acuerdo?</h2>
     <p id="onlineAppointment"></p>
     <p id="dateAppoinment"></p>
     <p id="timeAppoinment"></p>
     <div class="confirmacion-botones">
-      <button onclick="confirmacionAceptar()" id="aceptarCita">Aceptar</button>
+      <button onclick="confirmacionAceptar()" id="aceptarCita">Estoy de acuerdo</button>
       <button onclick="confirmacionCancelar()" id="cancelarCita">Cancelar</button>
     </div>
   </div>

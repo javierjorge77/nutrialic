@@ -30,7 +30,6 @@
     <div class="wrapper">
       <%= yield %>
     </div>
-    <p class="alert"><%= alert %></p>
     <% unless request.path.include?('/meetings/') %>
       <footer>
         <%= render "shared/footer" %>

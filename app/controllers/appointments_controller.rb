@@ -33,12 +33,13 @@ class AppointmentsController < ApplicationController
       if current_user.appointments.where(professional_id: @professional.id).exists?
         @appointment.first = false
         amount_to_be_paid = @appointment.professional.follow_cost * 100
+        product_name = "Consulta de continuidad con #{professional_name}"
       else 
         @appointment.first = true
         amount_to_be_paid =  @appointment.professional.first_cost * 100;
+        product_name = "Primer consulta con #{professional_name}"
       end
-      product_name = "Consulta con #{professional_name}"
-      description = "Esta pago es un cobro realizado para la confirmacion de una cita con el nutriologo"
+      description = "Esta pago es un cobro realizado para la confirmacion de una cita con el nutriologo, en caso de que no sea aceptada no se realizara ningun cobro. Para cualquier duda o aclaración comunicarse al 7773442662."
       product = Product.stripe_nutritionist(@appointment.professional.id, product_name, description, amount_to_be_paid)
         
       session = StripeService.create_checkout_session(
@@ -58,10 +59,11 @@ class AppointmentsController < ApplicationController
         puts session
         redirect_to session.url, allow_other_host: true
       else
-        flash[:alert] = session.error
+        flash[:error] = session.error
         redirect_to root_url
       end
     else
+      flash[:error] = "Parece que hubo un error, verifica de nuevo la información ingresada"
       render :new, status: :unprocessable_entity
     end
   end
@@ -71,11 +73,11 @@ class AppointmentsController < ApplicationController
       if current_user.professional.id == params[:professional_id].to_i
         @professional = Professional.find(params[:professional_id])
       else
-        flash[:notice] = "No tienes permiso de acceder a las citas de otro profesional"
+        flash[:notice] = "No tienes permiso de acceder a las citas de otro nutriólogo"
         redirect_to root_path
       end
     else
-      flash[:notice] = "No tienes permiso de acceder a esta pagina"
+      flash[:notice] = "No tienes permiso de acceder a esta página"
       redirect_to root_path
     end
   end
@@ -118,6 +120,7 @@ class AppointmentsController < ApplicationController
       AppointmentMailer.sendReviewLink(user_name, user_email, professional_name, professional_username).deliver_later(wait_until: @appointment.date.to_datetime + @appointment.time.seconds_since_midnight.seconds + 1.hour)
       AppointmentMailer.appointmentReminder(user_name, user_email, professional_name).deliver_later(wait_until: @appointment.date.to_datetime + @appointment.time.seconds_since_midnight.seconds - 5.hours)
     else
+      flash[:error] = "Hubo un error al cambiar el estado de la cita"
       render :edit
     end
   end
@@ -250,6 +253,5 @@ class AppointmentsController < ApplicationController
 
     true
   end
-
 
 end

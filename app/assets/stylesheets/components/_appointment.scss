@@ -25,7 +25,7 @@
 
 .contenedorCita h1 {
   text-align: center;
-  color: palevioletred;
+  color: #ee7784;
   font-size: 2rem;
   margin: 30px 30px 0 30px;
 }
@@ -43,7 +43,7 @@
 
 #colNameUser i {
   font-size: 2.5rem;
-  color: palevioletred;
+  color: #ee7784;
   padding-bottom: 20px;
   margin-top: 15px;
   margin-bottom: 30px;
@@ -89,15 +89,19 @@
 }
 
 .confirmacion-contenido h2 {
-  font-size: 1.3rem;
-  color: red;
-  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #ee7784;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .confirmacion-contenido p {
   font-size: 1rem;
   color: rgb(0, 0, 0);
-  line-height: 10px;
+  line-height: 20px;
 }
 
 .confirmacion-botones {
@@ -107,20 +111,29 @@
 }
 
 #aceptarCita {
-  background-color: rgb(17, 159, 17);
+  background-color: #ee7784;
   border: none;
   border-radius: 7px;
   color: white;
   padding: 6px 13px 6px 13px;
+  margin: 0 10px;
 }
 
 #cancelarCita {
-  background-color: red;
+  background-color: #7b7b7b;
   border: none;
   border-radius: 7px;
   color: white;
   padding: 6px 13px 6px 13px;
+  margin: 0 10px;
 }
+
+@media only screen and(max-width: 469px) {
+  #cancelarCita {
+    margin-top: 20px;
+  }
+}
+
 #searchsvg {
   width: 50%;
 }
