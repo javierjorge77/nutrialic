@@ -13,22 +13,24 @@
             <% if !appointment.aprobado %>
               <div class="card-product" style="margin-top:16px">
                   <div class="imgCardContainer">
-                    <img src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%" style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
-                  </div>                <div class="card-product-infos">
+                    <%= image_tag('escala-de-peso.png', alt: 'Manzanita con notas', style: "width: 16%; margin-right: 20px; margin-left: 40px; border-radius: 5px") %>
+                  </div>                
+                  <div class="card-product-infos">
                   <h2> <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
+                  
                   <span> <p> <strong>Paciente:</strong><%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
                   <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
                   <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
-                  <div class="row mt-3" style="width: 100%">
-                    <div class="col-6">
+                  <div class="row text-center" style="width: 100%; margin: 0; margin-top: 15px;">
+                    <div class="col col-sm-12 col-md-6" style="flex: initial">
                       <%= form_with(model: appointment, url: professional_appointment_path(appointment.professional_id, appointment.id), method: :patch, local: true, id: "confirmAppointmentForm_#{appointment.id}") do |f| %>
                         <%= f.hidden_field :aprobado, value: true %>
-                        <%= f.submit 'Confirmar', class: 'btn btn-primary', id: "confirmAppointmentBtn", onclick: "return mostrarConfirmacionCita(event, #{appointment.id});"%>
+                        <%= f.submit 'Aprobar', class: 'btn btn-primary', id: "confirmAppointmentBtn", onclick: "return mostrarConfirmacionCita(event, #{appointment.id});"%>
                       <% end %>
                     </div>
-                    <div class="col-6">
+                    <div class="col col-sm-12 col-md-6" style="flex: initial">
                       <%= form_with(model: appointment, url: professional_appointment_path(@professional, appointment), method: :delete, local: true, id: "deleteAppointmentForm_#{appointment.id}") do |f| %>
-                        <%= f.submit 'Eliminar', class: 'btn btn-primary', id: "deleteAppointmentBtn",onclick: "return mostrarConfirmacionEliminacion(event, #{appointment.id});" %>
+                        <%= f.submit 'Declinar', class: 'btn btn-primary', id: "deleteAppointmentBtn",onclick: "return mostrarConfirmacionEliminacion(event, #{appointment.id});" %>
                       <% end %>
                     </div>
                   </div>
@@ -54,7 +56,7 @@
             <% if appointment.aprobado %>
               <div class="card-product" style="margin-top:16px">
                 <div class="imgCardContainer">
-                  <img src="https://www.ecured.cu/images/a/a1/Ejemplo_de_Avatar.png%" style="width: 20%; margin-right: 20px; margin-left: 40px; border-radius: 5px"/>
+                  <%= image_tag('dieta.png', alt: 'Manzanita con notas', style: "width: 16%; margin-right: 20px; margin-left: 40px; border-radius: 5px") %>
                 </div>
                 <div class="card-product-infos">
                   <h2> Hola <%= " #{appointment.professional.user.name}" %>, te recordamos que aprobaste una cita con</h2>
@@ -63,11 +65,9 @@
                   <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
                   <% if appointment.online %>
                     <% if appointment.online_reunion_id %>
-                      <div class="row mt-3" style="width: 100%">
-                        <div class="col-12">
-                          <%= link_to 'Unirme a la reunión', meeting_path(appointment.online_reunion_id.to_s), class: 'btn btn-primary', id: "joinMeetingBtn" %>
+                        <div class="text-center"  style="width: 100%; margin-top: 15px">
+                          <%= link_to 'Iniciar la reunión', meeting_path(appointment.online_reunion_id.to_s), class: 'btn btn-primary', id: "joinMeetingBtn" %>
                         </div>
-                      </div>
                     <% end %>  
                   <% end %>
                 </div>
@@ -89,7 +89,7 @@
       </div>  
 
   <% else %>
-    <h2>No tienes citas confirmadas o por confirmar!</h2>
+    <div style="display: flex; align-items: center; justify-content: center; width: 80%; margin: 50px auto 50px auto; height: 400px; background-color: #A0EBA5; border-radius: 20px"> <h2 style="color: #3f3844; width: 90%; text-align: center; margin: 0 auto">No tienes citas confirmadas o por confirmar!</h2> </div>
   <% end %>
   
   
@@ -99,11 +99,11 @@
 <div id="confirmacionEliminacion" class="confirmacion">
   <div class="confirmacion-contenido">
     <h2>¿Estás seguro de que deseas eliminar esta cita?</h2>
-    <p>El usuario sera notificado via correo electronico.</p>
-    <p>¡Esta accion no puede ser desecha!</p>
+    <p style="font-size: 1.2rem">El usuario sera notificado via correo electronico.</p>
+    <p style="color: #FF9700; font-size: 1.2rem; font-weight: bold"> <i class="fa-solid fa-triangle-exclamation"></i> Esta accion no puede ser desecha <i class="fa-solid fa-triangle-exclamation"></i> </p>
     <div class="confirmacion-botones">
-      <button onclick="confirmacionAceptarEliminacion(event)" id="aceptarEliminacionCita">Aceptar</button>
-      <button onclick="confirmacionCancelarEliminacion()" id="cancelarEliminacionCita">Cancelar</button>
+      <button onclick="confirmacionAceptarEliminacion(event)" id="aceptarEliminacionCita">Si, eliminar</button>
+      <button onclick="confirmacionCancelarEliminacion()" id="cancelarEliminacionCita">No, cancelar</button>
     </div>
   </div>
 </div>
@@ -111,10 +111,10 @@
 <div id="confirmacionAceptacion" class="confirmacion">
   <div class="confirmacion-contenido">
     <h2>¿Estás seguro de que deseas confirmar esta cita?</h2>
-    <p>El usuario sera notificado via correo electronico.</p>
+    <p style="font-size: 1.2rem">El usuario sera notificado via correo electronico.</p>
     <div class="confirmacion-botones">
-      <button onclick="confirmacionAceptarCita(event)" id="confirmarAceptacionCita">Aceptar</button>
-      <button onclick="confirmacionCancelarAcepCita()" id="cancelarAceptacionCita">Cancelar</button>
+      <button onclick="confirmacionAceptarCita(event)" id="confirmarAceptacionCita">Si, aceptar</button>
+      <button onclick="confirmacionCancelarAcepCita()" id="cancelarAceptacionCita">No, cancelar</button>
     </div>
   </div>
 </div>

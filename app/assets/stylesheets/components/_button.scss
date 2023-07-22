@@ -56,57 +56,77 @@
 }
 
 #confirmAppointmentBtn {
-  background-color: #03c04a;
+  background-color: #ee7784;
   border: none;
   border-radius: 5px;
   margin: 5px;
+  transition: all 0.3s ease;
 }
 
 #confirmAppointmentBtn:hover {
-  background-color: #006e2a;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 #deleteAppointmentBtn {
-  background-color: #f42941;
+  background-color: #7b7b7b;
   border: none;
   border-radius: 5px;
   margin: 5px;
+  transition: all 0.3s ease;
 }
 
 #deleteAppointmentBtn:hover {
-  background-color: #b12334;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#joinMeetingBtn {
+  border-radius: 5px;
+  background: #2d8cff;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+#joinMeetingBtn:hover {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 #aceptarEliminacionCita {
-  background-color: rgb(17, 159, 17);
+  background-color: #ee7784;
   border: none;
   border-radius: 7px;
   color: white;
   padding: 6px 13px 6px 13px;
+  margin: 0 10px;
 }
 
 #cancelarEliminacionCita {
-  background-color: red;
+  background-color: #7b7b7b;
   border: none;
   border-radius: 7px;
   color: white;
   padding: 6px 13px 6px 13px;
+  margin: 0 10px;
 }
 
 #confirmarAceptacionCita {
-  background-color: rgb(17, 159, 17);
+  background-color: #ee7784;
   border: none;
   border-radius: 7px;
   color: white;
   padding: 6px 13px 6px 13px;
+  margin: 0 10px;
 }
 
 #cancelarAceptacionCita {
-  background-color: red;
+  background-color: #7b7b7b;
   border: none;
   border-radius: 7px;
   color: white;
   padding: 6px 13px 6px 13px;
+  margin: 0 10px;
 }
 
 #eliminarComentarioBtn {

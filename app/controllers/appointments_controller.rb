@@ -142,7 +142,7 @@ class AppointmentsController < ApplicationController
     end
     @appointment.destroy 
     flash[:notice] = "La cita ha sido eliminada correctamente"
-    redirect_to root_path
+    redirect_to professional_appointments_path(current_user.professional.id)
   end
   
   private

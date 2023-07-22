@@ -47,10 +47,10 @@
             <a href="#" class="nav-link dropdown-toggle" style="margin: 0" id="navDrop" role="button" data-bs-toggle="dropdown" aria-expanden="false">
               <%= current_user.name %> <i class="fa-solid fa-circle-user" style="font-size: 1.2rem; margin-left: 5px"></i>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="border-radius: 10px; border: none; background-color: rgb(239 239 239); margin: 0; margin-top: 15px; margin-bottom: 15px">
               <%# <%= link_to "Subir foto", "#", class: "dropdown-item" %>
-              <li><%= link_to "Editar Perfil", edit_user_registration_path, class: "dropdown-item" %></li>
-              <%= link_to "Cerrar Sesión", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+              <li><%= link_to "#{content_tag(:i, nil, class: 'fa-solid fa-pen-to-square', style: "margin-right: 10px")} Editar Perfil".html_safe, edit_user_registration_path, class: "dropdown-item" %></li>
+              <li><%= link_to "#{content_tag(:i, nil, class: 'fa-solid fa-right-from-bracket', style: "margin-right: 10px")} Cerrar Sesión".html_safe, destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item", style: "color: red"%></li>
             </ul>
           </li>
 

@@ -139,14 +139,15 @@
 }
 
 #nutriAppointmentsTitle {
-  font-size: 1.5rem;
-  margin-top: 50px;
+  font-size: 1.7rem;
+  margin: 50px auto 0 auto;
   text-align: center;
   color: #3f3844;
+  width: 80%;
 }
 
 #nutSinCitasPendsMsjContainer {
-  height: 100%;
+  height: 600px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -167,6 +168,10 @@
 @media only screen and(max-width: 400px) {
   #sinCitasPendientes {
     font-size: 1rem;
+  }
+
+  #nutSinCitasPendsMsjContainer {
+    height: 400px;
   }
 }
 

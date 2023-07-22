@@ -9,22 +9,22 @@
       </div>
       <div class="col col-sm-12 col-md-6" style="flex: initial;">
         <div id="contenedorFormCita">
-          <p class="text-center"> En menos de 24h recibirás una confirmación</p>
+          <p class="text-center" style="font-size: 1.2rem"> En menos de 24h recibirás una confirmación</p>
           <%= simple_form_for( [@professional, @appointment],
             data: {turbo: false}) do |f| %>
             <div class="form-inputs text-center">
               <div>
-                <%= f.label :online, "¿Deseas consulta en línea?" %>
+                <%= f.label :online, "¿Deseas consulta en línea?", style: "margin-bottom: 10px"%>
                 <%= f.input :online, label: "Si",input_html: { autocomplete: "online", checked: false, class: "onlineAppo", style: "float: initial; margin-right: 10px"}%>
               </div>
               <div>
-                <%= f.label :date, "Fecha de la Cita:", required: true %>
+                <%= f.label :date, "Fecha de la Cita:", required: true, style: "margin-bottom: 10px" %>
                 <br>
                 <%= f.date_field :date, required: true, value: @appointment.date&.strftime('%Y-%m-%d'), class: "picker-appointment", id: "dateAppo"%>
               </div>
 
               <div class="mt-4">
-                <%= f.label :time, "Hora de la Cita:", required: true %>
+                <%= f.label :time, "Hora de la Cita:", required: true, style: "margin-bottom: 10px" %>
                 <br>
                 <%= f.time_field :time, required: true, class: "picker-appointment", id: "timeAppo"%>
               </div>  

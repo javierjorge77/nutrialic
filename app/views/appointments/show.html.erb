@@ -7,9 +7,14 @@
                     <% current_user.appointments.each do |appointment| %>
                         <% if !appointment.aprobado %>
                             <div class="card-product card-product-pendiente">
-                                <div class="card-product-infos">
+                                <div class="card-product-infos text-center">
                                     <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-                                    <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
+                                    <h4 style="font-size: 1.1rem; color: #3f3844">Estado: Pendiente <span style="color: red"><i class="fa-solid fa-circle"></i></span></h4>
+                                    <% if appointment.online %>
+                                        <p> <strong>Tipo de cita:</strong> En línea</p>
+                                    <%else%>
+                                        <p><strong>Tipo de cita:</strong> Presencial</p>
+                                    <% end %>
                                     <p><strong>Fecha:</strong> <span class="fecha-element" data-date-and-time-target="fechaelement"><%= appointment.date %></span> </p>
                                     <p><strong>Hora:</strong> <span class="hora-element" data-date-and-time-target="horaelement"><%= appointment.time%></span> </p>
                                     <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
@@ -38,18 +43,21 @@
                     <% current_user.appointments.each do |appointment| %>
                         <% if appointment.aprobado %>
                             <div class="card-product card-product-aprobado" style="margin-top:16px">
-                                <div class="card-product-infos">
+                                <div class="card-product-infos text-center">
                                     <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-                                    <p> <strong>Direccion:</strong>  <%= appointment.professional.adress %></p>
+                                    <h4 style="font-size: 1.1rem; color: #3f3844">Estado: Aprobado <span style="color: green"><i class="fa-solid fa-circle"></i></span></h4>
+                                    <% if appointment.online %>
+                                        <p> <strong>Tipo de cita:</strong> En línea</p>
+                                    <%else%>
+                                        <p><strong>Tipo de cita:</strong> Presencial</p>
+                                    <% end %>
                                     <p><strong>Fecha:</strong> <span class="fecha-element" data-date-and-time-target="fechaelement"><%= appointment.date %></span> </p>
                                     <p><strong>Hora:</strong> <span class="hora-element" data-date-and-time-target="horaelement"><%= appointment.time%></span> </p>
                                     <p> <strong>Telefono:</strong><%= appointment.professional.user.phone %></p>
                                     <% if appointment.online %>
                                         <% if appointment.online_reunion_id %>
-                                            <div class="row mt-3" style="width: 100%">
-                                                <div class="col-12">
-                                                    <%= link_to 'Unirme a la reunión', meeting_path(appointment.online_reunion_id.to_s), class: 'btn btn-primary', id: "joinMeetingBtn" %>
-                                                </div>
+                                            <div class="text-center" style="margin-top: 15px">
+                                                <%= link_to 'Unirme a la reunión', meeting_path(appointment.online_reunion_id.to_s), class: 'btn btn-primary', id: "joinMeetingBtn" %>
                                             </div>
                                         <% end %>
                                     <% end %>
