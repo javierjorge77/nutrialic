@@ -44,6 +44,8 @@ gem 'net-http'
 gem 'base64'
 gem 'json'
 gem 'delayed_job_active_record'
+gem 'image_processing', '~> 1.2'
+
 
 gem 'activeadmin'
 gem 'stripe'

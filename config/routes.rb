@@ -11,8 +11,12 @@ Rails.application.routes.draw do
     member do
       get 'edit', action: :edit
       patch 'update', action: :update
+      post 'addPhoto'
     end
-  end
+  end 
+
+  delete '/gallery_images/:id', to: 'professionals#delete_image', as: :delete_gallery_image
+
 
   delete '/professionals/:id', to: 'professionals#destroy', as: "delete_professional"
 

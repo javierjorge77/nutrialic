@@ -9,6 +9,7 @@ class Professional < ApplicationRecord
   }
   has_many :appointments
   has_one_attached :photo
+  has_many :gallery_images
   has_many :reviews
   has_many :users, through: :reviews
   validates :first_cost, presence: true

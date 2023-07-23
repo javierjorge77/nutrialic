@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_16_024937) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_23_095639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,6 +101,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_16_024937) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "gallery_images", force: :cascade do |t|
+    t.bigint "professional_id", null: false
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professional_id"], name: "index_gallery_images_on_professional_id"
+  end
+
   create_table "professional_account_requests", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -166,6 +174,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_16_024937) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "appointments", "professionals"
   add_foreign_key "appointments", "users"
+  add_foreign_key "gallery_images", "professionals"
   add_foreign_key "professional_account_requests", "users"
   add_foreign_key "professionals", "users"
 end

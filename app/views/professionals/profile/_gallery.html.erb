@@ -1,44 +1,41 @@
 <h3>Galeria de imagenes</h3>
-<%if @current_user.professional %>
-    <% if @professional.id == @current_user.professional.id%>
-    <form>
-        <div class="input-group">
-            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Subir Imagen">
-            <button class="btn btn-primary" id="inputGroupFileAddon04" type="submit">Subir Imagen</button>
-        </div>       
-    </form>
-    <%end%>
-<%end%>    
+<% if @current_user.professional %>
+    <% if @professional.id == @current_user.professional.id %>
+        <%= form_tag(addPhoto_professional_path(@professional), method: :post, multipart: true) do %>
+            <div class="field">
+                <%= label_tag :gallery_images, "Agregar imagen", class: "form-label" %>
+                <%= file_field_tag 'professional[gallery_images]', multiple: true, accept: "image/*", class: "form-control" %>
+            </div>
+            <%= submit_tag "Guardar", id: "addImg" %>
+        <% end %>
+    <% end %>
+<% end %>
 
-<div class="row mt-4">
-    <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-        <a href="<%= asset_path('imageGallery1.jpg') %>" class="fancybox" data-fancybox="gallery">
-            <%= image_tag "imageGallery1.jpg", alt: "" %>
+<% if !@professional.gallery_images.empty? %>
+    <div class="row mt-4">
+        <% @professional.gallery_images.each do |gallery_image| %>
+            <div class="item col-sm-6 col-md-6 col-lg-4 mb-3 mt-5">
+                <a href="<%= gallery_image.url %>" class="fancybox" data-fancybox="gallery">
+                    <%= image_tag(gallery_image.url, resize: "300x300") %>
+                </a>
+                <% if @current_user.professional %>
+                    <% if @professional.id == @current_user.professional.id %>
+                        <div class="text-center">
+                            <%= form_with(url: delete_gallery_image_path(gallery_image), method: :delete, local: true, id: "deleteImageForm_#{gallery_image.id}") do |form| %>
+                                <%= form.submit 'Eliminar', class: 'btn btn-danger', data: { confirm: '¿Estás seguro de que deseas eliminar esta imagen?' }, id: "deleteImgBtn" %>
+                            <% end %>
+                        </div>
+                    <% end %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+<% else %>
+    <h1 style="width: 100%; margin: 50px auto 0 auto;">Sin imágenes para mostrar</h1>
+<% end %>
+    <%# <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
+        <a href="<%= asset_path('imageGallery6.jpg') " class="fancybox" data-fancybox="gallery">
+            <%# <%= image_tag "imageGallery6.jpg", alt: "" 
         </a>
-    </div>  
-    <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-        <a href="<%= asset_path('imageGallery2.jpg') %>" class="fancybox" data-fancybox="gallery">
-            <%= image_tag "imageGallery2.jpg", alt: "" %>
-        </a>
-    </div>  
-    <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-        <a href="<%= asset_path('imageGallery3.jpg') %>" class="fancybox" data-fancybox="gallery">
-            <%= image_tag "imageGallery3.jpg", alt: "" %>
-        </a>
-    </div>  
-    <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-        <a href="<%= asset_path('imageGallery4.jpg') %>" class="fancybox" data-fancybox="gallery">
-            <%= image_tag "imageGallery4.jpg", alt: "" %>
-        </a>
-    </div>  
-    <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-        <a href="<%= asset_path('imageGallery5.jpg') %>" class="fancybox" data-fancybox="gallery">
-            <%= image_tag "imageGallery5.jpg", alt: "" %>
-        </a>
-    </div>  
-    <div class="item col-sm-6 col-md-6 col-lg-4 mb-3">
-        <a href="<%= asset_path('imageGallery6.jpg') %>" class="fancybox" data-fancybox="gallery">
-            <%= image_tag "imageGallery6.jpg", alt: "" %>
-        </a>
-    </div>              
+    </div>                %>
 </div>

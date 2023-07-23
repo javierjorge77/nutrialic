@@ -55,7 +55,32 @@ class ProfessionalsController < ApplicationController
   def update
     @professional = Professional.find(params[:id])
     @professional.update(professional_params) # Will raise
-    redirect_to professionals_path, status: :see_other
+    flash[:notice] = "Tu cuenta ha sido actualizada exitosamente"
+    redirect_to show_by_username_path(id: @professional.username)
+  end
+
+  def addPhoto
+    @professional = Professional.find(params[:id])
+    if params[:professional][:gallery_images].present?
+      image = params[:professional][:gallery_images]
+      cloudinary_response = Cloudinary::Uploader.upload(image)
+      @professional.gallery_images.create(url: cloudinary_response["secure_url"])
+      flash[:notice] = "Tu imagen ha sido agregada, puedes verificarlo en el menu imágenes"
+      redirect_to show_by_username_path(id: @professional.username)
+    end
+  end
+
+  def delete_image
+    @image = GalleryImage.find(params[:id])
+    @professional = Professional.find(@image.professional_id)
+    url = @image.url
+    public_id = url.split("/").last.split(".").first
+    # Eliminar la imagen de Cloudinary
+    Cloudinary::Uploader.destroy(public_id)
+    # Eliminar el registro de la base de datos
+    @image.destroy
+    flash[:notice] = "La imagen ha sido eliminada correctamente"
+    redirect_to show_by_username_path(id: @professional.username)
   end
 
   def destroy
@@ -79,7 +104,7 @@ class ProfessionalsController < ApplicationController
 
 
   def professional_params
-    params.require(:professional).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime, :latitude, :longitude)
+    params.require(:professional).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime, :latitude, :longitude, :gallery_images)
   end
 
 
