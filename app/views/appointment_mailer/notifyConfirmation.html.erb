@@ -1,10 +1,10 @@
-<div style="width: 50%">
-  <h1 style="padding: 20px">Hola <%= @user_name %>, tu cita ha sido confirmada por <%= @professional_name %></h1>
+<div style="width: 70%; margin: 20px auto 0 auto">
+  <h1 style="padding: 5px; text-align: center">Hola <%= @user_name %>, tu cita ha sido confirmada por <%= @professional_name %></h1>
   <%if !@meeting_link %>
-    No olvides que tu cita fue agendada en consultorio, favor de presentarte 5 minutos antes de la hora de tu cita
+    <h2 style="margin-bottom: 20px; font-size: 1.5rem">No olvides que tu cita fue agendada en consultorio, favor de presentarte 5 minutos antes de la hora de tu cita.</h2> 
   <% end %>
   <%if @meeting_link %>
-    <h2>Para unirte a la reunion da click en el siguiente enlace el dia de tu cita</h2>
-    <h2> <%= @meeting_link %> </h2>
+    <h2 style="margin-bottom: 20px; font-size: 1.5rem">Para unirte a la reunión da click en el siguiente enlace el día de tu cita, o accede desde tu cuenta.</h2>
+    <h2 style="font-size: 1.5rem"> <%= @meeting_link %> </h2>
   <% end %>  
 </div>

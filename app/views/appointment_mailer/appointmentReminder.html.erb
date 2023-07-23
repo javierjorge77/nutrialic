@@ -1,7 +1,7 @@
-<div style="width: 50%">
-  <h1 style="padding: 20px">Hola <%= @user_name %> nos gustaria que no dejaras tus comentarios de la cita con: <%= @professional_name %></h1>
-  <h2>Por favor inicia sesion en el siguiente enlace para que puedas dejar tu comentario</h2>
+<div style="width: 70%; margin: 20px auto 0 auto">
+  <h1 style="padding: 5px; text-align: center">Hola <%= @user_name %>, nos gustaria saber tu opinión acerca de tu cita con: <%= @professional_name %></h1>
+  <h2 style="margin-bottom: 20px; font-size: 1.2rem">Por favor inicia sesión en el siguiente enlace para que puedas dejar tu comentario.</h2>
   <%if @review_link %>
-    <h2> <%= @review_link %> </h2>
+    <h2 style= "font-size: 1.5rem"> <%= @review_link %> </h2>
   <% end %>  
 </div>
