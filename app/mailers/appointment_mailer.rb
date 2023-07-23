@@ -1,11 +1,12 @@
 class AppointmentMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
 
-  def notifyCreation(professional_email, professional_name, user_name, appointment_date, appointment_time, auth_token)
+  def notifyCreation(professional_email, professional_name, user_name, appointment_date, appointment_time, auth_token, appointment_online)
     @professional_name = professional_name 
     @user_name = user_name
     @appointment_date = appointment_date
     @appointment_time = appointment_time
+    @online = appointment_online
     #@auth_token = auth_token
     @authentication_token = auth_token
     mail to: professional_email, subject: "Nutrialic nueva cita"

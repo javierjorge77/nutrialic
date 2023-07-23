@@ -28,7 +28,8 @@ class CheckoutsController < ApplicationController
                 user_name,
                 @appointment.date,
                 @appointment.time,
-                @appointment.authentication_token
+                @appointment.authentication_token,
+                @appointment.online
             ).deliver_now
             redirect_to "/appointments", notice: "Cita guardada exitosamente"
             else

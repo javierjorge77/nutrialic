@@ -1,12 +1,19 @@
-<div style="width: 90%; text-align: center; background-color: #ecc4cc">
-  <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fen%2Fsearch%3Fq%3Dpikachu&psig=AOvVaw3DwwhDbbR7LB6a-okLZfMI&ust=1690176203663000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJDLjZWLpIADFQAAAAAdAAAAABAI" alt="Logo de mi empresa" style="width: 150px; padding: 20px">
-</div>
-<div style="width: 90%; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-  <h1 style="padding: 20px">Hola <%= @professional_name %>, tienes una nueva cita pendiente por aprobar</h1>
+<div style="width: 70%; margin: 20px auto 0 auto">
+  <h1 style="padding: 20px">Hola <%= @professional_name %>, te notificamos que tienes una nueva cita pendiente por aprobar.</h1>
   <div style="padding: 20px">
-    <h3>Paciente: <%= @user_name %></h3>
-    <h3>Fecha de la cita: <%= @appointment_date %> </h3>
-    <h3>Hora de la cita: <%= @appointment_time %> </h3>
+    <h2 style="margin-bottom: 20px">Información de la cita:</h2>
+    <div style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; padding: 20px">
+      <h3>Paciente: <%= @user_name %></h3>
+      <h3>Fecha de la cita: <%= @appointment_date %> </h3>
+      <h3>Hora de la cita: <%= @appointment_time %> </h3>
+      <h3>
+        <% if @online %>
+          Tipo de cita: Virtual
+        <% else %>
+          Tipo de cita: Presencial
+        <% end %>
+      </h3>
+    </div>
     <p>Para acceder a tu cuenta y ver la cita, por favor haz clic en el siguiente enlace:</p>
     <%= link_to 'Iniciar sesión', login_with_token_url(authentication_token: @authentication_token) %>
   </div>
