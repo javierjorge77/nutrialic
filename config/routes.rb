@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   root to: "pages#home"
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+
 
   resources :professionals, except: [:new] do
     resources :appointments
@@ -12,6 +13,9 @@ Rails.application.routes.draw do
       patch 'update', action: :update
     end
   end
+
+  delete '/professionals/:id', to: 'professionals#destroy', as: "delete_professional"
+
 
   get '/professionals/:id', to: 'professionals#show', as: 'show_by_username'
 

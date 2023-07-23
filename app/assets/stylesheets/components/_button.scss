@@ -129,6 +129,26 @@
   margin: 0 10px;
 }
 
+#backButton {
+  background-color: #7b7b7b;
+  padding: 16px 57px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  margin-top: 3rem;
+}
+
+#backButton:hover {
+  padding: 16px 68px;
+}
+
+@media only screen and(max-width: 650px) {
+  #backButton {
+    margin-top: 1rem;
+  }
+}
+
 #eliminarComentarioBtn {
   background-color: #f42941;
   border-radius: 5px;

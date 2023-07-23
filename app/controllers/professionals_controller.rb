@@ -60,11 +60,18 @@ class ProfessionalsController < ApplicationController
 
   def destroy
     @professional = Professional.find(params[:id])
-    @professional.destroy
-    current_user.nutritionist = false
-    current_user.save
-    # No need for app/views/professionals/destroy.html.erb
-    redirect_to professionals_path, status: :see_other
+    if !@professional.appointments.exists?
+      request = ProfessionalAccountRequest.find_by(username: @professional.username)
+      request.destroy
+      @professional.destroy
+      current_user.nutritionist = false
+      current_user.save
+      flash[:notice] = "Tu cuenta professional ha sido eliminada correctamente"
+      redirect_to root_path, status: :see_other
+    else  
+      flash[:notice] = "No puedes eliminar tu cuenta debido a que tienes citas agendadas"
+      redirect_to professional_appointments_path(current_user.professional.id)
+    end
   end
 
 

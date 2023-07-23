@@ -47,16 +47,22 @@
 
           </div>
 
-          <div class="buton-area text-center mt-5">
-            <%= f.button :submit, "Guardar Cambios" %>
+          
+            <div class="row">
+            <div class="col col-sm-12 col-md-6" style="flex: initial">
+              <div class="buton-area text-center mt-5">
+                <%= f.button :submit, "Guardar Cambios" %>
+              </div>
+            </div>
+            <div class="col col-sm-12 col-md-6" style="flex: initial">
+              <div class="buton-area text-center">
+                <div class="btn" id="backButton"> <%= link_to "Regresar", :back, style: "text-decoration: none; color: white"%> </div>
+              </div>
+            </div>
           </div>
         <% end %>
-        <%# <%= link_to "Borrar Cuenta Profesional",
-                    new_professional_path(@professional.id),
-                    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-                %> 
+          <%= link_to "Borrar Cuenta Profesional", delete_professional_path(@professional.id), data: {turbo_method: :delete, turbo_confirm: "¿Estas seguro de querer realizar esta acción?"} %> 
         </div>
-        
       </div>  
     </div> 
   </div>

@@ -30,20 +30,28 @@
             <%= f.input :password_confirmation, label: "Confirmar contraseña: ",
                         required: false,
                         input_html: { autocomplete: "new-password" } %>
-            <%= f.input :current_password,
+            <%= f.input :current_password, label: "Contraseña actual: ",
                         hint: "necesitamos su contraseña actual para confirmar sus cambios",
                         required: true,
                         input_html: { autocomplete: "current-password" } %>
           </div>
-          <div class="buton-area text-center mt-5">
-            <%= f.button :submit, "Guardar Cambios" %>
+          <div class="row">
+            <div class="col col-sm-12 col-md-6" style="flex: initial">
+              <div class="buton-area text-center mt-5">
+                <%= f.button :submit, "Guardar Cambios" %>
+              </div>
+            </div>
+            <div class="col col-sm-12 col-md-6" style="flex: initial">
+              <div class="buton-area text-center">
+                <div class="btn" id="backButton"> <%= link_to "Regresar", :back, style: "text-decoration: none; color: white"%> </div>
+              </div>
+            </div>
           </div>
-          <div class="buton-area text-center">
-            <div class="btn btn-back"> <%= link_to "Regresar", :back %> </div>
-          </div>
+          
+          
         <% end %>
           <div style="margin-top:30px">
-            <%= link_to "Eliminar Cuenta", registration_path(resource_name),data: {turbo_method: :delete, turbo_confirm: "Are you sure?" }%>
+            <%= link_to "Eliminar Cuenta", registration_path(resource_name),data: {turbo_method: :delete, turbo_confirm: "¿Estas seguro de querer realizar esta acción? Sí tienes citas aprobadas será necesario comunicarse con un administrador para el posible reembolso." }%>
           </div>
         </div>
       </div>  
