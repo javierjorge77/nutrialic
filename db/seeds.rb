@@ -11,14 +11,6 @@ ProfessionalAccountRequest.destroy_all
 User.destroy_all
 
 
-user1 = User.new(name:"Cristel", lastname: "Alvarez Vazquez", phone: "7773388548", password: "12345678", email: "cristelalvarezvazquez@gmail.com", nutritionist: true)
-user1.save!
-professional1= ProfessionalAccountRequest.new(user: user1, branch: "Nutrición Clínica", adress: "Privada Ávila Camacho, 62170 Cuernavaca, Morelos, Mexico", latitude: 18.93713003852396, longitude: -99.24185362093736, diploma: "10206015", first_cost: 500, follow_cost: 350, startAttendingTime: Time.parse("Sat, 01 Jan 2000 10:00:00.000000000 UTC +00:00"),   endAttendingTime: Time.parse("Sat, 01 Jan 2000 17:00:00.000000000 UTC +00:00"), username: "cristel123")
-file = URI.open("https://res.cloudinary.com/dp693fkkc/image/upload/v1667067873/Cristel_ho8hop.jpg")
-professional1.photo.attach(io: file, filename: user1.name, content_type: "image/jpg")
-professional1.save!
-
-
 user2 = User.new(name: "Noemi", lastname: "Landa", phone: "7774398683", password: "12345678", email: "nlg.0619@hotmail.com", nutritionist: true)
 user2.save!
 professional2= ProfessionalAccountRequest.new(user: user2, branch: "Nutrición Clínica", adress: "Calle Zacatecas 31a, 62763 Tres de Mayo, Morelos, Mexico", latitude: 18.866867696012008, longitude: -99.21058451080718, diploma: "10206006", first_cost: 400, follow_cost: 150, startAttendingTime: Time.parse("Sat, 01 Jan 2000 10:00:00.000000000 UTC +00:00"),   endAttendingTime: Time.parse("Sat, 01 Jan 2000 17:00:00.000000000 UTC +00:00"), username: "noemi123")
