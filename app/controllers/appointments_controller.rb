@@ -63,7 +63,11 @@ class AppointmentsController < ApplicationController
         redirect_to root_url
       end
     else
-      flash[:error] = "Parece que hubo un error, verifica de nuevo la información ingresada"
+      if @appointment.errors.any?
+        flash[:error] = @appointment.errors.full_messages.join(', ')
+      else
+        flash[:error] = "Parece que hubo un error, verifica de nuevo la información ingresada"
+      end
       render :new, status: :unprocessable_entity
     end
   end
@@ -225,20 +229,14 @@ class AppointmentsController < ApplicationController
 
     appointment_time = @appointment.time
 
-    # Verificar si la fecha de la cita es un sábado o domingo
-    if @appointment.date.saturday? || @appointment.date.sunday?
-      @appointment.errors.add(:date, "La cita no puede ser programada en sábado o domingo")
-      return false
-    end
-
     if @appointment.date < Date.today
-      @appointment.errors.add(:time, "La fecha de la cita no puede ser menor a la fecha actual")
+      @appointment.errors.add(:base, "La fecha de la cita no puede ser menor a la fecha actual")
       return false
     end
 
     # Verificar el horario de atención del nutriologo
     if appointment_time < start_attending_time || appointment_time > end_attending_time
-      @appointment.errors.add(:time, "La cita debe ser hecha entre el horario del nutriologo")
+      @appointment.errors.add(:base, "La cita debe ser hecha dentro del horario del nutriólogo")
       return false
     end
 
@@ -246,7 +244,7 @@ class AppointmentsController < ApplicationController
 
     existing_appointments.each do |existing_appointment|
       if (existing_appointment.time - appointment_time).abs < 1.hour
-        @appointment.errors.add(:time, "La cita se superpone con otra cita existente")
+        @appointment.errors.add(:base, "La cita se superpone con otra cita existente")
         return false
       end
     end

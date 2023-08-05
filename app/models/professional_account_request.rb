@@ -9,7 +9,10 @@ class ProfessionalAccountRequest < ApplicationRecord
   validates :username, presence: true, uniqueness: {case_sensitive: false}, length: {minimum:5, maximum:15}
   after_update :create_professional, if: :confirmed_accepted?
 
+
   private
+
+
 
   def confirmed_accepted?
     confirmed == true
@@ -23,6 +26,7 @@ class ProfessionalAccountRequest < ApplicationRecord
       longitude: longitude,
       latitude: latitude,
       diploma: diploma,
+      days: days,
       first_cost: first_cost,
       follow_cost: follow_cost,
       startAttendingTime: startAttendingTime,

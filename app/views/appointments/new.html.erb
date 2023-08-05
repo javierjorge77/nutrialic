@@ -4,7 +4,9 @@
       <div class="col col-sm-12 col-md-6" id="colNameUser" style="flex: initial;">
         <div class="text-center">
           <h1>Agenda tu Cita con <%= @professional.user.name %></h1>
-          <i class="fa-solid fa-calendar-days"></i>
+          <i class="fa-solid fa-calendar-days" style="margin-bottom: 0px"></i>
+          <p style="color: #ee7784">¡Recuerda los días y el horario de atención!</p>
+          <p style="margin-bottom: 30px"><%= @professional.days %> en un horario de <%= @professional.startAttendingTime.strftime('%H:%M') %> a <%= @professional.endAttendingTime.strftime('%H:%M') %></p>
         </div>
       </div>
       <div class="col col-sm-12 col-md-6" style="flex: initial;">

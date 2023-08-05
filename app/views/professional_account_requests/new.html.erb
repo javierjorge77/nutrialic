@@ -21,9 +21,10 @@
             <%= f.hidden_field :longitude, id: "longitude", data: { map_select_target: "longitudeField" }%>
             <%= f.hidden_field :latitude, id: "latitude", data: { map_select_target: "latitudeField" } %>
             <%= f.input :diploma, label: "Número de Cédula: ", required: true, autofocus: true, input_html: { autocomplete: "diploma" }%>
-            <%= f.input :first_cost, label: "Costo de Primera Consulta ", required: true, autofocus: true, input_html: { autocomplete: "first_cost" }%>
-            <%= f.input :follow_cost, label: "Costo de Segunda Consulta ", required: true, autofocus: true, input_html: { autocomplete: "follow_cost" }%>
+            <%= f.input :first_cost, label: "Costo de primera consulta ", required: true, autofocus: true, input_html: { autocomplete: "first_cost" }%>
+            <%= f.input :follow_cost, label: "Costo de consultas de continuidad ", required: true, autofocus: true, input_html: { autocomplete: "follow_cost" }%>
             <p style="font-weight: bold">Horarios de atención</p>
+            <%= f.input :days, label: "Días laborales:", autofocus: true, input_html: { autocomplete: "days"} %>
             <div style="margin-bottom: 15px">
               <%= f.label :startAttendingTime, "Desde: ", required: true %>
               <div>

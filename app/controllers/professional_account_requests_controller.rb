@@ -30,6 +30,6 @@ class ProfessionalAccountRequestsController < ApplicationController
     private
 
     def professional_account_request_params
-        params.require(:professional_account_request).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime, :user_id, :confirmed, :latitude, :longitude)
+        params.require(:professional_account_request).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime, :user_id, :confirmed, :latitude, :longitude, :days)
     end
 end
