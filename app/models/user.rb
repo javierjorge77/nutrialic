@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable
   has_one :professional, dependent: :destroy
   has_one :professional_account_request
   has_many :appointments, dependent: :destroy
