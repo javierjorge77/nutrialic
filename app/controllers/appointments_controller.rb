@@ -128,6 +128,17 @@ class AppointmentsController < ApplicationController
       render :edit
     end
   end
+
+  def finalizar
+    @appointment = Appointment.find(params[:id])
+    if @appointment.update(finalizada: true)
+      redirect_to root_path, notice: "Appointment has been marked as finalized."
+    else
+      flash.now[:alert] = "Failed to mark appointment as finalized."
+      render :show
+    end
+  end
+  
   
   def destroy
     @professional = Professional.find(params[:professional_id])

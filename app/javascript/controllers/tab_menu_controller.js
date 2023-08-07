@@ -6,6 +6,9 @@ export default class extends Controller {
   connect() {
     this.tabContentsElements = this.tabcontentTargets;
     this.tabLinks = this.tablinkTargets;
+    if (this.tabLinks.length > 0) {
+      this.openTab({ target: this.tabLinks[0] });
+    }
   }
 
   openTab(event) {

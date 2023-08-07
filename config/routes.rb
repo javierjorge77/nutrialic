@@ -12,9 +12,9 @@ Rails.application.routes.draw do
       get 'edit', action: :edit
       patch 'update', action: :update
       post 'addPhoto'
+      patch :finalizar, to: 'appointments#finalizar', as: :finalizar_appointment
     end
   end 
-
   delete '/gallery_images/:id', to: 'professionals#delete_image', as: :delete_gallery_image
 
 

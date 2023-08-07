@@ -1,0 +1,45 @@
+<% if @professional.appointments.any? %>
+    <div class="row rowCitas">
+        <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-citas-nutri">
+        <% @professional.appointments.each do |appointment| %>
+            <% if !appointment.aprobado %>
+            <div class="card-product" style="margin-top:16px">
+                <div class="imgCardContainer">
+                    <%= image_tag('escala-de-peso.png', alt: 'Manzanita con notas', style: "width: 16%; margin-right: 20px; margin-left: 40px; border-radius: 5px") %>
+                </div>                
+                <div class="card-product-infos">
+                    <h2>Paciente:<strong><%= " #{appointment.user.name} #{appointment.user.lastname}" %> </strong></h2>
+                    <div style="text-align: center;"> <span> <p> <strong>Tipo de cita: </strong> <% if appointment.online %>
+                        Virtual
+                        <% else %>
+                        Presencial
+                    <% end %> </p>
+                    <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
+                    <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p></div>
+               
+                    <div class="row text-center" style="width: 100%; margin: 0; margin-top: 15px;">
+                        <div class="col-6" style="flex: initial; padding: 0">
+                            <%= form_with(model: appointment, url: professional_appointment_path(appointment.professional_id, appointment.id), method: :patch, local: true, id: "confirmAppointmentForm_#{appointment.id}") do |f| %>
+                                <%= f.hidden_field :aprobado, value: true %>
+                                <%= f.submit 'Aprobar', class: 'btn btn-primary', id: "confirmAppointmentBtn", onclick: "return mostrarConfirmacionCita(event, #{appointment.id});"%>
+                            <% end %>
+                        </div>
+                        <div class="col-6" style="flex: initial; padding: 0">
+                            <%= form_with(model: appointment, url: professional_appointment_path(@professional, appointment), method: :delete, local: true, id: "deleteAppointmentForm_#{appointment.id}") do |f| %>
+                                <%= f.submit 'Declinar', class: 'btn btn-primary', id: "deleteAppointmentBtn",onclick: "return mostrarConfirmacionEliminacion(event, #{appointment.id});" %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        <% end %>  
+        <% if @professional.appointments.none? { |appointment| !appointment.aprobado } %>
+            <div id="nutSinCitasPendsMsjContainer">
+                <h2 id="sinCitasPendientes">No tienes citas pendientes por aprobar <i class="fa-regular fa-face-smile-wink"></i></h2>
+                <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
+            </div>
+        <% end %>
+        </div>
+    </div>
+<%end%>

@@ -1,116 +1,50 @@
 <div class="container">
-<h2 id="nutriAppointmentsTitle"> Hola <%= "#{@professional.user.name}" %>, acontinuación te presento tus proximas consultas </h2>
+  <h2 id="nutriAppointmentsTitle"> Hola <%= "#{@professional.user.name}" %>, acontinuación te presento tus proximas consultas </h2>
+  <div class="container consultas"  data-controller="date-and-time">
+      <div class="contenedorDerecho"  data-controller="tab-menu">
+        <%= render 'appointments/professional_appointments/tab_menu' %>
 
-<div class="container consultas"  data-controller="date-and-time">
-  
-  <% if @professional.appointments.any? %>
-
-      <div class="row rowCitas">
-
-        <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 col-citas-nutri">
-          <h2 class="text-center">Pendientes:</h2>
-          <% @professional.appointments.each do |appointment| %>
-            <% if !appointment.aprobado %>
-              <div class="card-product" style="margin-top:16px">
-                  <div class="imgCardContainer">
-                    <%= image_tag('escala-de-peso.png', alt: 'Manzanita con notas', style: "width: 16%; margin-right: 20px; margin-left: 40px; border-radius: 5px") %>
-                  </div>                
-                  <div class="card-product-infos">
-                  <h2> <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-                  
-                  <span> <p> <strong>Paciente:</strong><%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
-                  <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
-                  <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
-                  <div class="row text-center" style="width: 100%; margin: 0; margin-top: 15px;">
-                    <div class="col col-sm-12 col-md-6" style="flex: initial">
-                      <%= form_with(model: appointment, url: professional_appointment_path(appointment.professional_id, appointment.id), method: :patch, local: true, id: "confirmAppointmentForm_#{appointment.id}") do |f| %>
-                        <%= f.hidden_field :aprobado, value: true %>
-                        <%= f.submit 'Aprobar', class: 'btn btn-primary', id: "confirmAppointmentBtn", onclick: "return mostrarConfirmacionCita(event, #{appointment.id});"%>
-                      <% end %>
-                    </div>
-                    <div class="col col-sm-12 col-md-6" style="flex: initial">
-                      <%= form_with(model: appointment, url: professional_appointment_path(@professional, appointment), method: :delete, local: true, id: "deleteAppointmentForm_#{appointment.id}") do |f| %>
-                        <%= f.submit 'Declinar', class: 'btn btn-primary', id: "deleteAppointmentBtn",onclick: "return mostrarConfirmacionEliminacion(event, #{appointment.id});" %>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% end %>  
-
-          <% if @professional.appointments.none? { |appointment| !appointment.aprobado } %>
-            <div id="nutSinCitasPendsMsjContainer">
-              <h2 id="sinCitasPendientes">No tienes citas pendientes por aprobar <i class="fa-regular fa-face-smile-wink"></i></h2>
-              <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
-            </div>
-          <% end %>
-
+        <div class="tabcontent tabs-container" style="padding-top: 0" data-tab-menu-target="tabcontent" id="tab1">
+          <%= render 'appointments/professional_appointments/pendientes' %>
         </div>
 
-        
-
-        <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 col-citas-nutri">
-          <h2 class="text-center">Aprobadas:</h2>
-          <% @professional.appointments.each do |appointment| %>
-            <% if appointment.aprobado %>
-              <div class="card-product" style="margin-top:16px">
-                <div class="imgCardContainer">
-                  <%= image_tag('dieta.png', alt: 'Manzanita con notas', style: "width: 16%; margin-right: 20px; margin-left: 40px; border-radius: 5px") %>
-                </div>
-                <div class="card-product-infos">
-                  <h2> Hola <%= " #{appointment.professional.user.name}" %>, te recordamos que aprobaste una cita con</h2>
-                  <span> <p> <strong>Paciente:</strong><%= " #{appointment.user.name} #{appointment.user.lastname}" %></p>
-                  <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
-                  <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
-                  <% if appointment.online %>
-                    <% if appointment.online_reunion_id %>
-                        <div class="text-center"  style="width: 100%; margin-top: 15px">
-                          <%= link_to 'Iniciar la reunión', meeting_path(appointment.online_reunion_id.to_s), class: 'btn btn-primary', id: "joinMeetingBtn" %>
-                        </div>
-                    <% end %>  
-                  <% end %>
-                </div>
-                
-              </div>            
-            <% end %>
-          <%end%>
-
-          <% if @professional.appointments.none? { |appointment| appointment.aprobado } %>
-            <div id="nutSinCitasPendsMsjContainer" style="background-color: rgba(0, 255, 30, 0.167)">
-              <h2 id="sinCitasPendientes" style="color: rgba(20, 80, 30)">No has aprobado ninguna cita <i class="fa-regular fa-face-smile-wink"></i></h2>
-              <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
-            </div>
-          <% end %>
-
+        <div class="tabcontent tabs-container" style="padding-top: 0" data-tab-menu-target="tabcontent" id="tab2">
+          <%= render 'appointments/professional_appointments/aprobadas' %>
         </div>
 
-        
-      </div>  
-
-  <% else %>
-    <div style="display: flex; align-items: center; justify-content: center; width: 80%; margin: 50px auto 50px auto; height: 400px; background-color: #A0EBA5; border-radius: 20px"> <h2 style="color: #3f3844; width: 90%; text-align: center; margin: 0 auto">No tienes citas confirmadas o por confirmar!</h2> </div>
-  <% end %>
-  
-  
-</div>
+        <div class="tabcontent tabs-container" style="padding-top: 0" data-tab-menu-target="tabcontent" id="tab3">
+           <%= render 'appointments/professional_appointments/finalizadas' %>
+        </div>
+      </div>
+  </div>
 </div>
 
 <div id="confirmacionEliminacion" class="confirmacion">
   <div class="confirmacion-contenido">
-    <h2>¿Estás seguro de que deseas eliminar esta cita?</h2>
-    <p style="font-size: 1.2rem">El usuario sera notificado via correo electronico.</p>
-    <p style="color: #FF9700; font-size: 1.2rem; font-weight: bold"> <i class="fa-solid fa-triangle-exclamation"></i> Esta accion no puede ser desecha <i class="fa-solid fa-triangle-exclamation"></i> </p>
+    <h2>¿Estás seguro de que deseas declinar esta cita?</h2>
+    <p style="font-size: 1.2rem">El usuario será notificado via correo electrónico y la cita será eliminada</p>
+    <p style="color: #FF9700; font-size: 1.2rem; font-weight: bold"> <i class="fa-solid fa-triangle-exclamation"></i> Esta acción no puede ser desecha <i class="fa-solid fa-triangle-exclamation"></i> </p>
     <div class="confirmacion-botones">
-      <button onclick="confirmacionAceptarEliminacion(event)" id="aceptarEliminacionCita">Si, eliminar</button>
+      <button onclick="confirmacionAceptarEliminacion(event)" id="aceptarEliminacionCita">Si, declinar</button>
       <button onclick="confirmacionCancelarEliminacion()" id="cancelarEliminacionCita">No, cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div id="confirmacionFinalizacion" class="confirmacion">
+  <div class="confirmacion-contenido">
+    <h2>¿Estás seguro de que deseas marcar esta cita como finalizada?</h2>
+    <p style="color: #FF9700; font-size: 1.2rem; font-weight: bold"> <i class="fa-solid fa-triangle-exclamation"></i> Esta acción no puede ser desecha <i class="fa-solid fa-triangle-exclamation"></i> </p>
+    <div class="confirmacion-botones">
+      <button onclick="confirmacionFinalizacionCita(event)" id="aceptarFinalizacionCita">Si, finalizar</button>
+      <button onclick="confirmacionCancelarFinaCita()" id="cancelarFinalizacionCita">No, cancelar</button>
     </div>
   </div>
 </div>
 
 <div id="confirmacionAceptacion" class="confirmacion">
   <div class="confirmacion-contenido">
-    <h2>¿Estás seguro de que deseas confirmar esta cita?</h2>
+    <h2>¿Estás seguro de que deseas aprobar esta cita?</h2>
     <p style="font-size: 1.2rem">El usuario sera notificado via correo electronico.</p>
     <div class="confirmacion-botones">
       <button onclick="confirmacionAceptarCita(event)" id="confirmarAceptacionCita">Si, aceptar</button>
@@ -158,6 +92,26 @@
 
   function confirmacionCancelarAcepCita() {
     document.getElementById('confirmacionAceptacion').style.display = 'none';
+    return false;
+  }
+
+  //aceptacion finalizacion
+  function mostrarFinalizacionCita(event, appointmentId) {
+    event.preventDefault(); // Previene el envío del formulario automáticamente
+    document.getElementById('confirmacionFinalizacion').style.display = 'flex';
+    document.getElementById('aceptarFinalizacionCita').setAttribute('data-appointment-id', appointmentId); // Almacena el ID de la cita en el botón 'Aceptar'
+    return false;
+  }
+
+  function confirmacionFinalizacionCita(event) {
+    const appointmentId = event.target.getAttribute('data-appointment-id'); // Obtiene el ID de la cita desde el botón 'Aceptar'
+    const form = document.getElementById('confirmFinalizacionAppointmentForm_' + appointmentId); // Obtiene el formulario correspondiente
+    document.getElementById('confirmacionFinalizacion').style.display = 'none';
+    form.submit(); // Envía el formulario correspondiente
+  }
+
+  function confirmacionCancelarFinaCita() {
+    document.getElementById('confirmacionFinalizacion').style.display = 'none';
     return false;
   }
 </script>

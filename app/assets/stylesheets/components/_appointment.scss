@@ -176,7 +176,7 @@
 }
 
 .col-citas-nutri {
-  padding: 50px !important;
+  padding: 50px 0 50px 0 !important;
 }
 
 #noAppointments {
@@ -189,4 +189,20 @@
 
 #rowNoAppointments {
   height: 100% !important;
+}
+
+.tabMenuAppointments {
+  width: 33%;
+}
+
+@media only screen and(max-width: 990px) {
+  .tabMenuAppointments {
+    width: 100%;
+  }
+}
+
+@media only screen and(max-width: 770px) {
+  #tabAppContainer {
+    margin-top: 50px;
+  }
 }

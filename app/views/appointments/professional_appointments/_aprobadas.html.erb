@@ -1,0 +1,51 @@
+<% if @professional.appointments.any? %>
+    <div class="row rowCitas" >
+        <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-citas-nutri">
+            <% @professional.appointments.each do |appointment| %>
+                <% if appointment.aprobado && !appointment.finalizada %>
+                    <div class="card-product" style="margin-top:16px">
+                        <div class="imgCardContainer">
+                            <%= image_tag('dieta.png', alt: 'Manzanita con notas', style: "width: 16%; margin-right: 20px; margin-left: 40px; border-radius: 5px") %>
+                        </div>
+                        <div class="card-product-infos">
+                            <h2> Cita probada con:<strong>  <%= " #{appointment.user.name} #{appointment.user.lastname}" %> </strong></h2>
+                             <div style="text-align: center;">
+                                <p> <strong>Tipo de cita: </strong> <% if appointment.online %>
+                                    Virtual
+                                <% else %>
+                                    Presencial
+                                <% end %> </p>
+                                <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
+                                <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
+
+                                <div class="row text-center" style="width: 100%; margin: 0; margin-top: 15px;">
+                                    <% if appointment.online %>
+                                        <div class="col col-xs-12 col-sm-12 col-md-6" style="flex: initial; padding: 0">
+                                            <% if appointment.online_reunion_id %>
+                                                <div class="text-center"  style="width: 100%; margin-top: 5px">
+                                                    <%= link_to 'Iniciar la reunión', meeting_path(appointment.online_reunion_id.to_s), class: 'btn btn-primary', id: "joinMeetingBtn" %>
+                                                </div>
+                                            <% end %> 
+                                        </div>
+                                    <% end %>
+                                    <div <% if appointment.online %> class="col col-xs-12 col-sm-12 col-md-6" <% else %> class="col" <%end%>style="flex: initial; padding: 0">
+                                        <%= form_with(model: appointment, url: finalizar_appointment_professional_path(appointment.id), method: :patch, local: true, id: "confirmFinalizacionAppointmentForm_#{appointment.id}") do |f| %>
+                                            <%= f.hidden_field :finalizada, value: true %>
+                                            <%= f.submit 'Finalizar', class: 'btn btn-primary', id: "confirmAppointmentBtn", onclick: "return mostrarFinalizacionCita(event, #{appointment.id});"%>
+                                        <% end %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>            
+                <%end%>
+            <%end%>
+            <% if @professional.appointments.none? { |appointment| appointment.aprobado } %>
+                <div id="nutSinCitasPendsMsjContainer" style="background-color: rgba(0, 255, 30, 0.167)">
+                    <h2 id="sinCitasPendientes" style="color: rgba(20, 80, 30)">No has aprobado ninguna cita <i class="fa-regular fa-face-smile-wink"></i></h2>
+                    <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
+                </div>
+            <%end%>
+        </div>
+    </div>  
+<%end%>    

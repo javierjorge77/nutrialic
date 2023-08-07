@@ -13,5 +13,6 @@ User.destroy_all
 
 
 
+
 user = AdminUser.new(email: 'admin@gemhack.io', password: ENV['ADMIN_PASSWORD'], password_confirmation: ENV['ADMIN_PASSWORD'])
 user.save

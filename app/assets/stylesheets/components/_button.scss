@@ -60,6 +60,7 @@
   border: none;
   border-radius: 5px;
   margin: 5px;
+  width: 80%;
   transition: all 0.3s ease;
 }
 
@@ -73,6 +74,7 @@
   border: none;
   border-radius: 5px;
   margin: 5px;
+  width: 80%;
   transition: all 0.3s ease;
 }
 
@@ -103,6 +105,24 @@
 }
 
 #cancelarEliminacionCita {
+  background-color: #7b7b7b;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  padding: 6px 13px 6px 13px;
+  margin: 0 10px;
+}
+
+#aceptarFinalizacionCita {
+  background-color: #ee7784;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  padding: 6px 13px 6px 13px;
+  margin: 0 10px;
+}
+
+#cancelarFinalizacionCita {
   background-color: #7b7b7b;
   border: none;
   border-radius: 7px;

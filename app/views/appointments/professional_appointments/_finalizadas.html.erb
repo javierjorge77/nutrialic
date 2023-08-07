@@ -1,0 +1,34 @@
+<% if @professional.appointments.any? %>
+    <div class="row rowCitas">
+        <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-citas-nutri">
+            <% @professional.appointments.each do |appointment| %>
+                <% if appointment.finalizada %>
+                    <div class="card-product" style="margin-top:16px">
+                        <div class="imgCardContainer">
+                            <%= image_tag('dieta.png', alt: 'Manzanita con notas', style: "width: 16%; margin-right: 20px; margin-left: 40px; border-radius: 5px") %>
+                        </div>
+                        <div class="card-product-infos">
+                            <h2> Cita finalizada:<strong>  <%= " #{appointment.user.name} #{appointment.user.lastname}" %> </strong></h2>
+                            <div style="text-align: center;">
+                                <p> <strong>Tipo de cita: </strong> <% if appointment.online %>
+                                    Virtual
+                                <% else %>
+                                    Presencial
+                                <% end %> </p>
+                                <p> <strong>Fecha:</strong> <span  data-date-and-time-target="fechaelement"> <%= appointment.date %></span> </p>
+                                <p> <strong>Hora:</strong> <span  data-date-and-time-target="horaelement"> <%= appointment.time %></span> </p>
+
+                            </div>
+                        </div>
+                    </div>            
+                <%end%>
+            <%end%>
+            <% if @professional.appointments.none? { |appointment| appointment.finalizada } %>
+                <div id="nutSinCitasPendsMsjContainer">
+                    <h2 id="sinCitasPendientes">No haz finalizado ninguna cita</h2>
+                    <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
+                </div>
+            <%end%>
+        </div>
+    </div>  
+<%end%>    
