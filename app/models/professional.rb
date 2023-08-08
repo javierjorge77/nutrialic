@@ -11,6 +11,7 @@ class Professional < ApplicationRecord
   has_one_attached :photo
   has_many :gallery_images
   has_many :reviews
+  has_one :about_section
   has_many :users, through: :reviews
   validates :first_cost, presence: true
   validates :follow_cost, presence: true

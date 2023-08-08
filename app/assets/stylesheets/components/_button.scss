@@ -226,3 +226,27 @@
     font-size: 1rem;
   }
 }
+
+.btnModalAbout {
+  background-color: #ee7784;
+  border-radius: 5px;
+  margin-top: 30px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btnModalAbout:hover {
+  background-color: #b2404d;
+}
+
+#add-about-me-btn {
+  background-color: #ee7784;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+#add-about-me-btn:hover {
+  padding-left: 25px;
+  padding-right: 25px;
+}

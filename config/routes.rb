@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
 
   resources :professionals, except: [:new] do
+    resource :about_section, only: [:new, :create, :edit, :update, :destroy]
     resources :appointments
     member do
       get 'edit', action: :edit

@@ -1,0 +1,21 @@
+<style>
+.trix-button-group--file-tools {
+  display: none !important;
+}
+</style>
+<%= form_for [@professional, @about_section], url: professional_about_section_path(@professional), remote: true do |f| %>
+  <div class="form-group">
+    <%= f.rich_text_area :content, class: "form-control", id: "about_section_content", style: "height: auto;
+    min-height: 200px;" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Guardar", class: "btn btnModalAbout btn-primary", style: "margin-top: 15px;
+    float: right; border-radius: 5px"%>
+  </div>
+<% end %>
+
+<script>
+document.addEventListener("trix-file-accept", (e) => {
+    e.preventDefault()
+})
+</script>

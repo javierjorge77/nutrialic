@@ -1,0 +1,22 @@
+<style>
+.trix-button-group--file-tools {
+  display: none !important;
+}
+</style>
+<%= form_for [@professional, @about_section], url: professional_about_section_path(@professional, @about_section), remote: true, method: :patch do |f| %>
+   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div class="form-group">
+<%= f.rich_text_area :content, class: "form-control", data: { action: "rich-text#editor", rich_text_attachables: true }, style: "height: auto;
+    min-height: 200px;" %>
+  </div>
+  <div class="form-group">
+    <%= f.button "Guardar", type: "submit", class: "btn btnModalAbout btn-primary save-btn", style: "margin-top: 15px;
+    float: right; border-radius: 5px" %>
+  </div>
+<% end %>
+
+<script>
+document.addEventListener("trix-file-accept", (e) => {
+    e.preventDefault()
+})
+</script>

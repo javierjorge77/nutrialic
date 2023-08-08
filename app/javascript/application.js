@@ -3,3 +3,5 @@ import "@hotwired/turbo-rails";
 import "./controllers";
 import "bootstrap";
 import { end } from "@popperjs/core";
+import "trix";
+import "@rails/actiontext";

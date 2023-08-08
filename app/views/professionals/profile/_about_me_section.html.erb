@@ -1,0 +1,60 @@
+
+<% if current_user.nutritionist  %>
+  <% if current_user.professional.username == @professional.username %>
+    <% if !@professional.about_section %>
+    <div class="text-center">
+      <button id="add-about-me-btn" class="btn btn-primary" >Agregar información acerca de mí</button>
+    </div>
+    <% end %>
+  <%end%>  
+<% end %>
+
+
+<div class="modal fade"  id="aboutMeModal" tabindex="-1" role="dialog" aria-labelledby="aboutMeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="aboutMeModalLabel">Información acerca de mí</h5>
+        <button style="padding: 5px; border: none; border-radius: 5px; background-color: red; color: white;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="loader" class="text-center" style="display: none;">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  $('#add-about-me-btn').click(function() {
+    $('#aboutMeModal').modal('show');
+
+    $('#loader').show();
+
+    $.ajax({
+      url: '<%= new_professional_about_section_path(@professional) %>',
+      type: 'GET',
+      dataType: 'html',
+      success: function(response) {
+        $('#loader').hide();
+
+        $('#aboutMeModal .modal-body').html(response);
+      }
+    });
+  });
+
+  $('#aboutMeModal .close').click(function() {
+    $('#aboutMeModal').modal('hide');
+  });
+
+  $(document).on('submit', 'form', function() {
+    $('#aboutMeModal').modal('hide');
+  });
+});
+</script>
