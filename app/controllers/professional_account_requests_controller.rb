@@ -12,7 +12,7 @@ class ProfessionalAccountRequestsController < ApplicationController
         if @professional_account_request.save
             redirect_to root_path, notice: 'Tu peticion para cuenta profesional ha sido enviada, recibiras un correo de confirmacion cuando sea aprobada.'
         else
-            render :new
+            redirect_back fallback_location: new_professional_account_request_path, alert: 'Ha ocurrido un error durante el registro, vuelve a intentarlo.'
         end
     end
 

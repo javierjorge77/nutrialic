@@ -15,10 +15,10 @@
           <div class="form-inputs">
             <%= f.input :username, label: "Nombre de usuario unico:", required: true, autofocus: true, input_html: { autocomplete: "username" }%>
             <%= f.input :branch, label: "Especialidad:", required: true, autofocus: true, input_html: { autocomplete: "branch" }%>
-            <p>Dirección:* (Coloca el puntero en la ubicación del consultorio)</p>
+            <p>Dirección:* (Escribe o selecciona una dirección)</p>
             <div id="map-container" style="height: 400px;" data-map-select-target="mapContainer"></div>
-            <%= f.text_field :adress, id: "adress", data: { map_select_target: "addressField" }, style: "width: 100%; margin-bottom: 15px", readonly: true%>
-            <%= f.hidden_field :longitude, id: "longitude", data: { map_select_target: "longitudeField" }%>
+            <%= f.text_field :adress, id: "adress", data: { map_select_target: "addressField" }, style: "width: 100%; margin-bottom: 15px", readonly: false %>
+            <%= f.hidden_field :longitude, id: "longitude", data: { map_select_target: "longitudeField" } %>
             <%= f.hidden_field :latitude, id: "latitude", data: { map_select_target: "latitudeField" } %>
             <%= f.input :diploma, label: "Número de Cédula: ", required: true, autofocus: true, input_html: { autocomplete: "diploma" }%>
             <%= f.input :first_cost, label: "Costo de primera consulta ", required: true, autofocus: true, input_html: { autocomplete: "first_cost" }%>

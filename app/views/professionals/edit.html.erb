@@ -21,10 +21,10 @@
                         autofocus: true,
                         input_html: { autocomplete: "branch" }%>
 
-            <p>Dirección:*</p>
+            <p>Dirección:* (Escribe o selecciona una dirección)</p>
             <div id="map-container" style="height: 400px;" data-map-select-target="mapContainer"></div>
-            <%= f.text_field :adress, id: "adress", data: { map_select_target: "addressField" }, style: "width: 100%; margin-bottom: 15px", readonly: true%>
-            <%= f.hidden_field :longitude, id: "longitude", data: { map_select_target: "longitudeField" }%>
+            <%= f.text_field :adress, id: "adress", data: { map_select_target: "addressField" }, style: "width: 100%; margin-bottom: 15px", readonly: false %>
+            <%= f.hidden_field :longitude, id: "longitude", data: { map_select_target: "longitudeField" } %>
             <%= f.hidden_field :latitude, id: "latitude", data: { map_select_target: "latitudeField" } %>
 
 

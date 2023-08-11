@@ -3,7 +3,7 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
 
 config.action_mailer.delivery_method = :smtp
-config.action_mailer.default_url_options = { host: "https://nutrialic.herokuapp.com/" }
+config.action_mailer.default_url_options = { host: "https://nutrialic.com/" }
 config.action_mailer.smtp_settings = {
   enable_starttls_auto: true,  
   ssl: true                    
