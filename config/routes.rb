@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   delete '/professionals/:id', to: 'professionals#destroy', as: "delete_professional"
 
 
-  get '/professionals/:id', to: 'professionals#show', as: 'show_by_username'
+  get '/pro/:id', to: 'professionals#show', as: 'show_by_username'
 
   resources :users, only: [:show]
   get '/review/new/:id', to: 'reviews#new', as: 'new_review'
