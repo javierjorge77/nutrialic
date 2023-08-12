@@ -24,8 +24,8 @@
                 <%end%>
             <%end%>
             <% if @professional.appointments.none? { |appointment| appointment.finalizada } %>
-                <div id="nutSinCitasPendsMsjContainer">
-                    <h2 id="sinCitasPendientes">No haz finalizado ninguna cita</h2>
+                <div id="nutSinCitasPendsMsjContainer" style="background-color:#ECEAAE">
+                    <h2 id="sinCitasPendientes" style="color: #77740C">No haz finalizado ninguna cita</h2>
                     <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
                 </div>
             <%end%>

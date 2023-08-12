@@ -132,7 +132,7 @@ class AppointmentsController < ApplicationController
   def finalizar
     @appointment = Appointment.find(params[:id])
     if @appointment.update(finalizada: true)
-      redirect_to root_path, notice: "Appointment has been marked as finalized."
+      redirect_to professional_appointments_path(current_user.professional.id), notice: "La cita ha sido marcada como finalizada"
     else
       flash.now[:alert] = "Failed to mark appointment as finalized."
       render :show

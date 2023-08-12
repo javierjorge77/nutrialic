@@ -38,6 +38,11 @@
                             </div>
                         </div>
                     </div>            
+                <%else%>
+                    <div id="nutSinCitasPendsMsjContainer" style="background-color: rgba(0, 255, 30, 0.167)">
+                        <h2 id="sinCitasPendientes" style="color: rgba(20, 80, 30)">No tienes citas aprobadas <i class="fa-regular fa-face-smile-wink"></i></h2>
+                        <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
+                    </div>
                 <%end%>
             <%end%>
             <% if @professional.appointments.none? { |appointment| appointment.aprobado } %>

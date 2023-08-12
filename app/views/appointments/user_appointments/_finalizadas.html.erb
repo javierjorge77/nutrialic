@@ -5,7 +5,7 @@
                 <div class="card-product card-product-aprobado" style="margin-top:16px">
                     <div class="card-product-infos text-center">
                         <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
-                        <h4 style="font-size: 1.1rem; color: #3f3844">Estado: Finalizada <span style="color: green"><i class="fa-solid fa-circle"></i></span></h4>
+                        <h4 style="font-size: 1.1rem; color: #3f3844">Estado: Finalizada <span style="color: orange"><i class="fa-solid fa-circle"></i></span></h4>
                         <% if appointment.online %>
                             <p> <strong>Tipo de cita:</strong> En línea</p>
                         <%else%>
