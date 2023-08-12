@@ -1,8 +1,10 @@
 <div class="row rowCitas" style="margin-top:50px">
     <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <% current_user.appointments.each do |appointment| %>
-            <% if appointment.aprobado && !appointment.finalizada %>
-                <div class="card-product card-product-aprobado" style="margin-top:16px">
+            <% if appointment.aprobado %>
+                
+                <% if !appointment.finalizada %>
+                    <div class="card-product card-product-aprobado" style="margin-top:16px">
                     <div class="card-product-infos text-center">
                         <h2>Cita con: <%= " #{appointment.professional.user.name} #{appointment.professional.user.lastname}" %></h2>
                         <h4 style="font-size: 1.1rem; color: #3f3844">Estado: Aprobado <span style="color: green"><i class="fa-solid fa-circle"></i></span></h4>
@@ -26,6 +28,9 @@
                         <img src="<%= appointment.professional.photo.url%>"/>
                     </div>
                 </div>
+                <% end %>
+                
+                
             <% else %>
              <div style="width: 100%; height: 100%; padding: 0 50px 50px 50px">
                 <div style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
