@@ -1,5 +1,6 @@
 <div class="container">
   <h2 id="nutriAppointmentsTitle"> Hola <%= "#{@professional.user.name}" %>, acontinuación te presento tus proximas consultas </h2>
+  <% if @professional.appointments.any? %>
   <div class="container consultas"  data-controller="date-and-time">
       <div class="contenedorDerecho"  data-controller="tab-menu">
         <%= render 'appointments/professional_appointments/tab_menu' %>
@@ -17,6 +18,9 @@
         </div>
       </div>
   </div>
+  <%else%>
+    <h1 style="text-align: center; margin-top: 50px">Sin citas registradas</h1>
+  <%end%>
 </div>
 
 <div id="confirmacionEliminacion" class="confirmacion">
