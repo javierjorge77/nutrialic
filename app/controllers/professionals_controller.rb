@@ -92,8 +92,8 @@ class ProfessionalsController < ApplicationController
       if !@professional.appointments.exists?
         prof_account_request = ProfessionalAccountRequest.find_by(username: @professional.username)
         prof_account_request.destroy if prof_account_request.present?
-        @professional.gallery_images.delete_all
-        @professional.about_section.delete
+        @professional.gallery_images.delete_all if @professional.gallery_images
+        @professional.about_section.delete if @professional.about_section
         @professional.destroy
         current_user.nutritionist = false
         current_user.save
