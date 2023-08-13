@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   root to: "pages#home"
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', passwords: 'users/passwords', confirmations: "users/confirmations" }
 
 
   resources :professionals, except: [:new] do
