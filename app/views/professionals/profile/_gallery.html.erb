@@ -22,13 +22,16 @@
                 <a href="<%= gallery_image.url %>" class="fancybox" data-fancybox="gallery">
                     <%= image_tag(gallery_image.url, resize: "300x300") %>
                 </a>
-                <% if @current_user.professional %>
-                    <% if @professional.id == @current_user.professional.id %>
-                        <div class="text-center">
-                            <%= form_with(url: delete_gallery_image_path(gallery_image), method: :delete, local: true, id: "deleteImageForm_#{gallery_image.id}") do |form| %>
-                                <%= form.submit 'Eliminar', class: 'btn btn-danger', data: { confirm: '¿Estás seguro de que deseas eliminar esta imagen?' }, id: "deleteImgBtn" %>
-                            <% end %>
-                        </div>
+                
+                <% if @current_user %>
+                    <% if @current_user.professional %>
+                        <% if @professional.id == @current_user.professional.id %>
+                            <div class="text-center">
+                                <%= form_with(url: delete_gallery_image_path(gallery_image), method: :delete, local: true, id: "deleteImageForm_#{gallery_image.id}") do |form| %>
+                                    <%= form.submit 'Eliminar', class: 'btn btn-danger', data: { confirm: '¿Estás seguro de que deseas eliminar esta imagen?' }, id: "deleteImgBtn" %>
+                                <% end %>
+                            </div>
+                        <% end %>
                     <% end %>
                 <% end %>
             </div>
