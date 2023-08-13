@@ -88,17 +88,24 @@ class ProfessionalsController < ApplicationController
 
   def destroy
     @professional = Professional.find(params[:id])
-    if !@professional.appointments.exists?
-      request = ProfessionalAccountRequest.find_by(username: @professional.username)
-      request.destroy
-      @professional.destroy
-      current_user.nutritionist = false
-      current_user.save
-      flash[:notice] = "Tu cuenta professional ha sido eliminada correctamente"
+    if @professional
+      if !@professional.appointments.exists?
+        prof_account_request = ProfessionalAccountRequest.find_by(username: @professional.username)
+        prof_account_request.destroy if prof_account_request.present?
+        @professional.gallery_images.delete_all
+        @professional.about_section.delete
+        @professional.destroy
+        current_user.nutritionist = false
+        current_user.save
+        flash[:notice] = "Tu cuenta professional ha sido eliminada correctamente"
+        redirect_to root_path, status: :see_other
+      else  
+        flash[:notice] = "No puedes eliminar tu cuenta debido a que tienes citas agendadas"
+        redirect_to professional_appointments_path(current_user.professional.id)
+      end
+    else 
+      flash[:notice] = "No se ha podido eliminar tu cuenta"
       redirect_to root_path, status: :see_other
-    else  
-      flash[:notice] = "No puedes eliminar tu cuenta debido a que tienes citas agendadas"
-      redirect_to professional_appointments_path(current_user.professional.id)
     end
   end
 
