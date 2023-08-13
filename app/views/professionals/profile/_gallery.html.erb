@@ -1,15 +1,19 @@
 <h3>Galeria de imagenes</h3>
-<% if @current_user.professional %>
-    <% if @professional.id == @current_user.professional.id %>
-        <%= form_tag(addPhoto_professional_path(@professional), method: :post, multipart: true) do %>
-            <div class="field">
-                <%= label_tag :gallery_images, "Agregar imagen", class: "form-label" %>
-                <%= file_field_tag 'professional[gallery_images]', multiple: true, accept: "image/*", class: "form-control" %>
-            </div>
-            <%= submit_tag "Guardar", id: "addImg" %>
+
+<% if @current_user %>
+    <% if @current_user.professional %>
+        <% if @professional.id == @current_user.professional.id %>
+            <%= form_tag(addPhoto_professional_path(@professional), method: :post, multipart: true) do %>
+                <div class="field">
+                    <%= label_tag :gallery_images, "Agregar imagen", class: "form-label" %>
+                    <%= file_field_tag 'professional[gallery_images]', multiple: true, accept: "image/*", class: "form-control" %>
+                </div>
+                <%= submit_tag "Guardar", id: "addImg" %>
+            <% end %>
         <% end %>
     <% end %>
 <% end %>
+
 
 <% if !@professional.gallery_images.empty? %>
     <div class="row mt-4">

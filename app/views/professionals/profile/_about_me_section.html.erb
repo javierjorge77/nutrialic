@@ -1,12 +1,13 @@
-
-<% if current_user.nutritionist  %>
-  <% if current_user.professional.username == @professional.username %>
-    <% if !@professional.about_section %>
-    <div class="text-center">
-      <button id="add-about-me-btn" class="btn btn-primary" >Agregar información acerca de mí</button>
-    </div>
-    <% end %>
-  <%end%>  
+<% if current_user %>
+  <% if current_user.nutritionist  %>
+    <% if current_user.professional.username == @professional.username %>
+      <% if !@professional.about_section %>
+      <div class="text-center">
+        <button id="add-about-me-btn" class="btn btn-primary" >Agregar información acerca de mí</button>
+      </div>
+      <% end %>
+    <%end%>  
+  <% end %>
 <% end %>
 
 

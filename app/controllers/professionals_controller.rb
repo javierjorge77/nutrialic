@@ -1,5 +1,8 @@
 
 class ProfessionalsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show]
+
+
 
   def create
     @professional = Professional.new(professional_params)
@@ -101,7 +104,6 @@ class ProfessionalsController < ApplicationController
 
 
   private
-
 
   def professional_params
     params.require(:professional).permit(:username, :branch, :adress, :diploma, :first_cost, :follow_cost, :photo, :startAttendingTime, :endAttendingTime, :latitude, :longitude, :gallery_images, :days)

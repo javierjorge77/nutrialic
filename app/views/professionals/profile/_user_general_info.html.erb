@@ -51,20 +51,29 @@
         </div>
         </div>
     </div>
-    <% if !@current_user.professional %>
+    
+    <% if @current_user %>
+        <% if !@current_user.professional %>
+            <div class="buttonContainer">
+                <%= button_to new_professional_appointment_path(@professional), method: :get do%>
+                    Agendar Cita <i class="fa-solid fa-pen"></i>
+                <%end%>
+            </div>
+        <% end %>
+        <%if @current_user.professional %>
+            <% if @professional.id == @current_user.professional.id%>
+            <div class="buttonContainer">
+                <%= button_to professional_appointments_path(@professional), method: :get do %>
+                    Próximas citas <i class="fa-solid fa-calendar-days"></i>
+                <% end %>
+            </div>
+            <% end %>
+        <%end%>
+    <% else %>
         <div class="buttonContainer">
             <%= button_to new_professional_appointment_path(@professional), method: :get do%>
                 Agendar Cita <i class="fa-solid fa-pen"></i>
             <%end%>
         </div>
     <% end %>
-    <%if @current_user.professional %>
-        <% if @professional.id == @current_user.professional.id%>
-        <div class="buttonContainer">
-            <%= button_to professional_appointments_path(@professional), method: :get do %>
-                Próximas citas <i class="fa-solid fa-calendar-days"></i>
-            <% end %>
-        </div>
-        <% end %>
-    <%end%>
 </div>

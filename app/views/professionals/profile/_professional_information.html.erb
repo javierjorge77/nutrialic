@@ -7,20 +7,24 @@
       <%= @professional.about_section.content %>
     </div>
     
-    <% if current_user.nutritionist  %>
-      <% if current_user.professional.username == @professional.username %>
-        <div class="row mt-3">
-          <div class="col-6 text-center">
-              <button id="edit-about-me-btn" class="btn btn-warning" style="width: 80%; margin: auto; background-color: #F7AB1C">Editar</button>
+    <% if current_user %>
+      <% if current_user.nutritionist  %>
+        <% if current_user.professional.username == @professional.username %>
+          <div class="row mt-3">
+            <div class="col-6 text-center">
+                <button id="edit-about-me-btn" class="btn btn-warning" style="width: 80%; margin: auto; background-color: #F7AB1C">Editar</button>
+            </div>
+            <div class="col-6 text-center">
+                <%= form_with(model: @about_section, url: professional_about_section_path(@professional, @about_section), method: :delete, local: true, id: "deleteAboutSectionForm") do |f| %>
+                  <%= f.submit 'Eliminar', class: 'btn btn-danger',style: "width: 80%; margin: auto;  background-color: #E21616", data: { confirm: "¿Estás seguro de que deseas eliminar esta sección?" } %>
+                <% end %>
+            </div>
           </div>
-          <div class="col-6 text-center">
-              <%= form_with(model: @about_section, url: professional_about_section_path(@professional, @about_section), method: :delete, local: true, id: "deleteAboutSectionForm") do |f| %>
-                <%= f.submit 'Eliminar', class: 'btn btn-danger',style: "width: 80%; margin: auto;  background-color: #E21616", data: { confirm: "¿Estás seguro de que deseas eliminar esta sección?" } %>
-              <% end %>
-          </div>
-        </div>
-      <%end%>
+        <%end%>
+      <% end %>
     <% end %>
+    
+    
   </div>
 
   <div class="modal fade"  id="aboutMeModalEdit" tabindex="-1" role="dialog" aria-labelledby="aboutMeModalLabel" aria-hidden="true">
