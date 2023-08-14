@@ -20,7 +20,13 @@ Rails.application.routes.draw do
 
 
   delete '/professionals/:id', to: 'professionals#destroy', as: "delete_professional"
-
+  
+  namespace :api do
+    namespace :v1 do
+      get 'zoom/get_access_token', to: 'zoom_api#get_access_token'
+      get 'zoom/get_meeting_status', to: 'zoom_api#get_meeting_status'
+    end
+  end
 
   get '/pro/:id', to: 'professionals#show', as: 'show_by_username'
 

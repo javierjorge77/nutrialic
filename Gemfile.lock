@@ -362,6 +362,7 @@ DEPENDENCIES
   dotenv-rails
   font-awesome-sass (~> 6.1)
   geocoder
+  httparty
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails

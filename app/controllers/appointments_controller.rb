@@ -176,11 +176,11 @@ class AppointmentsController < ApplicationController
   def create_online_appointment(appointment, user_name, user_email, professional_name, professional_email, start_datetime)
     params = {
       grant_type: 'account_credentials',
-      account_id: 'veszz43ySs2F5GuxGNPARg'
+      account_id: ENV['OAUTH_ACCOUNT_ID']
     }
     url = URI.parse('https://zoom.us/oauth/token')
     request = Net::HTTP::Post.new(url.request_uri)
-    request.basic_auth('qRu4sb4eSh2KiiRWRbH4RA', 'Ix04IDo2GHNu1vCrsYR0K2vADuNf8hBK')
+    request.basic_auth( ENV['OAUTH_CLIENT_ID'], ENV['OAUTH_CLIENT_SECRET'])
     request.set_form_data(params)
     response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
       http.request(request)
@@ -198,7 +198,7 @@ class AppointmentsController < ApplicationController
       request['Authorization'] = "Bearer #{access_token}"
       request['Content-Type'] = 'application/json'
       meeting_data = {
-        "topic": "Testing server to server app from local app",
+        "topic": "Reunión Nutrialic",
         "type": 2,
         "start_time": start_datetime,
         "duration": 40,

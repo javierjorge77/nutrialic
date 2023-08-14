@@ -49,7 +49,7 @@ gem 'image_processing', '~> 1.2'
 
 gem 'activeadmin'
 gem 'stripe'
-
+gem 'httparty'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

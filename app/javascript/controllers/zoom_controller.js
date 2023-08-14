@@ -41,8 +41,8 @@ export default class extends Controller {
             ZoomMtg.setZoomJSLib("https://source.zoom.us/2.13.0/lib", "/av");
             ZoomMtg.preLoadWasm();
             ZoomMtg.prepareWebSDK();
-            ZoomMtg.i18n.load("en-US");
-            ZoomMtg.i18n.reload("en-US");
+            ZoomMtg.i18n.load("es-ES");
+            ZoomMtg.i18n.reload("es-ES");
             this.initializeZoom(
               sdkKey,
               secretKey,
@@ -76,43 +76,63 @@ export default class extends Controller {
     });
   }
 
+  generateSignature(sdkKey, secretSdkKey, meetingNumber, role) {
+    const iat = Math.round(new Date().getTime() / 1000) - 30;
+    const exp = iat + 60 * 60 * 2;
+
+    const oHeader = {
+      alg: "HS256",
+      typ: "JWT",
+    };
+
+    const oPayload = {
+      sdkKey: sdkKey,
+      mn: meetingNumber,
+      role: role,
+      iat: iat,
+      exp: exp,
+      tokenExp: exp,
+    };
+
+    const sHeader = this.base64UrlEncode(JSON.stringify(oHeader));
+    const sPayload = this.base64UrlEncode(JSON.stringify(oPayload));
+
+    const signature = CryptoJS.HmacSHA256(
+      `${sHeader}.${sPayload}`,
+      secretSdkKey
+    )
+      .toString(CryptoJS.enc.Base64)
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
+
+    return `${sHeader}.${sPayload}.${signature}`;
+  }
+
+  base64UrlEncode(string) {
+    const base64 = CryptoJS.enc.Base64.stringify(
+      CryptoJS.enc.Utf8.parse(string)
+    );
+    return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+
   initializeZoom(sdkKey, secretSdkKey, zoomName, rol, meetingNum, username) {
     console.log("Function initializeZoom was executed");
-
-    const clientId = "qRu4sb4eSh2KiiRWRbH4RA";
-    const clientSecret = "Ix04IDo2GHNu1vCrsYR0K2vADuNf8hBK";
-    const credentials = `${clientId}:${clientSecret}`;
-    const encodedCredentials = this.base64UrlEncode(credentials);
-
     // Obtener Token de Acceso
     axios
-      .post(
-        "https://zoom.us/oauth/token",
-        new URLSearchParams({
-          grant_type: "client_credentials",
-        }),
-        {
-          headers: {
-            Authorization: `Basic ${encodedCredentials}`,
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
-      .then((tokenResponse) => {
-        const accessToken = tokenResponse.data.access_token;
+      .get("/api/v1/zoom/get_access_token")
+      .then((response) => {
+        const accessToken = response.data.access_token;
         console.log("Access Token: " + accessToken);
 
         // Obtener Información de la Reunión
         const meetingId = meetingNum.toString();
         axios
-          .get(`https://api.zoom.us/v2/meetings/${meetingId}`, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
-          .then((meetingInfoResponse) => {
-            const meetingInfoData = meetingInfoResponse.data;
-            const meetingStatus = meetingInfoData.status;
+          .get(
+            `/api/v1/zoom/get_meeting_status?access_token=${accessToken}&meeting_id=${meetingId}`
+          )
+          .then((response) => {
+            const meetingStatus = response.data.meeting_status;
             console.log("Meeting status: " + meetingStatus);
 
             // Configurar leaveUrl en base al Estado de la Reunión
@@ -164,47 +184,7 @@ export default class extends Controller {
       });
   }
 
-  generateSignature(sdkKey, secretSdkKey, meetingNumber, role) {
-    const iat = Math.round(new Date().getTime() / 1000) - 30;
-    const exp = iat + 60 * 60 * 2;
-
-    const oHeader = {
-      alg: "HS256",
-      typ: "JWT",
-    };
-
-    const oPayload = {
-      sdkKey: sdkKey,
-      mn: meetingNumber,
-      role: role,
-      iat: iat,
-      exp: exp,
-      tokenExp: exp,
-    };
-
-    const sHeader = this.base64UrlEncode(JSON.stringify(oHeader));
-    const sPayload = this.base64UrlEncode(JSON.stringify(oPayload));
-
-    const signature = CryptoJS.HmacSHA256(
-      `${sHeader}.${sPayload}`,
-      secretSdkKey
-    )
-      .toString(CryptoJS.enc.Base64)
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_")
-      .replace(/=+$/, "");
-
-    return `${sHeader}.${sPayload}.${signature}`;
-  }
-
-  base64UrlEncode(string) {
-    const base64 = CryptoJS.enc.Base64.stringify(
-      CryptoJS.enc.Utf8.parse(string)
-    );
-    return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-  }
-
-  async joinMeeting(sdkKey, signature, meetingNumber, userName, role) {
+  joinMeeting(sdkKey, signature, meetingNumber, userName, role) {
     console.log("Function joinMeeting was executed");
     ZoomMtg.join({
       sdkKey: sdkKey,
