@@ -18,4 +18,19 @@ class Professional < ApplicationRecord
   validates :diploma, presence: true
   validates :username, presence: true, uniqueness: {case_sensitive: false}, length: {minimum:5, maximum:15}
   validates :confirmed, inclusion: { in: [true], message: "must be confirmed" }, on: :update
+
+
+  before_destroy :delete_gallery_images, :delete_about_section
+
+  private
+
+  def delete_about_section
+    about_section.destroy if about_section    
+  end
+  
+
+  def delete_gallery_images
+    gallery_images.destroy_all if gallery_images    
+  end
+  
 end
