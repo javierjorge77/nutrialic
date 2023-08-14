@@ -1,3 +1,3 @@
 class GalleryImage < ApplicationRecord  
-    belongs_to :professional, dependent: :destroy
+    belongs_to :professional
 end

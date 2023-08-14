@@ -9,10 +9,10 @@ class Professional < ApplicationRecord
   }
   has_many :appointments
   has_one_attached :photo
-  has_many :gallery_images, dependent: :destroy
-  has_many :reviews, dependent: :destroy
-  has_one :about_section, dependent: :destroy
-  has_many :users, through: :reviews, dependent: :destroy
+  has_many :gallery_images
+  has_many :reviews
+  has_one :about_section
+  has_many :users, through: :reviews
   validates :first_cost, presence: true
   validates :follow_cost, presence: true
   validates :diploma, presence: true
