@@ -1,10 +1,16 @@
 <% if @professional.appointments.any? %>
     <div class="row rowCitas" >
         <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-citas-nutri">
-            <% @professional.appointments.each do |appointment| %>
-                <% if appointment.aprobado %>
-                    <% if !appointment.finalizada %>
+            <% if @professional.appointments.none? { |appointment| appointment.aprobado && !appointment.finalizada } %>
+                <div id="nutSinCitasPendsMsjContainer" style="background-color: rgba(0, 255, 30, 0.167)">
+                    <h2 id="sinCitasPendientes" style="color: rgba(20, 80, 30)">No tienes citas aprobadas</h2>
+                    <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
+                </div>
+            <% else %>
+                <% @professional.appointments.each do |appointment| %>
+                    <% if appointment.aprobado && !appointment.finalizada %>
                         <div class="card-product" style="margin-top:16px">
+                            <!-- Contenido de la tarjeta de la cita -->
                             <div class="imgCardContainer">
                                 <%= image_tag('dieta.png', alt: 'Manzanita con notas', style: "width: 16%; margin-right: 20px; margin-left: 40px; border-radius: 5px") %>
                             </div>
@@ -38,15 +44,9 @@
                                 </div>
                             </div>
                         </div>
-                    <% end %>  
-                <%end%>
-            <%end%>
-            <% if @professional.appointments.none? { |appointment| appointment.aprobado } %>
-                <div id="nutSinCitasPendsMsjContainer" style="background-color: rgba(0, 255, 30, 0.167)">
-                    <h2 id="sinCitasPendientes" style="color: rgba(20, 80, 30)">No tienes citas aprobadas</h2>
-                    <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
-                </div>
-            <%end%>
+                    <% end %>
+                <% end %>
+            <% end %>
         </div>
     </div>  
 <%end%>

@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 id="nutriAppointmentsTitle"> Hola <%= "#{@professional.user.name}" %>, acontinuación te presento tus proximas consultas </h2>
+  <h2 id="nutriAppointmentsTitle" style="color: #3f3844"> Hola <%= "#{@professional.user.name}" %>, acontinuación te presento tus proximas consultas </h2>
   <% if @professional.appointments.any? %>
   <div class="container consultas"  data-controller="date-and-time">
       <div class="contenedorDerecho"  data-controller="tab-menu">
