@@ -36,7 +36,7 @@
         <% end %>  
         <% if @professional.appointments.none? { |appointment| !appointment.aprobado } %>
             <div id="nutSinCitasPendsMsjContainer">
-                <h2 id="sinCitasPendientes">No tienes citas pendientes por aprobar <i class="fa-regular fa-face-smile-wink"></i></h2>
+                <h2 id="sinCitasPendientes">No tienes citas pendientes por aprobar</h2>
                 <%= image_tag('search.svg', alt: 'Example SVG', id: "searchsvg") %>
             </div>
         <% end %>
