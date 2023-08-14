@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end 
   delete '/gallery_images/:id', to: 'professionals#delete_image', as: :delete_gallery_image
 
-
+  get "*unmatched_route", to: "errors#not_found"
   delete '/professionals/:id', to: 'professionals#destroy', as: "delete_professional"
   
   namespace :api do
